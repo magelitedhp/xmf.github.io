@@ -16,7 +16,7 @@ function resolve(dir) {
 export default defineConfig(( {command} ) =>{
   return {
     // base: command == 'build' ? '/dist/' : '/',
-    base: '/xmf',
+    base: './',
     build: {
       outDir: "docs"
     },
