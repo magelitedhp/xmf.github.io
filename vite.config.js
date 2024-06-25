@@ -20,7 +20,7 @@ export default defineConfig(( {command} ) =>{
     build: {
       outDir: "docs"
     },
-    publicPath:process.env.NODE_ENV === "production" ? "/xmf/" : "/",
+    publicPath:process.env.NODE_ENV === "production" ? "/xmf.github.io/" : "/",
     resolve: {
       alias: {
         '@': resolve('src'),
