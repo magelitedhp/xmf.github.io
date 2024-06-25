@@ -15,7 +15,11 @@ function resolve(dir) {
 // https://vitejs.dev/config/
 export default defineConfig(( {command} ) =>{
   return {
-    base: command == 'build' ? '/dist/' : '/',
+    // base: command == 'build' ? '/dist/' : '/',
+    base: '/xmf',
+    build: {
+      outDir: "docs"
+    },
     publicPath:process.env.NODE_ENV === "production" ? "/xmf/" : "/",
     resolve: {
       alias: {
