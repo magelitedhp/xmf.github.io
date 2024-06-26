@@ -31,6 +31,7 @@
 
 <script setup>
 import Avatar from "@as/img/avatar.jpg";
+const data = ref()
 const keyword = ref(null)
 const search = () => {
   let url = `https://www.baidu.com/s?wd=${keyword.value}&tn=15007414_18_dg&ie=utf-8`
