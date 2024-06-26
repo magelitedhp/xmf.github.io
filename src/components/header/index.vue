@@ -27,11 +27,30 @@
       </div>
     </div>
   </div>
+  <el-upload
+    ref="uploadRef"
+    class="upload-demo"
+    action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+    :auto-upload="false"
+  >
+    <template #trigger>
+      <el-button type="primary">select file</el-button>
+    </template>
+
+    <el-button class="ml-3" type="success" @click="submitUpload">
+      upload to server
+    </el-button>
+
+    <template #tip>
+      <div class="el-upload__tip">
+        jpg/png files with a size less than 500kb
+      </div>
+    </template>
+  </el-upload>
 </template>
 
 <script setup>
 import Avatar from "@as/img/avatar.jpg";
-const data = ref()
 const keyword = ref(null)
 const search = () => {
   let url = `https://www.baidu.com/s?wd=${keyword.value}&tn=15007414_18_dg&ie=utf-8`
@@ -63,6 +82,11 @@ const bannerRightList = ref([
   { title: "历史", svg: 'history'},
   { title: "创作中心", svg: 'create'},
 ])
+const uploadRef = ref()
+
+const submitUpload = () => {
+  uploadRef.value.submit()
+}
 </script>
 <style lang='scss' scoped>
 .bg {

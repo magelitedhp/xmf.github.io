@@ -16,6 +16,11 @@ const routes = [
     path: '/tempIcon',
     component: () => import('@v/tempIcon.vue'),
   },
+  // 测试瀑布流
+  {
+    path: '/waterfall',
+    component: () => import('@c/waterfallFlow/index.vue'),
+  },
 ]
 
 // 3. 创建路由实例并传递 `routes` 配置
