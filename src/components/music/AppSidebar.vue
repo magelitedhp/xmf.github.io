@@ -1,10 +1,10 @@
 <template>
-  <aside class="sidebar">
+  <aside class="sidebar glass-panel">
     <div class="brand">
       <div class="brand-mark">♪</div>
       <div>
-        <strong>Music App</strong>
-        <span>Premium Account</span>
+        <strong>Nocturne</strong>
+        <span>夜航电台</span>
       </div>
     </div>
 
@@ -23,17 +23,17 @@
     </nav>
 
     <div class="account-card">
-      <img class="avatar" :src="profileArtwork" alt="用户头像" />
+      <div class="avatar-fallback" aria-hidden="true">夜</div>
       <div>
-        <strong>张伟</strong>
-        <span>管理个人资料</span>
+        <strong>本地收藏</strong>
+        <span>曲库来源 GD音乐台</span>
       </div>
     </div>
   </aside>
 </template>
 
 <script setup lang="ts">
-import { navItems, profileArtwork, type ViewId } from '../../data/music'
+import { navItems, type ViewId } from '../../data/music'
 
 defineProps<{
   activeView: ViewId

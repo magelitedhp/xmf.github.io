@@ -1,67 +1,74 @@
 <template>
   <section class="page library-page">
     <div class="profile-head">
-      <img class="profile-card-art" :src="profileArtwork" alt="张伟头像" />
       <div>
-        <span class="eyebrow pill">PREMIUM 会员</span>
-        <h1>张伟 (David Zhang)</h1>
+        <h1>你的收藏</h1>
         <div class="stats">
-          <span><strong>128</strong>正在关注</span>
-          <span><strong>45.2k</strong>粉丝</span>
-          <span><strong>1.2k</strong>已收藏歌曲</span>
+          <span><strong>{{ likedTracks.length }}</strong>已收藏</span>
+          <span><strong>{{ recentTracks.length }}</strong>最近播放</span>
         </div>
       </div>
-      <button class="primary-button profile-action" type="button">编辑资料</button>
     </div>
 
-    <div class="tabs">
-      <button class="active" type="button">我喜欢的音乐</button>
-      <button type="button">我的歌单</button>
-      <button type="button">关注艺人</button>
-      <button type="button">最近播放</button>
+    <div class="tabs" role="tablist">
+      <button :class="{ active: tab === 'liked' }" type="button" @click="tab = 'liked'">我喜欢的音乐</button>
+      <button :class="{ active: tab === 'recent' }" type="button" @click="tab = 'recent'">最近播放</button>
     </div>
 
     <section class="section-block">
       <div class="section-heading">
-        <h2>最近播放</h2>
-        <button class="text-button" type="button">查看全部 ›</button>
+        <h2>{{ tab === 'liked' ? '我喜欢的音乐' : '最近播放' }}</h2>
       </div>
       <div class="album-strip">
-        <article v-for="track in recentTracks" :key="track.id" class="album-card" @click="$emit('play', track.id)">
-          <img class="cover" :src="track.artwork" :alt="`${track.title} 封面`" />
+        <article
+          v-for="track in spotlight"
+          :key="track.uid"
+          class="album-card"
+          @click="emitPlay(track.uid)"
+        >
+          <CoverImage :src="track.artwork" :alt="`${track.title} 封面`" img-class="cover" />
           <h3>{{ track.title }}</h3>
           <p>{{ track.artist }}</p>
         </article>
+        <p v-if="!spotlight.length" class="empty-copy">{{ emptyCopy }}</p>
       </div>
     </section>
 
     <div class="library-grid">
-      <section class="panel">
-        <h2>我喜欢的音乐</h2>
-        <TrackList :tracks="likedTracks" :current-id="currentId" @play="$emit('play', $event)" />
-      </section>
-      <section class="create-playlist">
-        <div>
-          <h2>创建新歌单</h2>
-          <p>记录你的音乐心情</p>
-        </div>
-        <span>＋</span>
+      <section class="panel glass-panel">
+        <h2>{{ tab === 'liked' ? '收藏列表' : '播放足迹' }}</h2>
+        <TrackList :tracks="activeList" :current-id="currentId" @play="emitPlay" />
       </section>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import TrackList from '../TrackList.vue'
-import { profileArtwork, type Track } from '../../../data/music'
+import CoverImage from '../CoverImage.vue'
+import type { Track } from '../../../data/music'
 
-defineProps<{
+const props = defineProps<{
   recentTracks: Track[]
   likedTracks: Track[]
-  currentId: number
+  currentId: string
 }>()
 
-defineEmits<{
-  play: [id: number]
+const emit = defineEmits<{
+  'play-recent': [id: string]
+  'play-liked': [id: string]
 }>()
+
+const tab = ref<'liked' | 'recent'>(props.likedTracks.length ? 'liked' : 'recent')
+const activeList = computed(() => (tab.value === 'liked' ? props.likedTracks : props.recentTracks))
+const spotlight = computed(() => activeList.value.slice(0, 6))
+const emptyCopy = computed(() =>
+  tab.value === 'liked' ? '点亮心底的那首，它会留在这里。' : '开始播放后，足迹会沉淀在这条夜路上。',
+)
+
+function emitPlay(uid: string) {
+  if (tab.value === 'liked') emit('play-liked', uid)
+  else emit('play-recent', uid)
+}
 </script>

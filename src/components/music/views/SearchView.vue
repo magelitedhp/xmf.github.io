@@ -1,34 +1,49 @@
 <template>
   <section class="page search-page">
     <div class="playlist-detail">
-      <img class="large-cover" :src="tracks[0]?.artwork" alt="午后惬意节拍封面" />
+      <CoverImage :src="tracks[0]?.artwork" :alt="`${headline} 封面`" img-class="large-cover" />
       <div class="playlist-copy">
-        <span class="eyebrow">精选歌单</span>
-        <h1>午后惬意节拍</h1>
-        <p class="meta">由 Music 编辑创建 · 128 首歌曲 · 约 7 小时 15 分钟</p>
-        <p>沉浸在低保真节拍和轻柔人声中，为繁忙工作午后带来一丝宁静与专注。</p>
+        <h1>{{ headline }}</h1>
+        <p class="meta">{{ metaCopy }}</p>
+        <p>{{ description }}</p>
         <div class="button-row">
-          <button class="primary-button" type="button" @click="$emit('play-all')">▶ 播放全部</button>
-          <button class="secondary-button" type="button">＋ 收藏歌单</button>
+          <button class="champagne-button" type="button" :disabled="!tracks.length" @click="$emit('play-all')">播放全部</button>
         </div>
       </div>
     </div>
 
+    <p v-if="error" class="empty-copy">{{ error }}</p>
+    <p v-else-if="loading" class="empty-copy">正在检索曲库…</p>
     <TrackTable :tracks="tracks" :current-id="currentId" @play="$emit('play', $event)" />
   </section>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import TrackTable from '../TrackTable.vue'
+import CoverImage from '../CoverImage.vue'
 import type { Track } from '../../../data/music'
 
-defineProps<{
+const props = defineProps<{
   tracks: Track[]
-  currentId: number
+  currentId: string
+  query?: string
+  loading?: boolean
+  error?: string
 }>()
 
 defineEmits<{
-  play: [id: number]
+  play: [id: string]
   'play-all': []
 }>()
+
+const headline = computed(() => props.query?.trim() || '检索夜航曲库')
+const metaCopy = computed(() =>
+  props.tracks.length ? `${props.tracks.length} 首来自 GD音乐台` : '支持曲目、歌手与专辑名',
+)
+const description = computed(() =>
+  props.tracks.length
+    ? '点选任意一首即可请求播放地址、封面与歌词。'
+    : '在顶部搜索歌曲、艺人或专辑，结果会显示在这里。',
+)
 </script>

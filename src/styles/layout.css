@@ -1,28 +1,122 @@
 .music-shell {
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
   display: grid;
   grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
   padding-bottom: var(--player-height);
-  background:
-    radial-gradient(circle at 76% 8%, rgba(0, 112, 235, 0.06), transparent 27rem),
-    radial-gradient(circle at 18% 86%, rgba(201, 0, 56, 0.06), transparent 23rem),
-    var(--surface);
+  background: var(--night);
+}
+
+.night-scene,
+.film-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.night-scene {
+  z-index: 0;
+  overflow: hidden;
+  background: var(--night);
+}
+
+.scene-art {
+  position: absolute;
+  inset: -12%;
+  background-image: var(--scene-art);
+  background-size: cover;
+  background-position: center;
+  filter: blur(60px);
+  opacity: 0.42;
+  transform: scale(1.12);
+}
+
+.scene-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 10, 19, 0.62);
+}
+
+.light-well {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.light-well-moon {
+  top: -8rem;
+  right: -5rem;
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, rgba(124, 156, 196, 0.28) 0%, transparent 65%);
+}
+
+.light-well-steel {
+  bottom: -9rem;
+  left: -6rem;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(51, 81, 122, 0.35) 0%, transparent 65%);
+}
+
+.light-well-gold {
+  top: 38%;
+  left: 42%;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(228, 184, 99, 0.12) 0%, transparent 60%);
+}
+
+.film-grain {
+  z-index: 40;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass-panel,
+.sidebar,
+.player-bar,
+.panel,
+.playlist-card,
+.collection-card,
+.search-box {
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(60px) saturate(180%);
+  -webkit-backdrop-filter: blur(60px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-panel);
+}
+
+.glass-panel::before,
+.panel::before,
+.playlist-card::before,
+.collection-card::before,
+.player-bar::before,
+.sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), transparent 50%);
+  pointer-events: none;
 }
 
 .sidebar {
   position: fixed;
-  inset: 0 auto var(--player-height) 0;
+  inset: 16px auto calc(var(--player-height) + 16px) 16px;
   z-index: 20;
-  width: var(--sidebar-width);
-  padding: 28px 24px;
-  border-right: 1px solid rgba(0, 0, 0, 0.08);
-  background: var(--glass);
-  backdrop-filter: blur(26px);
+  width: calc(var(--sidebar-width) - 8px);
+  padding: 28px 22px;
+  border-radius: var(--radius-xl);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .workspace {
+  position: relative;
+  z-index: 1;
   grid-column: 2;
   min-width: 0;
   padding: 22px 42px 42px;
@@ -37,26 +131,23 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   gap: 24px;
-  padding-bottom: 22px;
-  background: linear-gradient(180deg, rgba(249, 249, 251, 0.96), rgba(249, 249, 251, 0));
+  padding: 8px 0 22px;
 }
 
 .player-bar {
   position: fixed;
-  inset: auto 0 0;
+  inset: auto 16px 16px;
   z-index: 30;
-  height: var(--player-height);
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  background: var(--glass);
-  backdrop-filter: blur(28px);
-  box-shadow: 0 -12px 34px rgba(0, 0, 0, 0.08);
+  height: calc(var(--player-height) - 16px);
+  border-radius: var(--radius-xl);
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) 42px minmax(420px, 1.4fr) minmax(260px, 1fr);
+  grid-template-columns: minmax(240px, 1fr) 42px minmax(420px, 1.4fr) minmax(220px, 1fr);
   gap: 16px;
   align-items: center;
-  padding: 0 32px;
+  padding: 0 24px;
+  overflow: hidden;
 }

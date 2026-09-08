@@ -10,16 +10,15 @@
       />
     </label>
 
-    <div class="topbar-actions" aria-label="窗口操作">
-      <button class="icon-button" type="button" title="通知">♧</button>
-      <button class="icon-button" type="button" title="设置">⚙</button>
-    </div>
+    <p class="status-line" :class="{ busy }">{{ status }}</p>
   </header>
 </template>
 
 <script setup lang="ts">
 defineProps<{
   searchTerm: string
+  status: string
+  busy?: boolean
 }>()
 
 defineEmits<{
