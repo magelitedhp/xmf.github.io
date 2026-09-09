@@ -54,9 +54,15 @@ function writeStore(key: string, value: unknown) {
   window.localStorage.setItem(key, JSON.stringify(value))
 }
 
+const SEARCH_PAGE_SIZE = 20
+
 export function usePlayer() {
   const activeView = ref<ViewId>('discover')
   const searchTerm = ref('')
+  const searchPage = ref(1)
+  const searchHasMore = ref(false)
+  const searchSource = ref<string | undefined>()
+  const lastSearchQuery = ref('')
   const discoverTracks = ref<Track[]>([])
   const searchResults = ref<Track[]>([])
   const queue = ref<Track[]>([])
@@ -362,25 +368,49 @@ export function usePlayer() {
     isLoopOne.value = !isLoopOne.value
   }
 
-  async function runSearch(keyword: string, source?: string) {
+  async function runSearch(keyword: string, source?: string, page = 1) {
     const query = keyword.trim()
     if (!query) return
+    const nextPage = Math.max(1, Math.floor(page))
+    const isNewQuery = query !== lastSearchQuery.value
     isSearching.value = true
     searchError.value = ''
-    statusMessage.value = `正在搜索「${query}」`
+    searchSource.value = source
+    lastSearchQuery.value = query
+    if (isNewQuery || nextPage !== searchPage.value) {
+      searchResults.value = []
+    }
+    if (isNewQuery) searchHasMore.value = false
+    searchPage.value = nextPage
+    statusMessage.value = nextPage > 1 ? `正在搜索「${query}」第 ${nextPage} 页` : `正在搜索「${query}」`
     try {
-      const hits = await requestSearch(query, { source, count: 20 })
+      const hits = await requestSearch(query, { source, count: SEARCH_PAGE_SIZE, pages: nextPage })
       searchResults.value = mapHits(hits)
+      searchHasMore.value = hits.length >= SEARCH_PAGE_SIZE
       const first = searchResults.value[0]
       if (first) void ensureArtwork(first)
       await hydrate(searchResults.value)
-      statusMessage.value = searchResults.value.length ? `找到 ${searchResults.value.length} 首与「${query}」相关的曲子` : `没有找到「${query}」`
+      if (searchResults.value.length) {
+        statusMessage.value = `第 ${nextPage} 页找到 ${searchResults.value.length} 首与「${query}」相关的曲子`
+      } else {
+        searchHasMore.value = false
+        statusMessage.value = nextPage > 1 ? `「${query}」第 ${nextPage} 页没有更多结果` : `没有找到「${query}」`
+      }
     } catch (error) {
       searchError.value = error instanceof Error ? error.message : '搜索失败'
       statusMessage.value = searchError.value
     } finally {
       isSearching.value = false
     }
+  }
+
+  function goToSearchPage(page: number) {
+    const query = (lastSearchQuery.value || searchTerm.value).trim()
+    if (!query || isSearching.value) return
+    const nextPage = Math.max(1, Math.floor(page))
+    if (nextPage === searchPage.value) return
+    if (nextPage > searchPage.value && !searchHasMore.value) return
+    void runSearch(query, searchSource.value, nextPage)
   }
 
   async function loadDiscover() {
@@ -466,6 +496,7 @@ export function usePlayer() {
     discoverError,
     discoverTracks,
     formattedProgress,
+    goToSearchPage,
     isBuffering,
     isDiscovering,
     isLoopOne,
@@ -478,6 +509,9 @@ export function usePlayer() {
     recentTracks,
     sceneArt,
     searchError,
+    searchHasMore,
+    searchPage,
+    searchPageSize: SEARCH_PAGE_SIZE,
     searchResults,
     searchTerm,
     statusMessage,

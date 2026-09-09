@@ -117,6 +117,12 @@
     display: none;
   }
 
+  .pager .glass-button {
+    min-width: 96px;
+    min-height: 42px;
+    padding: 8px 16px;
+  }
+
   .player-bar {
     bottom: 92px;
     left: 12px;

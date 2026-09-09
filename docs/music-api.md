@@ -74,3 +74,15 @@ Embeat：基于声学特征的音乐推荐系统
 https://github.com/gdstudio-org/Embeat
 说明：在你的服务器上部署一个Spotify级别的音乐推荐系统，完全开源，欢迎Star！
 
+
+本项目接入（Nocturne）
+更新日期：2026-09-09
+
+以上为 GD音乐台官方接口说明。本播放器搜索页已使用搜索接口的分页参数：
+
+- count：固定 20，对应每页条数
+- pages：从 1 开始，由搜索页「上一页 / 下一页」写入
+- 接口不返回总条数或总页数。当前页返回满 20 首时开放下一页，不足 20 首视为最后一页
+- 换关键词会重置到第 1 页；专辑检索（source 带 `_album`）翻页时会沿用同一音源
+- 实现见 `src/api/musicApi.ts` 的 `searchTracks`，以及 `src/composables/usePlayer.ts` 的 `runSearch` / `goToSearchPage`
+

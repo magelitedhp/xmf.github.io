@@ -308,9 +308,11 @@
   transform: scale(0.97);
 }
 
-.champagne-button:disabled {
+.champagne-button:disabled,
+.glass-button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+  pointer-events: none;
   transform: none;
 }
 
@@ -569,6 +571,27 @@
 
 .track-table {
   margin-top: 48px;
+}
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.pager .glass-button {
+  min-width: 112px;
+}
+
+.pager-status {
+  min-width: 88px;
+  margin: 0;
+  color: var(--champagne);
+  font-weight: 600;
+  text-align: center;
 }
 
 .table-head,

@@ -41,8 +41,12 @@
         :current-id="currentTrack.uid"
         :loading="isSearching"
         :error="searchError"
+        :page="searchPage"
+        :page-size="searchPageSize"
+        :has-more="searchHasMore"
         @play="playSearchTrack"
         @play-all="playAll(searchResults)"
+        @page-change="goToSearchPage"
       />
 
       <LibraryView
@@ -107,6 +111,7 @@ const {
   discoverError,
   discoverTracks,
   formattedProgress,
+  goToSearchPage,
   isBuffering,
   isDiscovering,
   isLoopOne,
@@ -119,6 +124,9 @@ const {
   recentTracks,
   sceneArt,
   searchError,
+  searchHasMore,
+  searchPage,
+  searchPageSize,
   searchResults,
   searchTerm,
   statusMessage,

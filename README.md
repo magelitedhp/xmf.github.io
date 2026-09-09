@@ -9,7 +9,8 @@ https://magelitedhp.github.io/xmf.github.io/
 ## 功能
 
 - 发现、搜索、收藏、正在播放四个主视图，底部固定播放栏。
-- 搜索歌曲、专辑、艺人；播放 / 暂停、上一首 / 下一首、进度拖动、音量、随机与单曲循环。
+- 搜索歌曲、专辑、艺人；结果按页翻看，每页 20 首，请求会带上接口的 `count` / `pages`。
+- 播放 / 暂停、上一首 / 下一首、进度拖动、音量、随机与单曲循环。
 - 真实音频播放，封面与 LRC 歌词随当前曲目加载；正在播放页会高亮当前句。
 - 喜欢的歌曲与最近播放保存在浏览器本地。
 - 深墨夜景 + 无色玻璃面板，香槟金只用于主操作和高亮数字。
@@ -49,6 +50,7 @@ npm run build
 
 - 不要把新逻辑和通用样式重新堆回 `App.vue`。
 - 播放与曲库请求优先维护在 `src/composables/usePlayer.ts` 和 `src/api`。
+- 搜索分页状态（页码、是否还有下一页、当前音源）放在 `usePlayer`，翻页控件放在 `SearchView`。
 - 电台分类、导航和类型放在 `src/data/music.ts`。
 - 通用 UI 放在 `src/components/music`，页面级内容放在 `src/components/music/views`。
 - 设计变量和布局规则放在 `src/styles`。

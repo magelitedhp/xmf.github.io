@@ -16,7 +16,7 @@ Use this skill when working on this repository's Vue 3 + Vite desktop music play
 ## Architecture
 
 - Keep `src/App.vue` as a thin composition layer.
-- Put playback state and controls in `src/composables/usePlayer.ts`.
+- Put playback state, search pagination, and controls in `src/composables/usePlayer.ts`.
 - Put seed data, copy, image URLs, and shared types in `src/data/music.ts`.
 - Put reusable UI in `src/components/music`.
 - Put page-level views in `src/components/music/views`.
@@ -34,4 +34,5 @@ Use this skill when working on this repository's Vue 3 + Vite desktop music play
 
 - Run `npm run build` after structural or TypeScript changes.
 - Check that Discover, Search, Library, and Playing views still render from `App.vue`.
-- Check that play/pause, previous/next, seek, volume, search, and like interactions still route through `usePlayer`.
+- Check that play/pause, previous/next, seek, volume, search, search pagination, and like interactions still route through `usePlayer`.
+- Search uses `count=20` and `pages`; do not drop pagination when changing the search request.
