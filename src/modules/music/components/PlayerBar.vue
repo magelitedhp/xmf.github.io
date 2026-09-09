@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <footer class="player-bar glass-panel">
     <button class="now-playing" type="button" @click="$emit('open-playing')">
       <CoverImage :src="track.artwork" :alt="`${track.title} 封面`" img-class="thumb thumb-lg" />
@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Track } from '../../data/music'
+import type { Track } from '../data/music'
 import CoverImage from './CoverImage.vue'
 
 const props = defineProps<{

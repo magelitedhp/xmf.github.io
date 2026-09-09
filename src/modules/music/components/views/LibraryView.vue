@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="page library-page">
     <div class="profile-head">
       <div>
@@ -48,7 +48,7 @@
 import { computed, ref } from 'vue'
 import TrackList from '../TrackList.vue'
 import CoverImage from '../CoverImage.vue'
-import type { Track } from '../../../data/music'
+import type { Track } from '../../data/music'
 
 const props = defineProps<{
   recentTracks: Track[]

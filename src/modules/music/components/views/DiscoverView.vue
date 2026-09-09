@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="page discover-page">
     <article class="hero-banner ornate-frame">
       <CoverImage :src="heroTrack?.artwork" alt="本周主打封面" img-class="hero-art" />
@@ -98,7 +98,7 @@ import { computed } from 'vue'
 import PlaylistCard from '../PlaylistCard.vue'
 import TrackList from '../TrackList.vue'
 import CoverImage from '../CoverImage.vue'
-import type { Album, Collection, Playlist, Track } from '../../../data/music'
+import type { Album, Collection, Playlist, Track } from '../../data/music'
 
 const props = defineProps<{
   tracks: Track[]

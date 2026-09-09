@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="track-table">
     <div class="table-head">
       <span>#</span>
@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Track } from '../../data/music'
+import type { Track } from '../data/music'
 import CoverImage from './CoverImage.vue'
 
 const props = withDefaults(

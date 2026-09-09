@@ -1,14 +1,14 @@
-<template>
+﻿<template>
   <aside class="sidebar glass-panel">
-    <div class="brand">
+    <RouterLink class="brand home-link-brand" to="/" aria-label="返回书房首页">
       <div class="brand-mark">N</div>
       <div>
         <strong>Nocturne</strong>
-        <span>藏书电台</span>
+        <span>返回首页</span>
       </div>
-    </div>
+    </RouterLink>
 
-    <nav class="nav-list" aria-label="主导航">
+    <nav class="nav-list" aria-label="音乐模块导航">
       <button
         v-for="item in navItems"
         :key="item.id"
@@ -33,7 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import { navItems, type ViewId } from '../../data/music'
+import { RouterLink } from 'vue-router'
+import { navItems, type ViewId } from '../data/music'
 
 defineProps<{
   activeView: ViewId

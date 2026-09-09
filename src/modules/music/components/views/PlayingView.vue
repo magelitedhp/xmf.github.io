@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="page playing-page">
     <div class="playing-backdrop" aria-hidden="true">
       <CoverImage :src="track.artwork" alt="" img-class="immersive-bg" />
@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
-import type { Track } from '../../../data/music'
+import type { Track } from '../../data/music'
 import CoverImage from '../CoverImage.vue'
 
 const props = defineProps<{

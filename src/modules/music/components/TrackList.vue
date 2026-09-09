@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="track-list">
     <p v-if="!tracks.length" class="empty-copy">还没有可播放的曲子。</p>
     <button
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Track } from '../../data/music'
+import type { Track } from '../data/music'
 import CoverImage from './CoverImage.vue'
 
 defineProps<{

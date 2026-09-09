@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <section class="page search-page">
     <div class="playlist-detail">
       <CoverImage :src="tracks[0]?.artwork" :alt="`${headline} 封面`" img-class="large-cover" />
@@ -34,7 +34,7 @@
 import { computed } from 'vue'
 import TrackTable from '../TrackTable.vue'
 import CoverImage from '../CoverImage.vue'
-import type { Track } from '../../../data/music'
+import type { Track } from '../../data/music'
 
 const props = defineProps<{
   tracks: Track[]
