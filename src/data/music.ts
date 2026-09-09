@@ -73,15 +73,15 @@ export const emptyTrack: Track = {
 export const discoverQuery = '流行'
 
 export const playlists: Playlist[] = [
-  { id: 'jazz', title: '夜航电台', subtitle: '爵士与城市夜色', query: '爵士', artwork: '' },
-  { id: 'focus', title: '专注时刻', subtitle: '安静的工作节拍', query: '轻音乐', artwork: '' },
-  { id: 'pulse', title: '午夜电子', subtitle: '低亮度律动', query: '电子', artwork: '' },
-  { id: 'folk', title: '原声回响', subtitle: '不插电精选', query: '民谣', artwork: '' },
+  { id: 'jazz', title: '爵士书斋', subtitle: '低语与铜管', query: '爵士', artwork: '' },
+  { id: 'focus', title: '研读时刻', subtitle: '安静的工作节拍', query: '轻音乐', artwork: '' },
+  { id: 'pulse', title: '午夜电子', subtitle: '灯下律动', query: '电子', artwork: '' },
+  { id: 'folk', title: '原声手稿', subtitle: '不插电精选', query: '民谣', artwork: '' },
   { id: 'classic', title: '经典回廊', subtitle: '重温黄金时代', query: '经典', artwork: '' },
 ]
 
 export const collections: Collection[] = [
-  { id: 'city', title: '城市夜窗', subtitle: '雨后的钢蓝灯火', query: 'R&B', artwork: '' },
+  { id: 'city', title: '城市夜窗', subtitle: '雨后的街灯', query: 'R&B', artwork: '' },
   { id: 'piano', title: '钢琴独白', subtitle: '给深夜留白', query: '钢琴', artwork: '' },
   { id: 'live', title: '现场回声', subtitle: '更近一点的呼吸', query: 'live', artwork: '' },
 ]

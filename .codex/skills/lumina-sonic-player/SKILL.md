@@ -1,6 +1,6 @@
 ---
 name: lumina-sonic-player
-description: Maintain and extend the Lumina Sonic Vue desktop music player in this repository. Use when updating the macOS-style music UI, playback state logic, component structure, project documentation, or prototype fidelity based on the local stitch_macos_style_music_web reference.
+description: Maintain and extend the Lumina Sonic Vue desktop music player in this repository. Use when updating the Academia/Classical music UI, playback state logic, component structure, project documentation, or prototype fidelity.
 ---
 
 # Lumina Sonic Player
@@ -9,9 +9,9 @@ Use this skill when working on this repository's Vue 3 + Vite desktop music play
 
 ## Reference
 
-- Prototype source: `C:\Users\19568\Desktop\stitch_macos_style_music_web\stitch_macos_style_music_web`
-- Design guide: `lumina_sonic/DESIGN.md`
-- Main prototype screens: `_1/screen.png`, `_2/screen.png`, `_3/screen.png`, `_4/screen.png`
+- Design system: `ui/prop2.md` (Academia / Classical)
+- Prior glassmorphism notes: `ui/prop1.md`
+- Main views: Discover, Search, Library, Playing
 
 ## Architecture
 
@@ -21,12 +21,14 @@ Use this skill when working on this repository's Vue 3 + Vite desktop music play
 - Put reusable UI in `src/components/music`.
 - Put page-level views in `src/components/music/views`.
 - Put global styles in `src/styles`; keep `src/style.css` as import-only.
+- Centralize design tokens in `src/styles/tokens.css`.
 
 ## UI Rules
 
-- Preserve the macOS light-mode direction: fixed 260px sidebar, fluid content, translucent bottom player, soft neutral surfaces.
-- Use Electric Rose (`#c90038`) for active navigation, primary playback controls, progress, and like states.
-- Keep album art and hero imagery prominent; do not replace the app with a landing page.
+- Follow Academia/Classical: deep mahogany `#1C1714`, aged oak surfaces `#251E19`, parchment text `#E8DFD4`, polished brass `#C9A962`, crimson sparingly `#8B2635`.
+- Typography: Cormorant Garamond for headings, Crimson Pro for body, Cinzel for labels/display; Chinese fallback `Noto Serif SC`.
+- Prefer warm wood panels over glass blur; keep subtle paper grain + vignette overlays.
+- Signature cues: arch-top covers, sepia-to-color hover, brass interactive states, Volume Roman labels, ornate dividers.
 - Keep cards and controls compact for a PC music app workflow.
 - Avoid putting all styles or all components into one file.
 

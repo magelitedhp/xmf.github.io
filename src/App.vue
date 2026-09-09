@@ -11,6 +11,7 @@
       <div class="light-well light-well-steel"></div>
       <div class="light-well light-well-gold"></div>
     </div>
+    <div class="vignette" aria-hidden="true"></div>
     <div class="film-grain" aria-hidden="true"></div>
 
     <AppSidebar :active-view="activeView" @update:view="setView" />

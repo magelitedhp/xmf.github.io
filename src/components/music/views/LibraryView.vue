@@ -2,6 +2,7 @@
   <section class="page library-page">
     <div class="profile-head">
       <div>
+        <p class="volume-label">Volume · Library</p>
         <h1>你的收藏</h1>
         <div class="stats">
           <span><strong>{{ likedTracks.length }}</strong>已收藏</span>
@@ -64,7 +65,7 @@ const tab = ref<'liked' | 'recent'>(props.likedTracks.length ? 'liked' : 'recent
 const activeList = computed(() => (tab.value === 'liked' ? props.likedTracks : props.recentTracks))
 const spotlight = computed(() => activeList.value.slice(0, 6))
 const emptyCopy = computed(() =>
-  tab.value === 'liked' ? '点亮心底的那首，它会留在这里。' : '开始播放后，足迹会沉淀在这条夜路上。',
+  tab.value === 'liked' ? '点亮心底的那首，它会留在书签里。' : '开始播放后，足迹会写进这本听书札记。',
 )
 
 function emitPlay(uid: string) {

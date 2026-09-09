@@ -4,7 +4,7 @@
 
 html {
   min-width: 320px;
-  background: var(--night-edge);
+  background: var(--bg);
   color-scheme: dark;
 }
 
@@ -12,8 +12,10 @@ body {
   min-width: 320px;
   margin: 0;
   color: var(--text);
-  background: var(--night);
+  background: var(--bg);
   font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.625;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -50,24 +52,28 @@ p {
 h1,
 h2,
 .brand strong {
-  font-family: var(--font-display);
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-weight: 500;
   color: var(--text);
 }
 
 h1 {
-  font-size: clamp(32px, 4vw, 52px);
-  line-height: 1.12;
+  font-size: clamp(36px, 4.4vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 h2 {
-  font-size: clamp(22px, 2.4vw, 30px);
+  font-size: clamp(24px, 2.6vw, 36px);
   line-height: 1.2;
+  font-weight: 500;
 }
 
 h3 {
-  font-size: 16px;
+  font-family: var(--font-heading);
+  font-size: 20px;
   line-height: 1.35;
+  font-weight: 500;
   color: var(--text);
 }
 
@@ -77,7 +83,7 @@ h3 {
 
 :focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(228, 184, 99, 0.18), 0 8px 24px rgba(3, 7, 18, 0.45);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--brass);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -92,5 +98,10 @@ h3 {
 
   .vinyl.spinning {
     animation: none !important;
+  }
+
+  .cover-image,
+  .cover-fallback {
+    filter: none !important;
   }
 }

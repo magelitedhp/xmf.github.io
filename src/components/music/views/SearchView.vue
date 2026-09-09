@@ -3,6 +3,7 @@
     <div class="playlist-detail">
       <CoverImage :src="tracks[0]?.artwork" :alt="`${headline} 封面`" img-class="large-cover" />
       <div class="playlist-copy">
+        <p class="volume-label">Volume · Search</p>
         <h1>{{ headline }}</h1>
         <p class="meta">{{ metaCopy }}</p>
         <p>{{ description }}</p>
@@ -58,15 +59,15 @@ const startIndex = computed(() => (page.value - 1) * pageSize.value)
 const canPrev = computed(() => page.value > 1 && !props.loading)
 const canNext = computed(() => Boolean(props.hasMore) && !props.loading)
 const showPager = computed(() => Boolean(props.query?.trim()) && (page.value > 1 || props.hasMore || props.tracks.length > 0))
-const headline = computed(() => props.query?.trim() || '检索夜航曲库')
+const headline = computed(() => props.query?.trim() || '检索书房曲库')
 const metaCopy = computed(() => {
   if (!props.tracks.length) return page.value > 1 ? `第 ${page.value} 页暂无结果` : '支持曲目、歌手与专辑名'
   return `第 ${page.value} 页 · ${props.tracks.length} 首来自 GD音乐台`
 })
 const description = computed(() =>
   props.tracks.length
-    ? '点选任意一首即可请求播放地址、封面与歌词。可用底部分页继续翻看。'
-    : '在顶部搜索歌曲、艺人或专辑，结果会显示在这里。',
+    ? '点选任意一首即可请求播放地址、封面与歌词。可用底部分页继续翻阅。'
+    : '在顶部检索歌曲、艺人或专辑，结果会誊写在这里。',
 )
 const loadingCopy = computed(() => (page.value > 1 ? `正在载入第 ${page.value} 页…` : '正在检索曲库…'))
 </script>

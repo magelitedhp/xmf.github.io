@@ -1,9 +1,10 @@
 <template>
   <section class="page discover-page">
-    <article class="hero-banner">
+    <article class="hero-banner ornate-frame">
       <CoverImage :src="heroTrack?.artwork" alt="本周主打封面" img-class="hero-art" />
       <div class="hero-copy">
-        <h1>{{ heroTrack?.title || '夜航发现' }}</h1>
+        <p class="volume-label">Volume I · Prologue</p>
+        <h1>{{ heroTrack?.title || '书房发现' }}</h1>
         <p>{{ heroCopy }}</p>
         <div class="button-row">
           <button class="champagne-button" type="button" :disabled="!tracks.length" @click="$emit('play-all')">立即播放</button>
@@ -12,14 +13,17 @@
       </div>
     </article>
 
+    <div class="ornate-divider" aria-hidden="true"></div>
+
     <p v-if="error" class="empty-copy">{{ error }}</p>
-    <p v-else-if="loading" class="empty-copy">正在从 GD音乐台载入夜航歌单…</p>
+    <p v-else-if="loading" class="empty-copy">正在从 GD音乐台翻开今日歌谱…</p>
 
     <section class="section-block">
       <div class="section-heading">
         <div>
-          <h2>夜航电台</h2>
-          <p>用一种心情打开整段夜色</p>
+          <p class="volume-label">Volume II</p>
+          <h2>书房电台</h2>
+          <p>按心情点亮一册歌单</p>
         </div>
       </div>
       <div class="playlist-grid">
@@ -35,13 +39,17 @@
     <div class="dashboard-grid">
       <section class="panel glass-panel">
         <div class="section-heading compact">
-          <h2>热门单曲</h2>
+          <div>
+            <p class="volume-label">Volume III</p>
+            <h2>热门单曲</h2>
+          </div>
           <button class="text-button" type="button" @click="$emit('play-all')">播放全部</button>
         </div>
         <TrackList :tracks="tracks" :current-id="currentId" @play="$emit('play', $event)" />
       </section>
 
       <section class="compact-panel">
+        <p class="volume-label">Annex</p>
         <h2>最新专辑</h2>
         <button
           v-for="album in albums"
@@ -61,7 +69,10 @@
 
     <section class="section-block">
       <div class="section-heading compact">
-        <h2>夜色精选</h2>
+        <div>
+          <p class="volume-label">Volume IV</p>
+          <h2>精选辑录</h2>
+        </div>
       </div>
       <div class="collection-grid">
         <button
@@ -109,7 +120,7 @@ defineEmits<{
 
 const heroTrack = computed(() => props.tracks[0])
 const heroCopy = computed(() => {
-  if (!heroTrack.value) return '连接曲库后，这里会亮起今晚的第一首。'
+  if (!heroTrack.value) return '连接曲库后，扉页会点亮今晚的第一首。'
   return `${heroTrack.value.artist} · ${heroTrack.value.album}`
 })
 </script>

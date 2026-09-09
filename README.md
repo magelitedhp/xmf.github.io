@@ -1,6 +1,6 @@
 # Nocturne · 夜航播放器
 
-Vue 3 + Vite 的在线音乐播放器。当前版本已接入 GD音乐台曲库，界面为 Nocturne 夜航玻璃拟态。
+Vue 3 + Vite 的在线音乐播放器。当前版本已接入 GD音乐台曲库，界面为 Academia 古典书房风格。
 
 在线预览（GitHub Pages，`docs/` 目录）：
 
@@ -13,7 +13,7 @@ https://magelitedhp.github.io/xmf.github.io/
 - 播放 / 暂停、上一首 / 下一首、进度拖动、音量、随机与单曲循环。
 - 真实音频播放，封面与 LRC 歌词随当前曲目加载；正在播放页会高亮当前句。
 - 喜欢的歌曲与最近播放保存在浏览器本地。
-- 深墨夜景 + 无色玻璃面板，香槟金只用于主操作和高亮数字。
+- 深褐红木书房底色 + 黄铜交互强调；封面默认旧照棕褐，悬停还原本色。
 
 曲库来源：[GD音乐台 (music.gdstudio.xyz)](https://music.gdstudio.xyz)。接口文档见 `docs/music-api.md`。仅供学习参考，请勿商用。接口限制为 5 分钟内不超过 50 次请求，部分曲目可能因版权无法播放。
 
@@ -27,7 +27,7 @@ src/
   data/music.ts                    # 导航、电台分类与类型
   components/music/                # 播放器组件
     views/                        # 发现 / 搜索 / 收藏 / 正在播放
-  styles/                         # 夜航玻璃拟态 token 与布局
+  styles/                         # Academia 古典书房 token 与布局
 changelog/                        # 更新日志
 docs/                             # GitHub Pages 发版目录
 ```

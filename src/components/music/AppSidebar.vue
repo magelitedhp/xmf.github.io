@@ -1,10 +1,10 @@
 <template>
   <aside class="sidebar glass-panel">
     <div class="brand">
-      <div class="brand-mark">♪</div>
+      <div class="brand-mark">N</div>
       <div>
         <strong>Nocturne</strong>
-        <span>夜航电台</span>
+        <span>藏书电台</span>
       </div>
     </div>
 
@@ -23,10 +23,10 @@
     </nav>
 
     <div class="account-card">
-      <div class="avatar-fallback" aria-hidden="true">夜</div>
+      <div class="avatar-fallback" aria-hidden="true">卷</div>
       <div>
         <strong>本地收藏</strong>
-        <span>曲库来源 GD音乐台</span>
+        <span>GD 曲库</span>
       </div>
     </div>
   </aside>
