@@ -14,6 +14,18 @@ export const siteRoutes: RouteRecordRaw[] = [
         meta: { title: 'Nocturne · 夜航书斋', module: 'site' },
       },
       {
+        path: 'blog',
+        name: 'blog',
+        component: () => import('../../modules/blog/BlogIndexPage.vue'),
+        meta: { title: '夜航随笔 · Nocturne', module: 'blog' },
+      },
+      {
+        path: 'blog/:slug',
+        name: 'blog-post',
+        component: () => import('../../modules/blog/BlogPostPage.vue'),
+        meta: { title: '随笔 · Nocturne', module: 'blog' },
+      },
+      {
         path: 'tools',
         name: 'tools',
         component: () => import('../../pages/ToolsPage.vue'),

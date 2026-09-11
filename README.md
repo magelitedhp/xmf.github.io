@@ -1,6 +1,6 @@
 # Nocturne · 夜航书斋
 
-Vue 3 + Vite 站点。首页为 **prop1 夜航玻璃拟态**；音乐、AI 工具、动画效果是并列模块。
+Vue 3 + Vite 个人站。首页为 **prop1 夜航玻璃拟态**；随笔是内容主线，音乐、AI 工具、动画效果是并列功能模块。
 
 在线预览（GitHub Pages，`docs/` 目录）：
 
@@ -8,7 +8,9 @@ https://magelitedhp.github.io/xmf.github.io/
 
 ## 功能
 
-- 首页顶栏导航：音乐 / AI 工具 / 动画效果。
+- 首页展示个人简介、最新随笔与项目入口。
+- 随笔模块：文章列表、标签筛选、文章详情。
+- 顶栏导航：随笔 / 音乐 / AI 工具 / 动画效果。
 - 音乐模块：发现、搜索、收藏与播放（独立 `src/modules/music`）。
 - AI 工具模块：空白占位页。
 - 动画效果：嵌入 [AquaInkGL](https://github.com/WishMelz/AquaInkGL) 的 WebGL 水墨流体演示（拖动产生墨迹）。
@@ -18,6 +20,7 @@ https://magelitedhp.github.io/xmf.github.io/
 ```text
 src/
   App.vue / layouts/ / pages/ / components/site/ / config/nav.ts
+  modules/blog/                  # 随笔内容、列表与详情
   modules/music/                 # 音乐模块
   modules/effects/               # 动画效果模块说明
   router/routes/site.ts|music.ts

@@ -5,7 +5,7 @@ description: Maintain the Nocturne Vue site (glass homepage, modules for music/t
 
 # Nocturne Site
 
-Vue 3 + Vite multi-module site. Homepage uses **prop1 Nocturne Glassmorphism**. Music is one module, not the product center.
+Vue 3 + Vite multi-module personal site. Homepage uses **prop1 Nocturne Glassmorphism**. Blog content is the main narrative; music, tools, and effects are feature modules.
 
 ## Reference
 
@@ -17,8 +17,9 @@ Vue 3 + Vite multi-module site. Homepage uses **prop1 Nocturne Glassmorphism**. 
 
 - `src/App.vue` — root `RouterView` only
 - `src/layouts/SiteLayout.vue` — glass nav + atmosphere for site pages
-- `src/config/nav.ts` — top nav: 音乐 / AI工具 / 动画效果
+- `src/config/nav.ts` — top nav: 随笔 / 音乐 / AI工具 / 动画效果
 - `src/pages` — Home, Tools, Effects
+- `src/modules/blog` — typed article content, cards, index and detail pages
 - `src/modules/music` — self-contained player
 - `src/router/routes/site.ts` + `music.ts` — modular routes, lazy-loaded
 - Effects page iframes `public/effects/aquaInk/index.html` (AquaInkGL WebGL fluid ink)

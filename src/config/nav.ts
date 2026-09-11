@@ -6,6 +6,7 @@ export interface SiteNavItem {
 
 /** Top-level site navigation. Music is one module among others. */
 export const siteNav: SiteNavItem[] = [
+  { name: '随笔', to: '/blog', description: '建站与技术记录' },
   { name: '音乐', to: '/music', description: '藏书电台' },
   { name: 'AI工具', to: '/tools', description: '工具柜' },
   { name: '动画效果', to: '/effects', description: '水墨流体' },

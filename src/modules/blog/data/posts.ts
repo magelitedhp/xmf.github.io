@@ -1,0 +1,119 @@
+export interface BlogSection {
+  heading?: string
+  paragraphs: string[]
+  quote?: string
+}
+
+export interface BlogPost {
+  slug: string
+  title: string
+  excerpt: string
+  date: string
+  readingMinutes: number
+  tags: string[]
+  featured?: boolean
+  sections: BlogSection[]
+}
+
+export const blogPosts: BlogPost[] = [
+  {
+    slug: 'building-nocturne',
+    title: '把个人主页做成一间夜航书斋',
+    excerpt: '从单一音乐播放器到多模块个人站：如何让功能、内容与视觉拥有各自清晰的位置。',
+    date: '2026-09-10',
+    readingMinutes: 6,
+    tags: ['建站札记', 'Vue', '架构'],
+    featured: true,
+    sections: [
+      {
+        paragraphs: [
+          'Nocturne 最早只是一个音乐播放器。随着 AI 工具和动画实验加入，音乐不再适合继续承担整个项目的入口，于是站点被重新拆成首页、内容页与独立功能模块。',
+          '这次调整最重要的并不是增加路由，而是重新确认边界：首页负责表达与引导，模块负责完成具体任务，共享布局只提供导航、氛围和一致的交互语言。',
+        ],
+      },
+      {
+        heading: '让首页成为内容，而不是目录',
+        paragraphs: [
+          '纯粹的入口卡片很快会变成另一种导航栏。个人主页还需要让访客知道这里是谁、最近在做什么、为什么值得继续阅读。',
+          '因此首页加入最新随笔、项目进展与个人简介，同时保留音乐、工具和动画入口。功能模块是作品，文章则记录作品背后的取舍。',
+        ],
+        quote: '模块展示结果，文章保存思考。',
+      },
+      {
+        heading: '保持模块可以独立生长',
+        paragraphs: [
+          '音乐模块拥有自己的接口、状态、组件和数据；博客内容也应拥有独立的数据模型与页面。新增能力时，不需要继续扩大某个中心文件。',
+          '现在仍有路由注册、样式隔离与测试基础需要完善，但项目已经从单页作品迈向了可以长期维护的个人站点。',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'browser-audio-notes',
+    title: '浏览器音乐播放器的几个真实问题',
+    excerpt: '播放地址、自动播放、歌词同步、缓存与第三方接口限流，远比一个播放按钮复杂。',
+    date: '2026-09-09',
+    readingMinutes: 8,
+    tags: ['Web Audio', '工程实践'],
+    sections: [
+      {
+        paragraphs: [
+          '一个可以工作的在线播放器，需要处理的不只是 Audio 元素。播放地址可能过期，封面可能被防盗链拦截，曲目也可能因为版权而没有可用链接。',
+          'Nocturne 目前使用真实音频地址，并在 320kbps 请求失败后回退到 128kbps。这个策略提高了成功率，但也会增加接口调用次数。',
+        ],
+      },
+      {
+        heading: '限流决定交互设计',
+        paragraphs: [
+          '当接口限制为五分钟五十次时，搜索框是否输入即搜索、封面一次加载多少张、歌词何时请求，都不再只是体验问题。',
+          '合理的做法包括请求去重、可取消搜索、带有效期的缓存，以及只加载视口附近的资源。节省请求本身就是产品能力。',
+        ],
+      },
+      {
+        heading: '状态应当比页面活得更久',
+        paragraphs: [
+          '如果播放器只存在于音乐页面，离开路由就会停止。对于真正的站点级音乐体验，音频引擎应该提升为全局服务，页面只负责控制和展示。',
+          '是否需要跨页面播放取决于产品定位，但这个决定必须在状态结构稳定之前做出。',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'glass-and-ink',
+    title: '玻璃与水墨：两种动态背景如何共存',
+    excerpt: '玻璃拟态需要借光，水墨动画需要留白；两者共存的关键是层级、性能和克制。',
+    date: '2026-09-08',
+    readingMinutes: 5,
+    tags: ['视觉设计', 'WebGL'],
+    sections: [
+      {
+        paragraphs: [
+          '玻璃拟态不是给面板涂上一层透明色，而是让背景光源经过模糊、饱和与方向性高光后被重新组织。没有场景，玻璃就没有可以借用的光。',
+          'AquaInkGL 则通过 WebGL 流体模拟产生持续扩散的墨迹。它适合作为独立体验，而不适合在每个页面持续运行。',
+        ],
+      },
+      {
+        heading: '把高成本效果留在正确的位置',
+        paragraphs: [
+          '首页使用静态光井和毛玻璃即可建立氛围；动画页再启用完整 WebGL。这样既保留视觉记忆点，也不会让普通内容页持续承担 GPU 成本。',
+          '在移动设备和 reduced-motion 环境中，还应提供暂停、低分辨率或静态封面的降级路径。',
+        ],
+        quote: '动效不是装饰预算，而是注意力与性能预算。',
+      },
+    ],
+  },
+]
+
+export const featuredPost = blogPosts.find((post) => post.featured) ?? blogPosts[0]
+
+export function findBlogPost(slug: string) {
+  return blogPosts.find((post) => post.slug === slug)
+}
+
+export function formatPostDate(date: string) {
+  return new Intl.DateTimeFormat('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(`${date}T00:00:00`))
+}
