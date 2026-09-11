@@ -1,1 +1,0 @@
-import{d as s,c as t,b as c,f as n,o}from"./index-DEWS-hyD.js";const r={class:"effects-page"},f=["src"],u=s({__name:"EffectsPage",setup(l){const e=n(()=>"./effects/aquaInk/index.html");return(a,m)=>(o(),t("main",r,[c("iframe",{class:"effects-frame",title:"AquaInkGL 水墨流体动画",src:e.value,loading:"lazy",allow:"fullscreen"},null,8,f)]))}});export{u as default};
