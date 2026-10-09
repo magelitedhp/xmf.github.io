@@ -13,6 +13,7 @@
         v-for="item in siteNav"
         :key="item.to"
         class="site-nav-link"
+        :class="{ 'router-link-active': isSection(item.to) }"
         :to="item.to"
       >
         {{ item.name }}
@@ -22,8 +23,11 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import { siteNav } from '../../config/nav'
+
+const route = useRoute()
+const isSection = (to: string) => route.path.startsWith(`${to}/`)
 
 withDefaults(
   defineProps<{

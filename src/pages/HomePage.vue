@@ -32,7 +32,7 @@
           <h2>正在生长的项目</h2>
         </div>
       </div>
-      <div class="portal-grid portal-grid-3">
+      <div class="portal-grid">
         <RouterLink class="portal-card glass-panel" to="/music">
           <div class="portal-arch">
             <strong>音乐</strong>
@@ -62,6 +62,17 @@
           <div class="portal-copy">
             <h3>动画效果</h3>
             <p>AquaInkGL 水墨流体 WebGL 演示。</p>
+            <span class="portal-cta">打开 →</span>
+          </div>
+        </RouterLink>
+
+        <RouterLink class="portal-card glass-panel" to="/games">
+          <div class="portal-arch portal-arch-games">
+            <strong>游</strong>
+          </div>
+          <div class="portal-copy">
+            <h3>游戏厅</h3>
+            <p>浏览器小游戏合集，首发像素肉鸽《烬灯行》。</p>
             <span class="portal-cta">打开 →</span>
           </div>
         </RouterLink>

@@ -37,6 +37,18 @@ export const siteRoutes: RouteRecordRaw[] = [
         component: () => import('../../pages/EffectsPage.vue'),
         meta: { title: 'Nocturne · 动画效果', module: 'effects' },
       },
+      {
+        path: 'games',
+        name: 'games',
+        component: () => import('../../modules/game/GameIndexPage.vue'),
+        meta: { title: '夜航游戏厅 · Nocturne', module: 'games' },
+      },
+      {
+        path: 'games/:slug',
+        name: 'game-play',
+        component: () => import('../../modules/game/GameDetailPage.vue'),
+        meta: { title: '游戏 · Nocturne', module: 'games' },
+      },
     ],
   },
 ]

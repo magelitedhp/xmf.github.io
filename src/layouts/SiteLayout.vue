@@ -25,17 +25,20 @@ const pageClass = computed(() => {
   return ''
 })
 
-const solidNav = computed(() => route.name === 'tools' || route.name === 'effects')
+const isGames = computed(() => route.meta.module === 'games')
+const solidNav = computed(() => route.name === 'tools' || route.name === 'effects' || isGames.value)
 const showAtmosphere = computed(() => route.name !== 'effects')
 const showFooter = computed(() => route.name !== 'effects')
 
 const footerLeft = computed(() => {
   if (route.name === 'tools') return 'Nocturne · AI 工具柜'
+  if (isGames.value) return 'Nocturne · 夜航游戏厅'
   return 'Nocturne · 夜航书斋'
 })
 
 const footerRight = computed(() => {
   if (route.name === 'tools') return '空白页 · 待续'
+  if (isGames.value) return '浏览器原创小游戏 · 纪录保存在本地'
   return ''
 })
 </script>
