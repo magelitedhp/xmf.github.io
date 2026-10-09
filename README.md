@@ -2,9 +2,13 @@
 
 Vue 3 + TypeScript + Vite 个人站，以浅色毛玻璃、彩色品牌海报与卡片布局呈现随笔、音乐、工具、交互实验和游戏厅。
 
-本文介绍当前开发代码。本轮改动见 [未发布更新日志](changelog/unreleased.md)，历史版本见 [更新日志索引](changelog/README.md)。
+当前版本为 **v0.1.6**。本轮改动见 [v0.1.6 更新日志](changelog/v0.1.6.md)，后续开发见 [未发布更新日志](changelog/unreleased.md)，历史版本见 [更新日志索引](changelog/README.md)。
 
 在线预览（GitHub Pages，`docs/` 目录）：
+
+https://www.xuxy.cloud/
+
+GitHub Pages 默认地址：
 
 https://magelitedhp.github.io/xmf.github.io/
 
@@ -65,7 +69,7 @@ npm run game:garden        # 类型检查并重新编译花园保卫战单文件
 npm run game:garden:watch  # 监听源码自动重编
 ```
 
-本地打开 `http://localhost:5173/`（Hash 路由，例如 `/#/games/ember-lantern`）。`npm run build` 输出到 `dist/`；发版时再同步到 `docs/`。
+本地打开 `http://localhost:5173/`（Hash 路由，例如 `/#/games/ember-lantern`）。`npm run build` 输出到 `dist/`；发版时再同步到 `docs/`，保留其中的 `CNAME` 域名配置与 `music-api.md` 文档，提交并推送以触发 GitHub Pages 更新。
 
 ## 继续开发约定
 

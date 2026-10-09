@@ -1,0 +1,77 @@
+/* Yumo / a little physics studio, with light passing through the glass. */
+:root { --accent:#4c67a8; --muted:#647b92; --line:#c6d5e6; color:#2e4457; }
+body { background:radial-gradient(ellipse at 0% 15%,#cbebe8aa,transparent 55%),radial-gradient(ellipse at 100% 85%,#d9d5f299,transparent 55%),#f0f4fa; }
+.app { max-width:1440px; padding:0 36px 25px; }
+header { height:88px; background:transparent; }
+.brand-name { color:#334a62; }
+.brand small,.tagline { color:#6e8297; }
+.icon-button { color:#647b93; }
+.icon-button:hover { color:#3155e7; background:#e0e9fb; border-color:#bfd0e6; }
+.icon-button[aria-pressed=true] { background:#dce7ff; color:#3155e7; }
+main { grid-template-columns:minmax(190px,260px) minmax(300px,480px) minmax(190px,260px); gap:25px; padding-top:26px; }
+.intro { padding:24px 20px; border:1px solid #becfe0; border-radius:22px; background:linear-gradient(130deg,#ffffffb3,#e5f0f65e); box-shadow:inset 0 1px 0 white,0 12px 35px #57799808; }
+.eyebrow { font-size:8px; letter-spacing:1.2px; color:#6b84a0; }
+h1 { font-size:clamp(32px,3vw,43px); letter-spacing:-2px; line-height:1.4; }
+h1 em { color:#4e6fac; }
+.intro-copy { color:#637e91; font-size:11px; }
+.wave { stroke:#93a9ce; }
+.score-row { padding:12px; font-size:10px; color:#61778d; border-color:#c8d7e7; background:#f7fbffbb; border-radius:12px; }
+.score-row:first-child { background:#dfe8fc; border-color:#bfcfeb; }
+.score-row strong { color:#4363a1; font-size:28px; }
+.next { color:#647c94; border-color:#bfcee1; }
+.next small { color:#7b8ca0; }
+.physics { padding:26px 22px; border:1px solid #bfcfe4; border-radius:22px; background:linear-gradient(135deg,#ffffffa3,#e5e9f780); box-shadow:inset 0 1px 0 white,0 12px 35px #57799808; }
+.panel-kicker { color:#7086a1; font-size:8px; letter-spacing:1.3px; }
+.physics h2 { font-size:20px; color:#385376; }
+.modes { background:#e1e8f4; border-color:#becfe5; }
+.mode { color:#6c7f99; }
+.mode[aria-pressed=true] { background:#3155e7; color:white; box-shadow:0 4px 10px #3155e71a; }
+.desc { color:#6b7e98; line-height:1.7; min-height:35px; }
+.material-stats > div { color:#7185a2; }
+.material-stats i { background:#d5dfed; }
+.material-stats i:after { background:#809ac7; }
+.stir { background:#4868ac; border-color:#4868ac; box-shadow:inset 0 1px 0 #ffffff38,0 7px 15px #38599219; font-size:14px; }
+.stir:hover { background:#3155e7; }
+.energy-cost,.energy-row,.rules p { color:#6a819d; }
+progress::-webkit-progress-value { background:#839dcb; }
+progress::-moz-progress-bar { background:#839dcb; }
+.rules { border-color:#cbd6e8; }
+.rules .icon { color:#8aa0be; }
+.aim-tip { background:#f9fcffe8; border-color:#becfe4; color:#627e9c; }
+.pool-status { color:#6d829c; }
+.evolution { background:#ffffffa3; border-color:#bfcee2; box-shadow:inset 0 1px 0 white; padding:14px 22px; }
+.evolution h2 { color:#556e8a; }.evolution h2 small { color:#7a8fa9; }
+.fruit-step span { color:#75869c; }.fruit-step.discovered span { color:#426fa0; }
+.fruit-step:last-child span { color:#50778c; }
+footer { color:#70869f; }kbd { color:#6381a3; border-color:#c4d1e3; background:#f9fcff99; }
+dialog { background:linear-gradient(135deg,#fafffff5,#edf0fdf5); border-color:#c1d1e6; color:#3b5679; padding:34px; box-shadow:0 30px 100px #334c7040; }
+dialog p { color:#6a809c; }dialog .text-button { color:#607da1; }
+dialog::backdrop { background:#27395266; backdrop-filter:blur(9px); }
+button:focus-visible,a:focus-visible,canvas:focus-visible { outline-color:#3155e7; }
+/* Embedded height is based on content, independent of the iframe viewport. */
+html.embedded .game-area { max-width:440px; }
+@media(max-width:1100px) {
+  .app { padding-inline:23px; }
+  main { grid-template-columns:215px minmax(280px,460px); gap:22px; }
+  .intro { padding:22px 16px; }
+  .physics { grid-column:1/-1; padding:17px; gap:8px 24px; }
+  .desc { min-height:0; margin-bottom:0; }
+  .stir { font-size:13px; }
+}
+@media(max-width:640px) {
+  .app { padding:0 14px 20px; }
+  header { height:65px; }
+  main { padding-top:16px; gap:0; }
+  .intro { border:0; border-radius:0; padding:0; box-shadow:none; background:none; }
+  .score-row { padding:9px 8px; font-size:9px; }.score-row strong { font-size:23px; }
+  .next { border:0; background:none; box-shadow:none; }
+  .physics { border-radius:15px; padding:13px 10px; gap:5px 10px; }
+  .mode { font-size:10px; }.stir { font-size:12px; }
+  .desc { font-size:9px; }.energy-row { font-size:9px; }
+  .mobile-tilt { color:#6c829b; }
+  .mobile-tilt button { color:#5d7b9e; border-color:#bfcee2; background:#ffffffa3; min-height:38px; }
+  .evolution { padding:12px 5px; border-radius:14px; }
+  .evolution h2 { font-size:9px; }
+  .fruit-step canvas { width:clamp(19px,6vw,28px); height:clamp(19px,6vw,28px); }
+  html.embedded .game-area { width:100%; min-width:0; max-width:350px; }
+}
