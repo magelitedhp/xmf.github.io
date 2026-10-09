@@ -1,5 +1,5 @@
 ﻿<template>
-  <footer class="player-bar glass-panel">
+  <footer class="player-bar" aria-label="音乐播放器">
     <button class="now-playing" type="button" @click="$emit('open-playing')">
       <CoverImage :src="track.artwork" :alt="`${track.title} 封面`" img-class="thumb thumb-lg" />
       <span class="now-copy">
@@ -13,20 +13,23 @@
       :class="{ liked: track.liked }"
       type="button"
       :title="track.liked ? '取消收藏' : '收藏'"
+      :aria-label="track.liked ? '取消收藏' : '收藏'"
+      :aria-pressed="track.liked"
+      :disabled="!track.uid"
       @click="$emit('like')"
     >
-      ♡
+      <MusicIcon name="heart" />
     </button>
 
     <div class="transport">
       <div class="transport-buttons">
-        <button class="icon-button" :class="{ active: isShuffle }" type="button" title="随机播放" @click="$emit('shuffle')">↯</button>
-        <button class="icon-button" type="button" title="上一首" @click="$emit('previous')">|‹</button>
-        <button class="play-button" type="button" :title="isPlaying ? '暂停' : '播放'" @click="$emit('toggle')">
-          {{ isBuffering ? '…' : isPlaying ? 'Ⅱ' : '▶' }}
+        <button class="icon-button shuffle-control" :class="{ active: isShuffle }" type="button" aria-label="随机播放" :aria-pressed="isShuffle" title="随机播放" @click="$emit('shuffle')"><MusicIcon name="shuffle" /></button>
+        <button class="icon-button previous-control" type="button" aria-label="上一首" title="上一首" @click="$emit('previous')"><MusicIcon name="previous" /></button>
+        <button class="play-button" :class="{ 'is-buffering': isBuffering }" type="button" :aria-label="isBuffering ? '正在缓冲' : isPlaying ? '暂停' : '播放'" :title="isPlaying ? '暂停' : '播放'" @click="$emit('toggle')">
+          <MusicIcon :name="isBuffering ? 'playing' : isPlaying ? 'pause' : 'play'" />
         </button>
-        <button class="icon-button" type="button" title="下一首" @click="$emit('next')">›|</button>
-        <button class="icon-button" :class="{ active: isLoopOne }" type="button" title="单曲循环" @click="$emit('loop')">↻</button>
+        <button class="icon-button next-control" type="button" aria-label="下一首" title="下一首" @click="$emit('next')"><MusicIcon name="next" /></button>
+        <button class="icon-button loop-control" :class="{ active: isLoopOne }" type="button" aria-label="单曲循环" :aria-pressed="isLoopOne" title="单曲循环" @click="$emit('loop')"><MusicIcon name="loop" /></button>
       </div>
 
       <div class="timeline">
@@ -34,6 +37,7 @@
         <input
           :value="progress"
           type="range"
+          aria-label="播放进度"
           min="0"
           :max="Math.max(track.seconds, 1)"
           :style="fillStyle"
@@ -45,9 +49,9 @@
     </div>
 
     <div class="player-tools">
-      <span class="volume-icon">⌁</span>
+      <MusicIcon class="volume-icon" name="volume" />
       <input class="volume-slider" :value="volume" type="range" min="0" max="100" :style="volumeStyle" aria-label="音量" @input="emitVolume" />
-      <button class="icon-button" type="button" title="沉浸播放" @click="$emit('open-playing')">⛶</button>
+      <button class="icon-button" type="button" title="沉浸播放" aria-label="沉浸播放" @click="$emit('open-playing')"><MusicIcon name="expand" /></button>
     </div>
   </footer>
 </template>
@@ -56,6 +60,7 @@
 import { computed } from 'vue'
 import type { Track } from '../data/music'
 import CoverImage from './CoverImage.vue'
+import MusicIcon from './MusicIcon.vue'
 
 const props = defineProps<{
   track: Track

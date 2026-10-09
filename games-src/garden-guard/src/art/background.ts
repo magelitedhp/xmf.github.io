@@ -13,8 +13,8 @@ function blob(ctx: Ctx, x: number, y: number, r: number, fill: string | CanvasGr
 
 function sky(ctx: Ctx, rnd: () => number) {
   ctx.fillStyle = linear(ctx, 0, 0, 0, 150, [
-    [0, '#7cc7f2'],
-    [1, '#d5f0ff'],
+    [0, '#a8d7dc'],
+    [1, '#edf6e4'],
   ])
   ctx.fillRect(0, 0, WORLD_W, 150)
   for (let i = 0; i < 9; i++) {
@@ -29,16 +29,16 @@ function sky(ctx: Ctx, rnd: () => number) {
   // distant tree line
   for (let x = -20; x < WORLD_W + 40; x += 34 + rnd() * 20) {
     const r = 26 + rnd() * 22
-    blob(ctx, x, 88 - rnd() * 18, r, '#4f8f45')
+    blob(ctx, x, 88 - rnd() * 18, r, '#7ca889')
   }
   for (let x = -10; x < WORLD_W + 40; x += 30 + rnd() * 18) {
     const r = 18 + rnd() * 16
-    blob(ctx, x, 104 - rnd() * 10, r, '#3f7a38')
+    blob(ctx, x, 104 - rnd() * 10, r, '#638d73')
   }
 }
 
 function fence(ctx: Ctx, x0: number, x1: number) {
-  ctx.fillStyle = '#b08a5a'
+  ctx.fillStyle = '#a8bb91'
   ctx.fillRect(x0, 70, x1 - x0, 8)
   ctx.fillRect(x0, 108, x1 - x0, 8)
   for (let x = x0; x < x1; x += 30) {
@@ -49,7 +49,7 @@ function fence(ctx: Ctx, x0: number, x1: number) {
     ctx.lineTo(x + 26, 48)
     ctx.lineTo(x + 26, 128)
     ctx.closePath()
-    paint(ctx, linear(ctx, x + 2, 0, x + 26, 0, [[0, '#f1dcb4'], [0.6, '#e2c38f'], [1, '#c49e6a']]), '#7e5c32', 2)
+    paint(ctx, linear(ctx, x + 2, 0, x + 26, 0, [[0, '#faf8df'], [0.6, '#e9e9ca'], [1, '#cbd5b0']]), '#9eac83', 2)
     ctx.strokeStyle = 'rgba(126,92,50,0.4)'
     ctx.lineWidth = 1
     ctx.beginPath()
@@ -62,10 +62,10 @@ function fence(ctx: Ctx, x0: number, x1: number) {
 function hedge(ctx: Ctx, x0: number, x1: number, y: number, rnd: () => number) {
   for (let x = x0; x < x1; x += 22) {
     const r = 18 + rnd() * 10
-    blob(ctx, x, y + rnd() * 6, r, radial(ctx, x - 6, y - 8, 2, x, y, r, [[0, '#7ccf52'], [1, '#2f7a24']]))
+    blob(ctx, x, y + rnd() * 6, r, radial(ctx, x - 6, y - 8, 2, x, y, r, [[0, '#9fca89'], [1, '#588b65']]))
   }
   for (let i = 0; i < (x1 - x0) / 9; i++) {
-    blob(ctx, x0 + rnd() * (x1 - x0), y - 6 + rnd() * 16, 2.2, rnd() < 0.5 ? '#a6e27a' : '#24601b')
+    blob(ctx, x0 + rnd() * (x1 - x0), y - 6 + rnd() * 16, 2.2, rnd() < 0.5 ? '#c5dea1' : '#4c7556')
   }
 }
 
@@ -85,7 +85,7 @@ function house(ctx: Ctx, rnd: () => number) {
     ctx.stroke()
   }
   // roof eave
-  ctx.fillStyle = '#6a3b26'
+  ctx.fillStyle = '#58746c'
   ctx.beginPath()
   ctx.moveTo(0, 0)
   ctx.lineTo(w + 26, 0)
@@ -93,7 +93,7 @@ function house(ctx: Ctx, rnd: () => number) {
   ctx.lineTo(0, 54)
   ctx.closePath()
   ctx.fill()
-  ctx.fillStyle = '#8a4e32'
+  ctx.fillStyle = '#718b7b'
   for (let x = 0; x < w + 26; x += 18) ctx.fillRect(x, 0, 14, 18 - x * 0.06)
   // window
   rrect(ctx, 28, 140, 86, 96, 4)
@@ -164,10 +164,10 @@ function lawn(ctx: Ctx, rows: number[], rnd: () => number) {
       const x = LAWN_X + c * CELL_W
       if (active) {
         const light = (r + c) % 2 === 0
-        const base = r % 2 === 0 ? (light ? '#71c94a' : '#5fb83a') : light ? '#68c142' : '#57ad35'
+        const base = r % 2 === 0 ? (light ? '#a2c987' : '#94bf7e') : light ? '#9bc585' : '#8db779'
         ctx.fillStyle = base
         ctx.fillRect(x, y, CELL_W, CELL_H)
-        for (let i = 0; i < 26; i++) {
+        for (let i = 0; i < 10; i++) {
           const bx = x + rnd() * CELL_W
           const by = y + 6 + rnd() * (CELL_H - 8)
           ctx.strokeStyle = rnd() < 0.5 ? 'rgba(255,255,255,0.13)' : 'rgba(20,70,10,0.18)'
@@ -178,7 +178,7 @@ function lawn(ctx: Ctx, rows: number[], rnd: () => number) {
           ctx.stroke()
         }
       } else {
-        ctx.fillStyle = (r + c) % 2 ? '#9a7144' : '#a57a4b'
+        ctx.fillStyle = (r + c) % 2 ? '#c6b393' : '#d1bea0'
         ctx.fillRect(x, y, CELL_W, CELL_H)
         for (let i = 0; i < 16; i++) {
           ellipse(ctx, x + rnd() * CELL_W, y + rnd() * CELL_H, 1.5 + rnd() * 3, 1 + rnd() * 2)
@@ -204,7 +204,7 @@ function lawn(ctx: Ctx, rows: number[], rnd: () => number) {
 
 function street(ctx: Ctx, rnd: () => number) {
   // grass verge between lawn and sidewalk
-  ctx.fillStyle = '#5aa936'
+  ctx.fillStyle = '#7ca876'
   ctx.fillRect(LAWN_R, LAWN_Y - 10, SIDEWALK_X - LAWN_R, VIEW_H)
   // sidewalk
   ctx.fillStyle = '#cfcac0'
@@ -222,8 +222,8 @@ function street(ctx: Ctx, rnd: () => number) {
   ctx.fillRect(CURB_X, 120, 12, VIEW_H)
   // asphalt
   ctx.fillStyle = linear(ctx, STREET_X, 0, WORLD_W, 0, [
-    [0, '#4c4f54'],
-    [1, '#5c6066'],
+    [0, '#667c81'],
+    [1, '#7a9093'],
   ])
   ctx.fillRect(STREET_X, 120, WORLD_W - STREET_X, VIEW_H)
   for (let i = 0; i < 900; i++) {
@@ -270,11 +270,11 @@ export function renderWorld(rows: number[], scale: number): HTMLCanvasElement {
   sky(ctx, rnd)
   fence(ctx, 150, LAWN_R + 36)
   hedge(ctx, 150, LAWN_R + 40, 130, rnd)
-  ctx.fillStyle = '#4d9a2e'
+  ctx.fillStyle = '#719967'
   ctx.fillRect(150, LAWN_Y - 10, LAWN_R - 150, 12)
   street(ctx, rnd)
   lawn(ctx, rows, rnd)
-  ctx.fillStyle = '#3f8a26'
+  ctx.fillStyle = '#709967'
   ctx.fillRect(LAWN_X, LAWN_B, LAWN_R - LAWN_X + 40, VIEW_H - LAWN_B)
   hedge(ctx, 150, LAWN_R + 40, LAWN_B + 16, rnd)
   patio(ctx, rnd)

@@ -69,6 +69,8 @@ export class Input {
   }
 
   private onKeyDown = (e: KeyboardEvent) => {
+    // Let the cabinet toolbar and navigation keep their native keyboard behavior.
+    if (e.target instanceof HTMLElement && e.target.closest('button, a, input, textarea, select')) return
     const actions = KEYMAP[e.code]
     if (!actions) return
     e.preventDefault()

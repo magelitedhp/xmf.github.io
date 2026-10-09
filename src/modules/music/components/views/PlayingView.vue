@@ -1,21 +1,15 @@
 ﻿<template>
   <section class="page playing-page">
-    <div class="playing-backdrop" aria-hidden="true">
-      <CoverImage :src="track.artwork" alt="" img-class="immersive-bg" />
-    </div>
-
     <div class="vinyl-area">
-      <div class="vinyl" :class="{ spinning: isPlaying }">
-        <CoverImage :src="track.artwork" :alt="`${track.title} 封面`" img-class="vinyl-image" />
-        <span class="vinyl-hole"></span>
-      </div>
+      <div class="listening-caption"><span>NOW ON THE TURNTABLE</span><span>{{ isPlaying ? '● PLAYING' : '○ STANDBY' }}</span></div>
+      <TurntableArt :artwork="track.artwork" :playing="isPlaying" />
 
       <div class="song-summary">
         <div>
           <h1>{{ track.title }}</h1>
           <p>{{ track.artist }} · {{ track.album }}</p>
         </div>
-        <button class="heart-button focus-heart" :class="{ liked: track.liked }" type="button" @click="$emit('like')">♡</button>
+        <button class="heart-button focus-heart" :class="{ liked: track.liked }" type="button" :disabled="!track.uid" :aria-label="track.liked ? '取消收藏' : '收藏这首歌'" :aria-pressed="track.liked" @click="$emit('like')"><MusicIcon name="heart" /></button>
       </div>
 
       <div class="focus-progress">
@@ -23,6 +17,7 @@
         <input
           :value="progress"
           type="range"
+          aria-label="播放进度"
           min="0"
           :max="Math.max(track.seconds, 1)"
           :style="fillStyle"
@@ -32,15 +27,21 @@
       </div>
     </div>
 
-    <div ref="lyricsBox" class="lyrics">
-      <p v-if="!track.lyrics.length" class="empty-copy">正在等待歌词，或这首歌尚未提供 LRC。</p>
-      <p
+    <div class="lyrics-panel">
+      <p class="volume-label">WORDS TO STAY WITH / 歌词</p>
+      <div v-if="!track.lyrics.length" class="lyrics-empty"><span aria-hidden="true">“</span><h2>{{ track.uid ? '有时候，旋律就够了。' : '把此刻，交给一首歌。' }}</h2><p>{{ track.uid ? '歌词尚未就绪，先让音乐陪你一会儿。' : '从发现或搜索选择一首歌，唱片就会在这里转起来。' }}</p></div>
+      <div v-else ref="lyricsBox" class="lyrics" aria-label="歌词，点击可跳转播放位置">
+      <button
         v-for="(line, index) in track.lyrics"
         :key="`${line.time}-${line.text}`"
         :class="{ current: index === currentLyric }"
+        type="button"
+        :aria-current="index === currentLyric ? 'true' : undefined"
+        @click="$emit('seek', line.time)"
       >
         {{ line.text }}
-      </p>
+      </button>
+      </div>
     </div>
   </section>
 </template>
@@ -48,7 +49,8 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
 import type { Track } from '../../data/music'
-import CoverImage from '../CoverImage.vue'
+import TurntableArt from '../TurntableArt.vue'
+import MusicIcon from '../MusicIcon.vue'
 
 const props = defineProps<{
   track: Track

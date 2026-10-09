@@ -11,7 +11,7 @@ const router = createRouter({
 })
 
 router.afterEach((to) => {
-  const title = typeof to.meta.title === 'string' ? to.meta.title : 'Nocturne'
+  const title = typeof to.meta.title === 'string' ? to.meta.title : 'Yumo'
   document.title = title
 })
 

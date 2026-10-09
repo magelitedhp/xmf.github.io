@@ -1,8 +1,9 @@
 <template>
   <main class="site-main blog-index">
     <header class="blog-header glass-panel">
-      <p class="effects-kicker">Field Notes</p>
-      <h1>夜航随笔</h1>
+      <p class="effects-kicker">01 / THOUGHTS IN PROGRESS</p>
+      <h1>随笔<span class="index-english">Field notes.</span></h1>
+      <span class="index-stamp" aria-hidden="true">✳</span>
       <p>记录建站、音乐、界面与浏览器实验。文章不追逐结论，只保存一次次实现中的判断。</p>
     </header>
 
@@ -12,6 +13,7 @@
         :key="tag"
         class="blog-filter"
         :class="{ active: activeTag === tag }"
+        :aria-pressed="activeTag === tag"
         type="button"
         @click="activeTag = tag"
       >

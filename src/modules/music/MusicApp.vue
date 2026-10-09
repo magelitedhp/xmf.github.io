@@ -2,18 +2,7 @@
   <div
     class="music-shell"
     :class="{ 'is-focus': activeView === 'playing' }"
-    :style="sceneStyle"
   >
-    <div class="night-scene" aria-hidden="true">
-      <div class="scene-art"></div>
-      <div class="scene-scrim"></div>
-      <div class="light-well light-well-moon"></div>
-      <div class="light-well light-well-steel"></div>
-      <div class="light-well light-well-gold"></div>
-    </div>
-    <div class="vignette" aria-hidden="true"></div>
-    <div class="film-grain" aria-hidden="true"></div>
-
     <AppSidebar :active-view="activeView" @update:view="setView" />
 
     <main class="workspace">
@@ -57,6 +46,7 @@
         :current-id="currentTrack.uid"
         @play-recent="playRecentTrack"
         @play-liked="playLikedTrack"
+        @discover="setView('discover')"
       />
 
       <PlayingView
@@ -94,7 +84,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import AppSidebar from './components/AppSidebar.vue'
 import DiscoverView from './components/views/DiscoverView.vue'
 import LibraryView from './components/views/LibraryView.vue'
@@ -124,7 +113,6 @@ const {
   playlists,
   progress,
   recentTracks,
-  sceneArt,
   searchError,
   searchHasMore,
   searchPage,
@@ -149,11 +137,6 @@ const {
   toggleShuffle,
   updateSearchTerm,
 } = usePlayer()
-
-const sceneStyle = computed(() => {
-  const art = sceneArt.value ? `url("${sceneArt.value}")` : 'none'
-  return { '--scene-art': art } as Record<string, string>
-})
 
 function playDiscoverTrack(uid: string) {
   playTrackById(uid, discoverTracks.value)

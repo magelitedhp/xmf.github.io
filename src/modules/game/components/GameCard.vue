@@ -8,9 +8,9 @@
       <p class="game-card-genre">{{ game.genre }}</p>
       <h3>{{ game.name }} <small>{{ game.enName }}</small></h3>
       <p class="game-card-summary">{{ game.summary }}</p>
-      <div class="post-tags">
+      <div class="game-card-footer"><div class="post-tags">
         <span v-for="tag in game.tags" :key="tag">{{ tag }}</span>
-      </div>
+      </div><span>开始游玩 ↗</span></div>
     </div>
   </RouterLink>
 </template>

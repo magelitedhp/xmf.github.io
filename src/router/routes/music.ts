@@ -7,7 +7,7 @@ export const musicRoutes: RouteRecordRaw[] = [
     name: 'music',
     component: () => import('../../modules/music/MusicApp.vue'),
     meta: {
-      title: 'Nocturne · 藏书电台',
+      title: 'Yumo FM · 生活的 B 面',
       module: 'music',
     },
   },

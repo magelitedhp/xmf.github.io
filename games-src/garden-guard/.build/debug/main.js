@@ -595,8 +595,8 @@
   }
   function sky(ctx, rnd) {
     ctx.fillStyle = linear(ctx, 0, 0, 0, 150, [
-      [0, "#7cc7f2"],
-      [1, "#d5f0ff"]
+      [0, "#a8d7dc"],
+      [1, "#edf6e4"]
     ]);
     ctx.fillRect(0, 0, WORLD_W, 150);
     for (let i = 0; i < 9; i++) {
@@ -610,15 +610,15 @@
     }
     for (let x = -20; x < WORLD_W + 40; x += 34 + rnd() * 20) {
       const r = 26 + rnd() * 22;
-      blob(ctx, x, 88 - rnd() * 18, r, "#4f8f45");
+      blob(ctx, x, 88 - rnd() * 18, r, "#7ca889");
     }
     for (let x = -10; x < WORLD_W + 40; x += 30 + rnd() * 18) {
       const r = 18 + rnd() * 16;
-      blob(ctx, x, 104 - rnd() * 10, r, "#3f7a38");
+      blob(ctx, x, 104 - rnd() * 10, r, "#638d73");
     }
   }
   function fence(ctx, x0, x1) {
-    ctx.fillStyle = "#b08a5a";
+    ctx.fillStyle = "#a8bb91";
     ctx.fillRect(x0, 70, x1 - x0, 8);
     ctx.fillRect(x0, 108, x1 - x0, 8);
     for (let x = x0; x < x1; x += 30) {
@@ -629,7 +629,7 @@
       ctx.lineTo(x + 26, 48);
       ctx.lineTo(x + 26, 128);
       ctx.closePath();
-      paint(ctx, linear(ctx, x + 2, 0, x + 26, 0, [[0, "#f1dcb4"], [0.6, "#e2c38f"], [1, "#c49e6a"]]), "#7e5c32", 2);
+      paint(ctx, linear(ctx, x + 2, 0, x + 26, 0, [[0, "#faf8df"], [0.6, "#e9e9ca"], [1, "#cbd5b0"]]), "#9eac83", 2);
       ctx.strokeStyle = "rgba(126,92,50,0.4)";
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -641,10 +641,10 @@
   function hedge(ctx, x0, x1, y, rnd) {
     for (let x = x0; x < x1; x += 22) {
       const r = 18 + rnd() * 10;
-      blob(ctx, x, y + rnd() * 6, r, radial(ctx, x - 6, y - 8, 2, x, y, r, [[0, "#7ccf52"], [1, "#2f7a24"]]));
+      blob(ctx, x, y + rnd() * 6, r, radial(ctx, x - 6, y - 8, 2, x, y, r, [[0, "#9fca89"], [1, "#588b65"]]));
     }
     for (let i = 0; i < (x1 - x0) / 9; i++) {
-      blob(ctx, x0 + rnd() * (x1 - x0), y - 6 + rnd() * 16, 2.2, rnd() < 0.5 ? "#a6e27a" : "#24601b");
+      blob(ctx, x0 + rnd() * (x1 - x0), y - 6 + rnd() * 16, 2.2, rnd() < 0.5 ? "#c5dea1" : "#4c7556");
     }
   }
   function house(ctx, rnd) {
@@ -662,7 +662,7 @@
       ctx.lineTo(w, y);
       ctx.stroke();
     }
-    ctx.fillStyle = "#6a3b26";
+    ctx.fillStyle = "#58746c";
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.lineTo(w + 26, 0);
@@ -670,7 +670,7 @@
     ctx.lineTo(0, 54);
     ctx.closePath();
     ctx.fill();
-    ctx.fillStyle = "#8a4e32";
+    ctx.fillStyle = "#718b7b";
     for (let x = 0; x < w + 26; x += 18) ctx.fillRect(x, 0, 14, 18 - x * 0.06);
     rrect(ctx, 28, 140, 86, 96, 4);
     paint(ctx, "#f5f0e6", "#5c4630", 4);
@@ -735,10 +735,10 @@
         const x = LAWN_X + c * CELL_W;
         if (active) {
           const light = (r + c) % 2 === 0;
-          const base2 = r % 2 === 0 ? light ? "#71c94a" : "#5fb83a" : light ? "#68c142" : "#57ad35";
+          const base2 = r % 2 === 0 ? light ? "#a2c987" : "#94bf7e" : light ? "#9bc585" : "#8db779";
           ctx.fillStyle = base2;
           ctx.fillRect(x, y, CELL_W, CELL_H);
-          for (let i = 0; i < 26; i++) {
+          for (let i = 0; i < 10; i++) {
             const bx = x + rnd() * CELL_W;
             const by = y + 6 + rnd() * (CELL_H - 8);
             ctx.strokeStyle = rnd() < 0.5 ? "rgba(255,255,255,0.13)" : "rgba(20,70,10,0.18)";
@@ -749,7 +749,7 @@
             ctx.stroke();
           }
         } else {
-          ctx.fillStyle = (r + c) % 2 ? "#9a7144" : "#a57a4b";
+          ctx.fillStyle = (r + c) % 2 ? "#c6b393" : "#d1bea0";
           ctx.fillRect(x, y, CELL_W, CELL_H);
           for (let i = 0; i < 16; i++) {
             ellipse(ctx, x + rnd() * CELL_W, y + rnd() * CELL_H, 1.5 + rnd() * 3, 1 + rnd() * 2);
@@ -772,7 +772,7 @@
     }
   }
   function street(ctx, rnd) {
-    ctx.fillStyle = "#5aa936";
+    ctx.fillStyle = "#7ca876";
     ctx.fillRect(LAWN_R, LAWN_Y - 10, SIDEWALK_X - LAWN_R, VIEW_H);
     ctx.fillStyle = "#cfcac0";
     ctx.fillRect(SIDEWALK_X, 120, CURB_X - SIDEWALK_X, VIEW_H);
@@ -788,8 +788,8 @@
     ctx.fillStyle = "#e9e5dc";
     ctx.fillRect(CURB_X, 120, 12, VIEW_H);
     ctx.fillStyle = linear(ctx, STREET_X, 0, WORLD_W, 0, [
-      [0, "#4c4f54"],
-      [1, "#5c6066"]
+      [0, "#667c81"],
+      [1, "#7a9093"]
     ]);
     ctx.fillRect(STREET_X, 120, WORLD_W - STREET_X, VIEW_H);
     for (let i = 0; i < 900; i++) {
@@ -833,11 +833,11 @@
     sky(ctx, rnd);
     fence(ctx, 150, LAWN_R + 36);
     hedge(ctx, 150, LAWN_R + 40, 130, rnd);
-    ctx.fillStyle = "#4d9a2e";
+    ctx.fillStyle = "#719967";
     ctx.fillRect(150, LAWN_Y - 10, LAWN_R - 150, 12);
     street(ctx, rnd);
     lawn(ctx, rows, rnd);
-    ctx.fillStyle = "#3f8a26";
+    ctx.fillStyle = "#709967";
     ctx.fillRect(LAWN_X, LAWN_B, LAWN_R - LAWN_X + 40, VIEW_H - LAWN_B);
     hedge(ctx, 150, LAWN_R + 40, LAWN_B + 16, rnd);
     patio(ctx, rnd);
@@ -2738,11 +2738,11 @@
     ctx.fillStyle = "rgba(0,0,0,0.25)";
     ctx.fill();
     rrect(ctx, 0, 0, PACKET_W, PACKET_H, 8);
-    paint(ctx, linear(ctx, 0, 0, 0, PACKET_H, [[0, "#fbf1c8"], [1, "#e2cf92"]]), "#7a5a22", 2.4);
+    paint(ctx, linear(ctx, 0, 0, 0, PACKET_H, [[0, "#fffdec"], [1, "#ebf2d7"]]), "#97af89", 1.5);
     rrect(ctx, 4, 4, ICON_W, ICON_H, 6);
-    paint(ctx, linear(ctx, 0, 4, 0, 66, [[0, "#d4f0b0"], [1, "#8dc463"]]), "#5f8a36", 1.4);
+    paint(ctx, linear(ctx, 0, 4, 0, 66, [[0, "#ecf4d9"], [1, "#c4dcac"]]), "#b4c99c", 1);
     ctx.drawImage(packetIcon(id), 4, 4, ICON_W, ICON_H);
-    if (o.cost != null) text(ctx, String(o.cost), PACKET_W / 2, PACKET_H - 11, { size: 17, color: "#2a1d08", weight: 900 });
+    if (o.cost != null) text(ctx, String(o.cost), PACKET_W / 2, PACKET_H - 11, { size: 17, color: "#395f46", weight: 700 });
     if (o.off || o.picked) {
       rrect(ctx, 0, 0, PACKET_W, PACKET_H, 8);
       ctx.fillStyle = o.picked ? "rgba(20,20,20,0.6)" : "rgba(20,20,20,0.42)";
@@ -4892,10 +4892,10 @@
     ctx.fillStyle = "rgba(0,0,0,0.35)";
     ctx.fill();
     rrect(ctx, x, y, w, h, 20);
-    paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, "#f6ead0"], [1, "#e1cca0"]]), "#6a4a1c", 4);
+    paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, "#fbfff5f5"], [1, "#deedddf5"]]), "#98b7a1", 1.5);
     rrect(ctx, x + 10, y + 10, w - 20, h - 20, 14);
-    ctx.strokeStyle = "rgba(106,74,28,0.35)";
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = "rgba(255,255,255,0.65)";
+    ctx.lineWidth = 1;
     ctx.stroke();
   }
   function drawChooser(ctx, b, ui) {
@@ -4904,8 +4904,8 @@
     const w = 520;
     const h = 572;
     panel(ctx, x, y, w, h);
-    text(ctx, "\u9009\u62E9\u51FA\u6218\u690D\u7269", x + w / 2, y + 40, { size: 30, color: "#5a3a10", weight: 900 });
-    text(ctx, `\u5DF2\u9009 ${b.chosen.length} / ${MAX_SLOTS}`, x + w / 2, y + 74, { size: 17, color: "#8a6a3a" });
+    text(ctx, "\u9009\u62E9\u51FA\u6218\u690D\u7269", x + w / 2, y + 40, { size: 30, color: "#315447", weight: 900 });
+    text(ctx, `\u5DF2\u9009 ${b.chosen.length} / ${MAX_SLOTS}`, x + w / 2, y + 74, { size: 17, color: "#6c8170" });
     const cols = 6;
     b.available.forEach((id, i) => {
       const px = x + 30 + i % cols * 78;
@@ -4920,9 +4920,9 @@
       const d = PLANTS[hoverId];
       rrect(ctx, x + 24, y + h - 170, w - 48, 82, 10);
       paint(ctx, "rgba(90,58,16,0.1)");
-      text(ctx, `${d.name} \xB7 ${d.cost} \u9633\u5149`, x + 40, y + h - 146, { size: 19, color: "#5a3a10", align: "left", weight: 900 });
+      text(ctx, `${d.name} \xB7 ${d.cost} \u9633\u5149`, x + 40, y + h - 146, { size: 19, color: "#315447", align: "left", weight: 900 });
       ctx.font = `600 15px ${FONT}`;
-      wrapText(ctx, d.desc.replace(/\n/g, ""), w - 90).slice(0, 2).forEach((ln, i) => text(ctx, ln, x + 40, y + h - 118 + i * 22, { size: 15, color: "#6a4a1c", align: "left", weight: 600 }));
+      wrapText(ctx, d.desc.replace(/\n/g, ""), w - 90).slice(0, 2).forEach((ln, i) => text(ctx, ln, x + 40, y + h - 118 + i * 22, { size: 15, color: "#5b7563", align: "left", weight: 600 }));
     }
     if (ui.button(ctx, "\u5F00\u59CB\u79CD\u690D\uFF01", x + w / 2 - 120, y + h - 74, 240, 56, "green", 26, b.chosen.length === 0)) b.confirmChoice();
     text(ctx, "\u672C\u5173\u51FA\u73B0\u7684\u50F5\u5C38", VIEW_W - 220, 150, { size: 22, color: "#fff3c8", stroke: "#2a1a08", lw: 5 });
@@ -4935,7 +4935,7 @@
     const x = (VIEW_W - w) / 2;
     const y = (VIEW_H - h) / 2;
     panel(ctx, x, y, w, h);
-    text(ctx, "\u6E38\u620F\u6682\u505C", VIEW_W / 2, y + 52, { size: 36, color: "#5a3a10", weight: 900 });
+    text(ctx, "\u6E38\u620F\u6682\u505C", VIEW_W / 2, y + 52, { size: 36, color: "#315447", weight: 900 });
     if (ui.button(ctx, "\u7EE7\u7EED\u6E38\u620F", x + 70, y + 92, w - 140, 56, "green", 24)) b.paused = false;
     if (ui.button(ctx, "\u91CD\u65B0\u5F00\u59CB", x + 70, y + 160, w - 140, 56, "wood", 24)) b.host.finish(b.result(false), "retry");
     if (ui.button(ctx, "\u8FD4\u56DE\u83DC\u5355", x + 70, y + 228, w - 140, 56, "wood", 24)) b.host.finish(b.result(false), "menu");
@@ -4948,7 +4948,7 @@
       a.sfxOn = !a.sfxOn;
       b.host.save.sfx = a.sfxOn;
     }
-    text(ctx, "\u7A7A\u683C \u6682\u505C \xB7 1\u20138 \u9009\u5361 \xB7 Q \u94F2\u5B50 \xB7 F \u52A0\u901F", VIEW_W / 2, y + h - 26, { size: 14, color: "#8a6a3a" });
+    text(ctx, "\u7A7A\u683C \u6682\u505C \xB7 1\u20138 \u9009\u5361 \xB7 Q \u94F2\u5B50 \xB7 F \u52A0\u901F", VIEW_W / 2, y + h - 26, { size: 14, color: "#6c8170" });
   }
   function drawLost(ctx, b, ui) {
     const k = clamp(b.phaseT / 2, 0, 1);
@@ -5098,35 +5098,23 @@
     };
   }
   function plank(ctx, x, y, w, h) {
-    rrect(ctx, x, y + 6, w, h, 16);
-    ctx.fillStyle = "rgba(0,0,0,0.35)";
-    ctx.fill();
-    rrect(ctx, x, y, w, h, 16);
-    paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, "#c98a4b"], [0.5, "#a96a32"], [1, "#7a4a1e"]]), "#3e2210", 4);
-    ctx.strokeStyle = "rgba(60,30,10,0.3)";
-    ctx.lineWidth = 2;
-    for (let i = 1; i < 4; i++) {
-      ctx.beginPath();
-      ctx.moveTo(x + 14, y + h * i / 4);
-      ctx.bezierCurveTo(x + w * 0.3, y + h * i / 4 + 5, x + w * 0.7, y + h * i / 4 - 5, x + w - 14, y + h * i / 4);
-      ctx.stroke();
-    }
-    for (const [nx, ny] of [
-      [x + 16, y + 16],
-      [x + w - 16, y + 16],
-      [x + 16, y + h - 16],
-      [x + w - 16, y + h - 16]
-    ]) {
-      circle(ctx, nx, ny, 5);
-      paint(ctx, radial(ctx, nx - 1.5, ny - 1.5, 0.5, nx, ny, 5, [[0, "#e6e6e6"], [1, "#6a6a6a"]]), "#2a2a2a", 1);
-    }
+    rrect(ctx, x, y + 8, w, h, 25);
+    paint(ctx, "rgba(28,67,48,0.15)");
+    rrect(ctx, x, y, w, h, 25);
+    paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, "#ffffed"], [1, "#edf2d5"]]), "#93b292", 1.5);
+    ctx.strokeStyle = "#ccd9b7";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x + 24, y + h - 20);
+    ctx.lineTo(x + w - 24, y + h - 20);
+    ctx.stroke();
   }
   function parchment(ctx, x, y, w, h) {
     rrect(ctx, x, y + 6, w, h, 20);
     ctx.fillStyle = "rgba(0,0,0,0.35)";
     ctx.fill();
     rrect(ctx, x, y, w, h, 20);
-    paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, "#f6ead0"], [1, "#e1cca0"]]), "#6a4a1c", 4);
+    paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, "#fcfff9f5"], [1, "#e9f3e6f2"]]), "#adc7b4", 1.5);
   }
   function backButton(ctx, app2) {
     return app2.ui.button(ctx, "\u2039 \u8FD4\u56DE", 20, 16, 128, 50, "wood", 22);
@@ -5199,54 +5187,58 @@
         }
         for (const p of this.peas) if (p.row === r) drawPea(ctx, p.x, rowFeet(r) - 61, r === 2 ? "snow" : "pea", this.t);
       }
-      const g = linear(ctx, 0, 0, 0, VIEW_H, [
-        [0, "rgba(10,20,6,0.55)"],
-        [0.35, "rgba(10,20,6,0.15)"],
-        [1, "rgba(10,20,6,0.35)"]
-      ]);
-      ctx.fillStyle = g;
+      ctx.fillStyle = linear(ctx, 0, 0, VIEW_W, 0, [[0, "#eaf4eaf5"], [0.55, "#e5f2ebeb"], [1, "#d9ebe4bd"]]);
       ctx.fillRect(0, 0, VIEW_W, VIEW_H);
-      const swing = Math.sin(this.t * 1.2) * 0.012;
-      ctx.save();
-      ctx.translate(VIEW_W / 2, 0);
-      ctx.rotate(swing);
-      ctx.strokeStyle = "#5a3a1a";
-      ctx.lineWidth = 5;
+      parchment(ctx, 48, 48, 530, 620);
+      text(ctx, "YUMO GARDENS / NO. 02", 86, 91, { size: 13, color: "#637f75", align: "left", weight: 500 });
+      text(ctx, "\u82B1\u56ED\u4FDD\u536B\u6218", 84, 172, { size: 67, color: "#285448", align: "left", weight: 800 });
+      text(ctx, "A LITTLE DEFENCE OF JOY.", 88, 221, { size: 19, color: "#638975", align: "left", weight: 500 });
+      text(ctx, "\u79CD\u4E0B\u5E0C\u671B\uFF0C\u5B88\u4F4F\u597D\u65F6\u5149\u3002", 88, 267, { size: 20, color: "#6b8375", align: "left", weight: 500 });
+      ctx.strokeStyle = "#c3d6c7";
+      ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(-250, -10);
-      ctx.lineTo(-240, 46);
-      ctx.moveTo(250, -10);
-      ctx.lineTo(240, 46);
+      ctx.moveTo(88, 302);
+      ctx.lineTo(537, 302);
       ctx.stroke();
-      plank(ctx, -330, 40, 660, 168);
-      ctx.font = `900 96px ${FONT}`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.lineJoin = "round";
-      ctx.lineWidth = 16;
-      ctx.strokeStyle = "#2a1606";
-      ctx.strokeText("\u82B1\u56ED\u4FDD\u536B\u6218", 0, 112);
-      ctx.fillStyle = linear(ctx, 0, 70, 0, 150, [
-        [0, "#eaff9a"],
-        [0.5, "#8be04a"],
-        [1, "#3f9a1c"]
-      ]);
-      ctx.fillText("\u82B1\u56ED\u4FDD\u536B\u6218", 0, 112);
-      text(ctx, "GARDEN GUARD \xB7 \u5B88\u4F4F\u4F60\u7684\u8349\u576A", 0, 182, { size: 20, color: "#ffe9b0", stroke: "#3e2210", lw: 4, weight: 800 });
-      ctx.restore();
-      const bx = VIEW_W / 2 - 160;
-      let by = 262;
       const lv = LEVELS[Math.min(app2.save.unlocked, LEVELS.length - 1)];
-      rrect(ctx, bx - 26, by - 22, 372, 362, 22);
-      paint(ctx, "rgba(20,14,6,0.55)", "rgba(255,230,170,0.35)", 2);
-      if (app2.ui.button(ctx, "\u5192\u9669\u6A21\u5F0F", bx, by, 320, 70, "green", 30)) app2.startLevel(lv);
-      text(ctx, `\u4E0B\u4E00\u5173 ${lv.id} \xB7 ${lv.name}`, VIEW_W / 2, by + 88, { size: 16, color: "#ffe9b0", weight: 700 });
-      by += 112;
-      if (app2.ui.button(ctx, "\u5173\u5361\u4E0E\u5C0F\u6E38\u620F", bx, by, 320, 58, "wood", 24)) app2.go(new SelectScene(app2));
-      by += 72;
-      if (app2.ui.button(ctx, "\u56FE\u9274", bx, by, 154, 58, "wood", 24)) app2.go(new AlmanacScene(app2));
-      if (app2.ui.button(ctx, "\u8BBE\u7F6E", bx + 166, by, 154, 58, "wood", 24)) app2.go(new SettingsScene(app2));
-      text(ctx, "\u81F4\u656C\u7ECF\u5178\u5854\u9632\u73A9\u6CD5\u7684\u975E\u5B98\u65B9\u540C\u4EBA\u4F5C\u54C1 \xB7 \u7F8E\u672F\u3001\u4EE3\u7801\u4E0E\u97F3\u4E50\u5747\u4E3A\u539F\u521B", VIEW_W / 2, VIEW_H - 18, { size: 14, color: "rgba(255,240,200,0.75)", weight: 600 });
+      if (app2.ui.button(ctx, "\u5F00\u59CB\u5192\u9669  \u2197", 88, 329, 450, 70, "green", 28)) app2.startLevel(lv);
+      text(ctx, `\u4E0B\u4E00\u7AD9  ${lv.id} \xB7 ${lv.name}`, 313, 425, { size: 15, color: "#628174", weight: 500 });
+      if (app2.ui.button(ctx, "\u5173\u5361\u4E0E\u5C0F\u6E38\u620F", 88, 459, 450, 57, "wood", 22)) app2.go(new SelectScene(app2));
+      if (app2.ui.button(ctx, "\u690D\u7269\u56FE\u9274", 88, 532, 218, 54, "wood", 20)) app2.go(new AlmanacScene(app2));
+      if (app2.ui.button(ctx, "\u8BBE\u7F6E", 320, 532, 218, 54, "wood", 20)) app2.go(new SettingsScene(app2));
+      text(ctx, "12 \u5173\u5192\u9669     /     15 \u79CD\u690D\u7269     /     \u65E0\u9650\u597D\u65F6\u5149", 313, 626, { size: 13, color: "#718b7e", weight: 500 });
+      text(ctx, "GROW.", 660, 124, { size: 64, color: "#325e50", align: "left", weight: 800 });
+      text(ctx, "GUARD. REPEAT.", 664, 165, { size: 20, color: "#668a79", align: "left", weight: 500 });
+      ctx.save();
+      ctx.translate(962, 330);
+      ctx.rotate(0.11);
+      parchment(ctx, -153, -144, 306, 322);
+      text(ctx, "SPECIMEN 01 / SUNFLOWER", 0, -112, { size: 11, color: "#738b7b", weight: 500 });
+      circle(ctx, 0, 7, 96);
+      paint(ctx, "#ecedce");
+      ctx.save();
+      ctx.translate(0, 98);
+      ctx.scale(1.6, 1.6);
+      drawPlant(ctx, "sunflower", 0, 0, { t: this.t, hp: 1 });
+      ctx.restore();
+      text(ctx, "\u9633\u5149\uFF0C\u662F\u6700\u597D\u7684\u8865\u7ED9\u3002", 0, 147, { size: 15, color: "#587563", weight: 500 });
+      ctx.restore();
+      ctx.save();
+      ctx.translate(756, 482);
+      ctx.rotate(-0.1);
+      parchment(ctx, -116, -127, 232, 271);
+      text(ctx, "02 / PEA SHOOTER", 0, -98, { size: 11, color: "#738b7b", weight: 500 });
+      circle(ctx, 0, -4, 71);
+      paint(ctx, "#d9e9db");
+      ctx.save();
+      ctx.translate(0, 70);
+      ctx.scale(1.3, 1.3);
+      drawPlant(ctx, "peashooter", 0, 0, { t: this.t, hp: 1 });
+      ctx.restore();
+      text(ctx, "\u5C0F\u5C0F\u4E00\u682A\uFF0C\u5927\u5927\u52C7\u6C14\u3002", 0, 115, { size: 13, color: "#587563", weight: 500 });
+      ctx.restore();
+      text(ctx, "\u2733", 1084, 592, { size: 72, color: "#83a988", weight: 500 });
+      text(ctx, "KEEP THE GARDEN GROWING.", 896, 668, { size: 13, color: "#557c68", weight: 500 });
     }
     key(k) {
       if (k === "Enter") this.app.startLevel(LEVELS[Math.min(this.app.save.unlocked, LEVELS.length - 1)]);
@@ -5280,10 +5272,10 @@
         ctx.save();
         if (hover) ctx.translate(0, -3);
         plank(ctx, x, y, cw, ch);
-        text(ctx, lv.id, x + 18, y + 38, { size: 34, color: "#fff3d6", stroke: "#3e2210", lw: 6, align: "left", weight: 900 });
-        text(ctx, lv.name, x + 18, y + 80, { size: 17, color: "#ffe9b0", stroke: "#3e2210", lw: 4, align: "left" });
+        text(ctx, lv.id, x + 18, y + 38, { size: 34, color: "#31594a", align: "left", weight: 900 });
+        text(ctx, lv.name, x + 18, y + 80, { size: 17, color: "#476854", align: "left" });
         const tag = lv.mode === "bowling" ? "\u4FDD\u9F84\u7403" : lv.mode === "conveyor" ? "\u4F20\u9001\u5E26" : `${lv.waves} \u6CE2`;
-        text(ctx, tag, x + 18, y + 108, { size: 14, color: "#f0d8a8", align: "left", weight: 700 });
+        text(ctx, tag, x + 18, y + 108, { size: 14, color: "#71856c", align: "left", weight: 700 });
         if (lv.reward[0]) drawPacket(ctx, x + cw - 58, y + 26, lv.reward[0], { scale: 0.62 });
         else drawTrophy(ctx, x + cw - 38, y + 92, 0.36, this.t);
         if (cleared) {
@@ -5305,7 +5297,7 @@
       });
       const mx = 820;
       parchment(ctx, mx, 92, 356, 428);
-      text(ctx, "\u5C0F\u6E38\u620F", mx + 178, 128, { size: 28, color: "#5a3a10", weight: 900 });
+      text(ctx, "\u5C0F\u6E38\u620F", mx + 178, 128, { size: 28, color: "#315447", weight: 900 });
       const games = [
         { lv: BOWLING, title: "\u575A\u679C\u4FDD\u9F84\u7403 \xB7 \u6311\u6218", sub: "20 \u6CE2\u4FDD\u9F84\u7403\uFF0C\u6253\u51FA\u6700\u9AD8\u8FDE\u51FB", need: 4, best: `\u6700\u9AD8\u8FDE\u51FB ${save.bowlingBest}` },
         { lv: ENDLESS, title: "\u65E0\u5C3D\u751F\u5B58", sub: "\u4E00\u6CE2\u63A5\u4E00\u6CE2\uFF0C\u770B\u4F60\u80FD\u6491\u591A\u4E45", need: 9, best: `\u6700\u4F73\u7EAA\u5F55 ${save.endlessBest} \u6CE2` }
@@ -5382,8 +5374,8 @@
           if (owned) drawPacket(ctx, x, y, id, { cost: PLANTS[id].cost, hover });
           else {
             rrect(ctx, x, y, PACKET_W, PACKET_H, 8);
-            paint(ctx, "#bfae86", "#7a5a22", 2.4);
-            text(ctx, "?", x + PACKET_W / 2, y + PACKET_H / 2, { size: 40, color: "#7a5a22", weight: 900 });
+            paint(ctx, "#dce7d8", "#8ba38b", 2.4);
+            text(ctx, "?", x + PACKET_W / 2, y + PACKET_H / 2, { size: 40, color: "#8ba38b", weight: 900 });
           }
           if (this.plant === id) {
             rrect(ctx, x - 4, y - 4, PACKET_W + 8, PACKET_H + 8, 10);
@@ -5396,7 +5388,7 @@
             app2.audio.play("pick");
           }
         });
-        text(ctx, "\u4FDD\u9F84\u7403\u4E13\u7528\uFF1A\u4FDD\u9F84\u575A\u679C \xB7 \u7206\u70B8\u575A\u679C \xB7 \u5DE8\u578B\u575A\u679C", 280, 670, { size: 14, color: "#8a6a3a" });
+        text(ctx, "\u4FDD\u9F84\u7403\u4E13\u7528\uFF1A\u4FDD\u9F84\u575A\u679C \xB7 \u7206\u70B8\u575A\u679C \xB7 \u5DE8\u578B\u575A\u679C", 280, 670, { size: 14, color: "#6c8170" });
         this.plantDetail(ctx, this.plant, save.plants.includes(this.plant));
       } else {
         ZOMBIE_ORDER.forEach((id, i) => {
@@ -5436,7 +5428,7 @@
       }
       ctx.restore();
       rrect(ctx, x, y, 560, 300, 16);
-      ctx.strokeStyle = "#6a4a1c";
+      ctx.strokeStyle = "#5b7563";
       ctx.lineWidth = 4;
       ctx.stroke();
     }
@@ -5452,13 +5444,13 @@
         drawPlant(ctx, id, 0, 0, { t: this.t, hp: 1, state: st, anim: id === "sunflower" ? (Math.sin(this.t) + 1) / 2 : 0 });
         ctx.restore();
       } else text(ctx, "\u5C1A\u672A\u83B7\u5F97", 866, 262, { size: 34, color: "#2c4a14", weight: 900 });
-      text(ctx, owned ? d.name : "\uFF1F\uFF1F\uFF1F", 866, 446, { size: 32, color: "#5a3a10", weight: 900 });
+      text(ctx, owned ? d.name : "\uFF1F\uFF1F\uFF1F", 866, 446, { size: 32, color: "#315447", weight: 900 });
       if (!owned) return;
       text(ctx, `\u9633\u5149 ${d.cost}\u3000\xB7\u3000\u51B7\u5374 ${d.cooldown >= 30 ? "\u6162" : "\u5FEB"}\u3000\xB7\u3000\u8010\u4E45 ${d.hp}`, 866, 484, { size: 17, color: "#8a5a1a", weight: 800 });
       let y = 522;
       ctx.font = `600 18px ${FONT}`;
       for (const ln of wrapText(ctx, d.desc, 520)) {
-        text(ctx, ln, 866, y, { size: 18, color: "#4a3010", weight: 600 });
+        text(ctx, ln, 866, y, { size: 18, color: "#465e51", weight: 600 });
         y += 28;
       }
       y += 8;
@@ -5476,13 +5468,13 @@
         drawZombie(ctx, 0, 0, view(id, this.t, this.t * 2.2, "preview"));
         ctx.restore();
       } else text(ctx, "\u5C1A\u672A\u906D\u9047", 866, 262, { size: 34, color: "#2c4a14", weight: 900 });
-      text(ctx, seen ? d.name : "\uFF1F\uFF1F\uFF1F", 866, 446, { size: 32, color: "#5a3a10", weight: 900 });
+      text(ctx, seen ? d.name : "\uFF1F\uFF1F\uFF1F", 866, 446, { size: 32, color: "#315447", weight: 900 });
       if (!seen) return;
       text(ctx, d.toughness, 866, 484, { size: 17, color: "#8a1a1a", weight: 800 });
       let y = 522;
       ctx.font = `600 18px ${FONT}`;
       for (const ln of wrapText(ctx, d.desc, 520)) {
-        text(ctx, ln, 866, y, { size: 18, color: "#4a3010", weight: 600 });
+        text(ctx, ln, 866, y, { size: 18, color: "#465e51", weight: 600 });
         y += 28;
       }
     }
@@ -5511,7 +5503,7 @@
       const x = (VIEW_W - w) / 2;
       const y = 120;
       parchment(ctx, x, y, w, h);
-      text(ctx, "\u8BBE\u7F6E", VIEW_W / 2, y + 50, { size: 36, color: "#5a3a10", weight: 900 });
+      text(ctx, "\u8BBE\u7F6E", VIEW_W / 2, y + 50, { size: 36, color: "#315447", weight: 900 });
       const a = app2.audio;
       if (app2.ui.button(ctx, `\u80CC\u666F\u97F3\u4E50\uFF1A${a.musicOn ? "\u5F00" : "\u5173"}`, x + 70, y + 96, w - 140, 58, a.musicOn ? "green" : "stone", 24)) {
         a.setMusicOn(!a.musicOn);
@@ -5542,7 +5534,7 @@
           this.toastT = 2;
         } else this.confirmReset = 3;
       }
-      text(ctx, "\u8FDB\u5EA6\u4FDD\u5B58\u5728\u6D4F\u89C8\u5668\u672C\u5730 \xB7 \u5FEB\u6377\u952E\uFF1A\u7A7A\u683C\u6682\u505C\u30011\u20138 \u9009\u5361\u3001Q \u94F2\u5B50\u3001F \u52A0\u901F", VIEW_W / 2, y + h - 40, { size: 14, color: "#8a6a3a" });
+      text(ctx, "\u8FDB\u5EA6\u4FDD\u5B58\u5728\u6D4F\u89C8\u5668\u672C\u5730 \xB7 \u5FEB\u6377\u952E\uFF1A\u7A7A\u683C\u6682\u505C\u30011\u20138 \u9009\u5361\u3001Q \u94F2\u5B50\u3001F \u52A0\u901F", VIEW_W / 2, y + h - 40, { size: 14, color: "#6c8170" });
       if (this.toastT > 0) {
         ctx.save();
         ctx.globalAlpha = Math.min(1, this.toastT * 2);
@@ -5569,8 +5561,8 @@
     render(ctx) {
       const app2 = this.app;
       ctx.fillStyle = linear(ctx, 0, 0, 0, VIEW_H, [
-        [0, "#fffbe8"],
-        [1, "#f0dcae"]
+        [0, "#f4faf0"],
+        [1, "#dfece0"]
       ]);
       ctx.fillRect(0, 0, VIEW_W, VIEW_H);
       ctx.save();
@@ -5602,15 +5594,15 @@
           plantShadow(ctx, 0, 2, 34);
           drawPlant(ctx, id, 0, 0, { t: this.t, hp: 1, state: id === "potato" ? "armed" : void 0 });
           ctx.restore();
-          text(ctx, d.name, cx, 430, { size: 34, color: "#5a3a10", weight: 900 });
+          text(ctx, d.name, cx, 430, { size: 34, color: "#315447", weight: 900 });
           ctx.font = `600 18px ${FONT}`;
-          wrapText(ctx, d.desc, 360).forEach((ln, k) => text(ctx, ln, cx, 470 + k * 28, { size: 18, color: "#6a4a1c", weight: 600 }));
+          wrapText(ctx, d.desc, 360).forEach((ln, k) => text(ctx, ln, cx, 470 + k * 28, { size: 18, color: "#5b7563", weight: 600 }));
           text(ctx, `${d.cost} \u9633\u5149`, cx, 540, { size: 18, color: "#b07a1a", weight: 800 });
         });
       } else {
         text(ctx, this.final ? "\u606D\u559C\u901A\u5173\uFF01\u4F60\u5B88\u4F4F\u4E86\u82B1\u56ED" : `\u5173\u5361 ${this.level.id} \u5B8C\u6210\uFF01`, VIEW_W / 2, 84, { size: 46, color: "#b07a1a", stroke: "#fff", lw: 8, weight: 900 });
         drawTrophy(ctx, VIEW_W / 2, 420, 2.1 * pop, this.t);
-        if (this.final) text(ctx, "\u611F\u8C22\u6E38\u73A9 \xB7 \u53BB\u5C0F\u6E38\u620F\u91CC\u6311\u6218\u66F4\u9AD8\u7EAA\u5F55\u5427", VIEW_W / 2, 500, { size: 22, color: "#6a4a1c", weight: 700 });
+        if (this.final) text(ctx, "\u611F\u8C22\u6E38\u73A9 \xB7 \u53BB\u5C0F\u6E38\u620F\u91CC\u6311\u6218\u66F4\u9AD8\u7EAA\u5F55\u5427", VIEW_W / 2, 500, { size: 22, color: "#5b7563", weight: 700 });
       }
       if (this.t > 0.8 && app2.ui.button(ctx, "\u7EE7\u7EED", VIEW_W / 2 - 120, VIEW_H - 120, 240, 64, "green", 28)) app2.go(new SelectScene(app2));
     }
@@ -5621,10 +5613,10 @@
 
   // games-src/garden-guard/src/ui.ts
   var STYLES = {
-    wood: { top: "#c98a4b", bottom: "#8a5426", edge: "#3e2210", ink: "#fff3d6", stroke: "#4a2a10" },
-    stone: { top: "#b9bcc0", bottom: "#7d8186", edge: "#3a3d41", ink: "#2a2d31", stroke: void 0 },
-    green: { top: "#8fdc58", bottom: "#3f9424", edge: "#1d4a0e", ink: "#ffffff", stroke: "#1d4a0e" },
-    red: { top: "#f0705a", bottom: "#a8281a", edge: "#4a0c06", ink: "#ffffff", stroke: "#4a0c06" },
+    wood: { top: "#f4f6de", bottom: "#e2ebc8", edge: "#729874", ink: "#2c5142", stroke: void 0 },
+    stone: { top: "#e3ece9", bottom: "#ccdcd7", edge: "#76968e", ink: "#2a4e46", stroke: void 0 },
+    green: { top: "#426f55", bottom: "#2c5a47", edge: "#234638", ink: "#edf7d8", stroke: void 0 },
+    red: { top: "#e9a389", bottom: "#d17e69", edge: "#a25e51", ink: "#fff8ed", stroke: void 0 },
     ghost: { top: "rgba(255,255,255,0.14)", bottom: "rgba(255,255,255,0.06)", edge: "rgba(255,255,255,0.4)", ink: "#ffffff", stroke: void 0 }
   };
   var UI = class {
@@ -5669,25 +5661,18 @@
       const oy = press ? 2 : hover ? -1 : 0;
       ctx.save();
       if (disabled) ctx.globalAlpha *= 0.45;
-      rrect(ctx, x, y + 4, w, h, 12);
-      ctx.fillStyle = "rgba(0,0,0,0.3)";
+      rrect(ctx, x, y + 4, w, h, 18);
+      ctx.fillStyle = "rgba(35,69,54,0.12)";
       ctx.fill();
-      rrect(ctx, x, y + oy, w, h, 12);
-      paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, s.top], [1, s.bottom]]), s.edge, 3);
-      if (style === "wood") {
-        ctx.strokeStyle = "rgba(60,30,10,0.25)";
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        for (let i = 1; i < 3; i++) {
-          ctx.moveTo(x + 10, y + oy + h * i / 3);
-          ctx.quadraticCurveTo(x + w / 2, y + oy + h * i / 3 + 3, x + w - 10, y + oy + h * i / 3);
-        }
-        ctx.stroke();
-      }
-      rrect(ctx, x + 4, y + oy + 3, w - 8, h * 0.38, 9);
-      ctx.fillStyle = hover ? "rgba(255,255,255,0.28)" : "rgba(255,255,255,0.16)";
-      ctx.fill();
-      text(ctx, label, x + w / 2, y + oy + h / 2 + 1, { size, color: s.ink, stroke: s.stroke, lw: 4, weight: 900 });
+      rrect(ctx, x, y + oy, w, h, 18);
+      paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, s.top], [1, s.bottom]]), s.edge, 1.5);
+      ctx.beginPath();
+      ctx.moveTo(x + 18, y + oy + 2);
+      ctx.lineTo(x + w - 18, y + oy + 2);
+      ctx.strokeStyle = hover ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.5)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      text(ctx, label, x + w / 2, y + oy + h / 2 + 1, { size, color: s.ink, stroke: s.stroke, lw: 4, weight: 650 });
       ctx.restore();
       if (disabled) return false;
       const clicked = this.hit(x, y, w, h);

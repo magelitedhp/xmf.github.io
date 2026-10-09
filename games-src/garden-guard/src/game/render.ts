@@ -436,10 +436,10 @@ function panel(ctx: Ctx, x: number, y: number, w: number, h: number) {
   ctx.fillStyle = 'rgba(0,0,0,0.35)'
   ctx.fill()
   rrect(ctx, x, y, w, h, 20)
-  paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, '#f6ead0'], [1, '#e1cca0']]), '#6a4a1c', 4)
+  paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, '#fbfff5f5'], [1, '#deedddf5']]), '#98b7a1', 1.5)
   rrect(ctx, x + 10, y + 10, w - 20, h - 20, 14)
-  ctx.strokeStyle = 'rgba(106,74,28,0.35)'
-  ctx.lineWidth = 2
+  ctx.strokeStyle = 'rgba(255,255,255,0.65)'
+  ctx.lineWidth = 1
   ctx.stroke()
 }
 
@@ -449,8 +449,8 @@ function drawChooser(ctx: Ctx, b: Battle, ui: UI) {
   const w = 520
   const h = 572
   panel(ctx, x, y, w, h)
-  text(ctx, '选择出战植物', x + w / 2, y + 40, { size: 30, color: '#5a3a10', weight: 900 })
-  text(ctx, `已选 ${b.chosen.length} / ${MAX_SLOTS}`, x + w / 2, y + 74, { size: 17, color: '#8a6a3a' })
+  text(ctx, '选择出战植物', x + w / 2, y + 40, { size: 30, color: '#315447', weight: 900 })
+  text(ctx, `已选 ${b.chosen.length} / ${MAX_SLOTS}`, x + w / 2, y + 74, { size: 17, color: '#6c8170' })
   const cols = 6
   b.available.forEach((id, i) => {
     const px = x + 30 + (i % cols) * 78
@@ -465,9 +465,9 @@ function drawChooser(ctx: Ctx, b: Battle, ui: UI) {
     const d = PLANTS[hoverId]
     rrect(ctx, x + 24, y + h - 170, w - 48, 82, 10)
     paint(ctx, 'rgba(90,58,16,0.1)')
-    text(ctx, `${d.name} · ${d.cost} 阳光`, x + 40, y + h - 146, { size: 19, color: '#5a3a10', align: 'left', weight: 900 })
+    text(ctx, `${d.name} · ${d.cost} 阳光`, x + 40, y + h - 146, { size: 19, color: '#315447', align: 'left', weight: 900 })
     ctx.font = `600 15px ${FONT}`
-    wrapText(ctx, d.desc.replace(/\n/g, ''), w - 90).slice(0, 2).forEach((ln, i) => text(ctx, ln, x + 40, y + h - 118 + i * 22, { size: 15, color: '#6a4a1c', align: 'left', weight: 600 }))
+    wrapText(ctx, d.desc.replace(/\n/g, ''), w - 90).slice(0, 2).forEach((ln, i) => text(ctx, ln, x + 40, y + h - 118 + i * 22, { size: 15, color: '#5b7563', align: 'left', weight: 600 }))
   }
   if (ui.button(ctx, '开始种植！', x + w / 2 - 120, y + h - 74, 240, 56, 'green', 26, b.chosen.length === 0)) b.confirmChoice()
   text(ctx, '本关出现的僵尸', VIEW_W - 220, 150, { size: 22, color: '#fff3c8', stroke: '#2a1a08', lw: 5 })
@@ -481,7 +481,7 @@ function drawPause(ctx: Ctx, b: Battle, ui: UI) {
   const x = (VIEW_W - w) / 2
   const y = (VIEW_H - h) / 2
   panel(ctx, x, y, w, h)
-  text(ctx, '游戏暂停', VIEW_W / 2, y + 52, { size: 36, color: '#5a3a10', weight: 900 })
+  text(ctx, '游戏暂停', VIEW_W / 2, y + 52, { size: 36, color: '#315447', weight: 900 })
   if (ui.button(ctx, '继续游戏', x + 70, y + 92, w - 140, 56, 'green', 24)) b.paused = false
   if (ui.button(ctx, '重新开始', x + 70, y + 160, w - 140, 56, 'wood', 24)) b.host.finish(b.result(false), 'retry')
   if (ui.button(ctx, '返回菜单', x + 70, y + 228, w - 140, 56, 'wood', 24)) b.host.finish(b.result(false), 'menu')
@@ -494,7 +494,7 @@ function drawPause(ctx: Ctx, b: Battle, ui: UI) {
     a.sfxOn = !a.sfxOn
     b.host.save.sfx = a.sfxOn
   }
-  text(ctx, '空格 暂停 · 1–8 选卡 · Q 铲子 · F 加速', VIEW_W / 2, y + h - 26, { size: 14, color: '#8a6a3a' })
+  text(ctx, '空格 暂停 · 1–8 选卡 · Q 铲子 · F 加速', VIEW_W / 2, y + h - 26, { size: 14, color: '#6c8170' })
 }
 
 function drawLost(ctx: Ctx, b: Battle, ui: UI) {

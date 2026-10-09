@@ -8,29 +8,29 @@ const FONT = '"Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif'
 
 const PALETTES = [
   {
-    skyTop: '#120b1d',
-    skyBot: '#3b1a2c',
-    moon: '#f6d99a',
-    far: '#1f1430',
-    near: '#2b1830',
-    ground: '#22162a',
-    groundTop: '#9a6640',
-    groundLine: '#2e1e34',
-    plat: '#3a2533',
-    platTop: '#d39a5a',
+    skyTop: '#091b25',
+    skyBot: '#285653',
+    moon: '#e3f5c2',
+    far: '#112f38',
+    near: '#193e42',
+    ground: '#10282f',
+    groundTop: '#76a995',
+    groundLine: '#204047',
+    plat: '#29484a',
+    platTop: '#bed779',
     fog: 'rgba(255, 120, 80, 0.10)',
     slime: '#e08a4f',
   },
   {
-    skyTop: '#07101d',
-    skyBot: '#1d3352',
+    skyTop: '#171b39',
+    skyBot: '#48478a',
     moon: '#eef7ff',
-    far: '#122036',
-    near: '#182b45',
-    ground: '#132034',
-    groundTop: '#b6d4ee',
-    groundLine: '#1b2c44',
-    plat: '#1f3350',
+    far: '#282748',
+    near: '#34345c',
+    ground: '#20243f',
+    groundTop: '#9eacdf',
+    groundLine: '#303354',
+    plat: '#3b406d',
     platTop: '#d8ecff',
     fog: 'rgba(150, 210, 255, 0.10)',
     slime: '#7fd0e8',
@@ -542,8 +542,8 @@ function text(ctx: Ctx, str: string, x: number, y: number, size: number, color: 
   ctx.font = `${weight} ${size}px ${FONT}`
   ctx.textAlign = align
   ctx.textBaseline = 'middle'
-  ctx.lineWidth = Math.max(3, size / 5)
-  ctx.strokeStyle = 'rgba(5, 4, 12, 0.85)'
+  ctx.lineWidth = Math.max(1, size / 25)
+  ctx.strokeStyle = 'rgba(5, 24, 29, 0.45)'
   ctx.strokeText(str, x, y)
   ctx.fillStyle = color
   ctx.fillText(str, x, y)
@@ -562,12 +562,17 @@ function wrap(ctx: Ctx, str: string, maxW: number) {
   return lines
 }
 
-function panel(ctx: Ctx, x: number, y: number, w: number, h: number, border = 'rgba(242,198,109,0.35)') {
-  ctx.fillStyle = 'rgba(8, 8, 18, 0.72)'
-  ctx.fillRect(x, y, w, h)
-  ctx.strokeStyle = border
-  ctx.lineWidth = 2
-  ctx.strokeRect(x + 1, y + 1, w - 2, h - 2)
+function panel(ctx: Ctx, x: number, y: number, w: number, h: number, border = 'rgba(177,224,207,0.25)') {
+
+  const glass = ctx.createLinearGradient(x, y, x + w, y + h)
+  glass.addColorStop(0, 'rgba(38,55,82,0.94)')
+  glass.addColorStop(1, 'rgba(19,31,48,0.94)')
+  ctx.beginPath(); ctx.roundRect(x, y, w, h, 14)
+  ctx.fillStyle = glass; ctx.fill()
+  ctx.strokeStyle = border; ctx.lineWidth = 1; ctx.stroke()
+  ctx.strokeStyle = 'rgba(207,227,255,0.18)'
+  ctx.beginPath(); ctx.moveTo(x + 15, y + 1); ctx.lineTo(x + w - 15, y + 1); ctx.stroke()
+
 }
 
 function drawTexts(ctx: Ctx, g: Game) {
@@ -582,7 +587,7 @@ function drawTexts(ctx: Ctx, g: Game) {
 function drawHud(ctx: Ctx, g: Game) {
   const p = g.player
   panel(ctx, 18, 16, 272, 50)
-  text(ctx, '烬', 40, 41, 20, '#f2c66d', 'center', 800)
+  text(ctx, '烬', 40, 41, 20, '#d5fa65', 'center', 800)
   const bw = 210
   ctx.fillStyle = 'rgba(255,255,255,0.08)'
   ctx.fillRect(62, 30, bw, 14)
@@ -593,7 +598,7 @@ function drawHud(ctx: Ctx, g: Game) {
   ctx.fillStyle = grad
   ctx.fillRect(62, 30, bw * ratio, 14)
   text(ctx, `${Math.ceil(p.hp)} / ${p.maxHp}`, 62 + bw / 2, 37, 12, '#ffffff', 'center')
-  ctx.fillStyle = p.dashCd <= 0 ? '#f2c66d' : 'rgba(242,198,109,0.25)'
+  ctx.fillStyle = p.dashCd <= 0 ? '#d5fa65' : 'rgba(242,198,109,0.25)'
   const dashRatio = p.dashCd <= 0 ? 1 : 1 - p.dashCd / (0.6 * p.stats.dashCdMult)
   ctx.fillRect(62, 50, bw * clamp(dashRatio, 0, 1), 4)
 
@@ -613,7 +618,7 @@ function drawHud(ctx: Ctx, g: Game) {
 
   const biome = BIOMES[g.biome]
   panel(ctx, UW - 218, 16, 200, 50)
-  text(ctx, `第 ${g.depth} / ${MAX_DEPTH} 层`, UW - 32, 32, 16, '#f2c66d', 'right', 800)
+  text(ctx, `第 ${g.depth} / ${MAX_DEPTH} 层`, UW - 32, 32, 16, '#d5fa65', 'right', 800)
   const waveText = g.isBossRoom ? '首领战' : g.roomCleared ? '已肃清' : `波次 ${Math.max(1, g.wave)} / ${g.wavesTotal}`
   text(ctx, `${biome.name} · ${waveText}`, UW - 32, 52, 12, '#c9d2e3', 'right', 600)
 
@@ -622,7 +627,7 @@ function drawHud(ctx: Ctx, g: Game) {
     ctx.save()
     ctx.translate(UW - 40, 120)
     ctx.scale(pulse, pulse)
-    text(ctx, `${g.combo}`, 0, 0, 34, '#f2c66d', 'right', 900)
+    text(ctx, `${g.combo}`, 0, 0, 34, '#d5fa65', 'right', 900)
     ctx.restore()
     text(ctx, '连击', UW - 40, 148, 13, '#c9d2e3', 'right', 700)
   }
@@ -667,52 +672,42 @@ function dim(ctx: Ctx, a = 0.62) {
 }
 
 function drawTitle(ctx: Ctx, g: Game) {
-  dim(ctx, 0.45)
-  const bob = Math.sin(g.time * 1.6) * 3
-  text(ctx, '烬 灯 行', UW / 2, 140 + bob, 72, '#f2c66d', 'center', 900)
-  text(ctx, 'E M B E R   L A N T E R N', UW / 2, 196, 16, '#e6d3a8', 'center', 700)
-  text(ctx, '像素横版动作肉鸽 · 十层长夜，一盏孤灯', UW / 2, 228, 15, '#c9d2e3', 'center', 600)
-  if (Math.floor(g.time * 2) % 2 === 0) text(ctx, '按 J / Enter 或点击画面开始', UW / 2, 300, 18, '#ffffff', 'center', 800)
-
-  panel(ctx, UW / 2 - 300, 340, 600, 128)
-  const rows = [
-    ['移动', 'A D / ← →'],
-    ['跳跃', 'K / 空格 / W · 空中可再跳'],
-    ['攻击', 'J · 三段连击，第三击击飞'],
-    ['冲刺', 'L / Shift · 冲刺期间无敌'],
-    ['穿透', '↓ + 跳跃 落下平台'],
-    ['暂停', 'Esc / P'],
-  ]
-  rows.forEach(([k, v], i) => {
-    const col = i % 2
-    const row = Math.floor(i / 2)
-    const x = UW / 2 - 280 + col * 300
-    const y = 368 + row * 36
-    text(ctx, k, x, y, 14, '#f2c66d', 'left', 800)
-    text(ctx, v, x + 48, y, 13, '#e6e0f0', 'left', 600)
-  })
-  if (g.best > 0) {
-    const label = g.best > MAX_DEPTH ? '最佳：已通关' : `最佳：第 ${g.best} 层`
-    text(ctx, label, UW / 2, 500, 14, '#9fe3c0', 'center', 700)
-  }
+  dim(ctx, 0.35)
+  const shade=ctx.createLinearGradient(0,0,UW,0);shade.addColorStop(0,'#0a1f2afa');shade.addColorStop(.6,'#0a1f2ac0');shade.addColorStop(1,'#0a1f2a10');ctx.fillStyle=shade;ctx.fillRect(0,0,UW,UH)
+  text(ctx,'Yumo ARCADE / 01',55,53,12,'#91b6a7','left',500)
+  text(ctx,'烬灯行',50,154,92,'#e9f4df','left',900)
+  text(ctx,'EMBER LANTERN',57,227,32,'#d5fa65','left',500)
+  text(ctx,'十层长夜，一盏孤灯。',57,275,17,'#8fafab','left',500)
+  ctx.beginPath();ctx.roundRect(55,316,315,57,28);ctx.fillStyle='#d5fa65';ctx.fill();
+  text(ctx,'点亮长夜  ↗',212,344,19,'#183a31','center',800)
+  text(ctx,'点击画面 / J / Enter 开始',57,401,12,'#90b3a5','left',500)
+  const cx=738,cy=230+Math.sin(g.time)*5
+  ctx.strokeStyle='#8dccbd45';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,143,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.ellipse(cx,cy,174,53,-.55,0,Math.PI*2);ctx.stroke()
+  const glow=ctx.createRadialGradient(cx,cy,8,cx,cy,115);glow.addColorStop(0,'#e9ff9a77');glow.addColorStop(1,'#d5fa6500');ctx.fillStyle=glow;ctx.fillRect(cx-120,cy-120,240,240)
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(Math.sin(g.time*.6)*.055);ctx.strokeStyle='#ceefb5';ctx.lineWidth=3;ctx.strokeRect(-47,-54,94,112);ctx.fillStyle='#d5fa6522';ctx.fillRect(-44,-51,88,106);ctx.fillStyle='#d5fa65';ctx.fillRect(-31,-30,62,70);ctx.fillStyle='#ecffc7';ctx.fillRect(-8,-20,16,42);ctx.fillStyle='#345b52';ctx.fillRect(-57,-63,114,12);ctx.fillRect(-57,54,114,12);ctx.fillStyle='#91b38c';ctx.fillRect(-2,-99,4,34);ctx.fillRect(-2,66,4,48);ctx.restore()
+  text(ctx,'KEEP THE LIGHT.',cx,432,12,'#b9daaa','center',500)
+  ctx.strokeStyle='#a9ceae30';ctx.beginPath();ctx.moveTo(55,464);ctx.lineTo(UW-55,464);ctx.stroke()
+  text(ctx,'A D 移动   /   K 跳跃   /   J 攻击   /   L 冲刺',55,492,12,'#82a398','left',500)
+  text(ctx,g.best>MAX_DEPTH?'最佳：已通关':'最佳：第 '+g.best+' 层',UW-55,492,12,'#d5fa65','right',500)
 }
 
 function drawUpgrade(ctx: Ctx, g: Game) {
   dim(ctx, 0.66)
-  text(ctx, '择 一 而 行', UW / 2, 92, 34, '#f2c66d', 'center', 900)
+  text(ctx, '择 一 而 行', UW / 2, 92, 34, '#d5fa65', 'center', 900)
   text(ctx, `第 ${g.depth} 层已肃清 · 选择一盏灯火带入下一层`, UW / 2, 128, 14, '#c9d2e3', 'center', 600)
   g.choices.forEach((u, i) => {
     const r = cardRect(i)
     const selected = i === g.choiceIndex
     const lift = selected ? -10 : 0
     const color = RARITY_COLOR[u.rarity]
-    ctx.fillStyle = selected ? 'rgba(26, 22, 40, 0.95)' : 'rgba(14, 12, 24, 0.9)'
-    ctx.fillRect(r.x, r.y + lift, r.w, r.h)
-    ctx.strokeStyle = selected ? color : 'rgba(255,255,255,0.15)'
-    ctx.lineWidth = selected ? 3 : 2
-    ctx.strokeRect(r.x + 1, r.y + lift + 1, r.w - 2, r.h - 2)
-    ctx.fillStyle = color
-    ctx.fillRect(r.x, r.y + lift, r.w, 4)
+
+    panel(ctx, r.x, r.y + lift, r.w, r.h, selected ? color : '#aec9f02e')
+    text(ctx, '0' + (i + 1) + ' / LANTERN', r.x + 20, r.y + lift + 25, 10, selected ? color : '#7894b6', 'left', 500)
+    if (selected) {
+      ctx.fillStyle = color
+      ctx.beginPath(); ctx.roundRect(r.x + r.w - 31, r.y + lift + 13, 16, 16, 8); ctx.fill()
+      text(ctx, '✓', r.x + r.w - 23, r.y + lift + 21, 11, '#1c3042', 'center', 800)
+    }
 
     const glow = ctx.createRadialGradient(r.x + r.w / 2, r.y + lift + 70, 4, r.x + r.w / 2, r.y + lift + 70, 50)
     glow.addColorStop(0, color + '66')
@@ -733,34 +728,34 @@ function drawUpgrade(ctx: Ctx, g: Game) {
 }
 
 function drawPaused(ctx: Ctx) {
-  dim(ctx, 0.55)
-  text(ctx, '暂 停', UW / 2, UH / 2 - 16, 40, '#f2c66d', 'center', 900)
-  text(ctx, '按 Esc / Enter 或点击继续', UW / 2, UH / 2 + 30, 15, '#e6e0f0', 'center', 600)
+  dim(ctx, 0.67)
+  panel(ctx, UW / 2 - 230, 128, 460, 275, '#adc8ef55')
+  text(ctx, 'INTERMISSION / 长夜未央', UW / 2, 172, 12, '#92afd2', 'center', 500)
+  text(ctx, '灯火，为你停留。', UW / 2, 230, 36, '#edf3e4', 'center', 700)
+  text(ctx, '歇一会儿，再走下一程。', UW / 2, 280, 15, '#91a9bb', 'center', 500)
+  ctx.beginPath(); ctx.roundRect(UW / 2 - 140, 316, 280, 48, 24)
+  ctx.fillStyle = '#d5fa65'; ctx.fill()
+  text(ctx, '继续前行  ↗', UW / 2, 340, 17, '#243c38', 'center', 700)
+  text(ctx, 'ESC / ENTER / 点击画面', UW / 2, 434, 11, '#8bacc8', 'center', 500)
 }
 
 function drawEnd(ctx: Ctx, g: Game) {
   const win = g.state === 'victory'
-  dim(ctx, 0.66)
-  text(ctx, win ? '长 夜 已 明' : '灯 熄', UW / 2, 140, 56, win ? '#f2c66d' : '#ff6b7d', 'center', 900)
-  text(ctx, win ? '十层长夜尽数肃清，孤灯照见黎明。' : `倒在第 ${g.depth} 层 · ${BIOMES[g.biome].name}`, UW / 2, 196, 16, '#e6e0f0', 'center', 600)
-  panel(ctx, UW / 2 - 220, 230, 440, 150)
+  dim(ctx, 0.72)
+  text(ctx, win ? 'DAWN BREAKS / RUN COMPLETE' : 'THE LIGHT WILL RETURN', UW / 2, 66, 12, '#97b4ce', 'center', 500)
+  text(ctx, win ? '长夜，终有回响。' : '灯熄了，勇气还在。', UW / 2, 129, 43, win ? '#d5fa65' : '#eac1c7', 'center', 800)
+  text(ctx, win ? '十层长夜尽数肃清，孤灯照见黎明。' : `止步第 ${g.depth} 层 · ${BIOMES[g.biome].name}，下一程会更远。`, UW / 2, 184, 15, '#a9bdd0', 'center', 500)
   const r = g.run
-  const mins = Math.floor(r.time / 60)
-  const secs = Math.floor(r.time % 60)
-  const rows = [
-    ['击杀', String(r.kills)],
-    ['总伤害', String(r.damage)],
-    ['最高连击', String(r.maxCombo)],
-    ['用时', `${mins}:${String(secs).padStart(2, '0')}`],
-  ]
-  rows.forEach(([k, v], i) => {
-    const y = 262 + i * 30
-    text(ctx, k, UW / 2 - 180, y, 15, '#c9d2e3', 'left', 600)
-    text(ctx, v, UW / 2 + 180, y, 16, '#ffffff', 'right', 800)
+  const rows = [['击杀', String(r.kills)], ['总伤害', String(r.damage)], ['最高连击', String(r.maxCombo)], ['用时', `${Math.floor(r.time / 60)}:${String(Math.floor(r.time % 60)).padStart(2, '0')}`]]
+  rows.forEach(([label, value], i) => {
+    const x = 100 + i * 195
+    panel(ctx, x, 229, 177, 109)
+    text(ctx, label, x + 88, 258, 12, '#8da8c0', 'center', 500)
+    text(ctx, value, x + 88, 300, 29, '#e7f3e9', 'center', 700)
   })
-  const label = g.best > MAX_DEPTH ? '最佳：已通关' : `最佳：第 ${g.best} 层`
-  text(ctx, label, UW / 2, 404, 14, '#9fe3c0', 'center', 700)
-  if (g.menuDelay <= 0 && Math.floor(g.time * 2) % 2 === 0) {
-    text(ctx, '按 J / Enter 或点击 再战一夜', UW / 2, 446, 18, '#ffffff', 'center', 800)
-  }
+  text(ctx, g.best > MAX_DEPTH ? '个人最佳 / 已通关' : `个人最佳 / 第 ${g.best} 层`, UW / 2, 373, 12, '#a6bfae', 'center', 500)
+  ctx.beginPath(); ctx.roundRect(UW / 2 - 162, 406, 324, 53, 26)
+  ctx.fillStyle = g.menuDelay > 0 ? '#85966e' : '#d5fa65'; ctx.fill()
+  text(ctx, '再点一盏灯  ↗', UW / 2, 433, 18, '#233c34', 'center', 700)
+  text(ctx, 'J / ENTER / 点击画面 · 再战一夜', UW / 2, 489, 11, '#849bb5', 'center', 500)
 }

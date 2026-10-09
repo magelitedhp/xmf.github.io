@@ -1,5 +1,5 @@
 <template>
-  <GameFrame>
+  <GameFrame title="花园保卫战" number="02" tone="garden" format="STRATEGY / TOWER DEFENSE">
     <iframe
       class="game-iframe"
       :src="src"

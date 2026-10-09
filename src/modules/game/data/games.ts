@@ -41,7 +41,7 @@ export const games: GameEntry[] = [
     summary: '十层长夜，一盏孤灯。三段连击、冲刺闪避，每层择一强化。',
     description:
       '像素横版动作肉鸽。十层长夜，三段连击、冲刺闪避，每层肃清后从三盏灯火中择一强化，第五层与第十层各有首领镇守。',
-    cover: 'games/ember-lantern/cover.png',
+    cover: 'games/ember-lantern/cover.svg',
     tags: ['动作', '肉鸽', '像素'],
     released: '2026-10-09',
     controls: [
@@ -69,7 +69,7 @@ export const games: GameEntry[] = [
     summary: '种下植物，守住草坪。12 关冒险、坚果保龄球与无尽生存。',
     description:
       '经典草坪塔防。收集阳光种下 15 种植物，抵御 10 种僵尸——路障、铁桶、撑杆、读报、铁栅门、橄榄球直至巨人与小鬼；12 关冒险之外还有坚果保龄球、传送带关卡与无尽生存。',
-    cover: 'games/garden-guard/cover.png',
+    cover: 'games/garden-guard/cover.svg',
     tags: ['塔防', '策略', '单文件'],
     released: '2026-10-09',
     controls: [
@@ -90,6 +90,36 @@ export const games: GameEntry[] = [
       suffix: '；本作为非官方同人作品，美术、代码与音乐均为原创。',
     },
     load: () => import('../games/garden-guard/GardenGuard.vue'),
+  },
+  {
+    slug: 'melon-fluid',
+    name: '瓜体实验室',
+    enName: 'Fluid Melon Lab',
+    genre: '半流体物理解谜',
+    summary: '让果实流动起来。改变材质、倾斜容器，在压力与黏性中完成融合。',
+    description:
+      '一款围绕“可变物性”设计的合成游戏。果实不再是坚硬圆球：它们会受压变形、黏滞流动并填入缝隙。切换果冻、半流体与果汁三种材质，利用倾斜和能量涡旋控制果池，合成最终的西瓜。',
+    cover: 'games/melon-fluid/cover.svg',
+    tags: ['物理', '合成', '半流体'],
+    released: '2026-10-09',
+    controls: [
+      { keys: ['鼠标', '触屏'], label: '移动瞄准，点击投放果实' },
+      { keys: ['A', 'D'], label: '向左 / 向右倾斜容器' },
+      { keys: ['←', '→'], label: '键盘微调投放位置' },
+      { keys: ['Enter'], label: '投放果实' },
+      { keys: ['空格'], label: '消耗 30 能量搅动果池' },
+    ],
+    notes: [
+      '三种材质拥有不同的重力、弹性、黏性与变形幅度；24 点弹性轮廓模拟局部受压，保持面积近似不变。融合会恢复能量。',
+      '全部画面由 Canvas 实时绘制，声音由 WebAudio 合成，最佳分数保存在本地浏览器。',
+    ],
+    credit: {
+      prefix: '概念与交互参考',
+      label: '瓜体实验室 · 半流体西瓜游戏',
+      href: 'https://melon-game.jack-514.chatgpt.site/',
+      suffix: '；本站版本为独立原创实现，代码与视觉素材均未复制。',
+    },
+    load: () => import('../games/melon-fluid/MelonFluid.vue'),
   },
 ]
 

@@ -1,44 +1,49 @@
 <template>
-  <GameFrame>
+  <GameFrame title="烬灯行" number="01" tone="ember" format="ACTION / ROGUELITE">
     <canvas
       ref="canvasEl"
       class="game-canvas"
       :width="UW"
       :height="UH"
+      tabindex="0"
+      role="application"
+      aria-label="烬灯行：回车开始，A D 移动，J 攻击，K 跳跃，L 冲刺，Escape 暂停"
       @pointerdown="onPointer($event, true)"
       @pointermove="onPointer($event, false)"
     ></canvas>
 
-    <div v-if="touch" class="game-touch">
-      <div class="game-touch-pad">
-        <button
-          v-for="b in padButtons"
-          :key="b.action"
-          type="button"
-          class="game-touch-btn"
-          @pointerdown.prevent="hold(b.action, $event)"
-          @pointerup.prevent="letGo(b.action)"
-          @pointercancel="letGo(b.action)"
-          @lostpointercapture="letGo(b.action)"
-        >{{ b.label }}</button>
+    <template #controls>
+      <div v-if="touch" class="game-touch">
+        <div class="game-touch-pad">
+          <button
+            v-for="b in padButtons"
+            :key="b.action"
+            type="button"
+            class="game-touch-btn"
+            @pointerdown.prevent="hold(b.action, $event)"
+            @pointerup.prevent="letGo(b.action)"
+            @pointercancel="letGo(b.action)"
+            @lostpointercapture="letGo(b.action)"
+          >{{ b.label }}</button>
+        </div>
+        <div class="game-touch-actions">
+          <button
+            v-for="b in actionButtons"
+            :key="b.action"
+            type="button"
+            class="game-touch-btn"
+            :class="`is-${b.action}`"
+            @pointerdown.prevent="hold(b.action, $event)"
+            @pointerup.prevent="letGo(b.action)"
+            @pointercancel="letGo(b.action)"
+            @lostpointercapture="letGo(b.action)"
+          >{{ b.label }}</button>
+        </div>
       </div>
-      <div class="game-touch-actions">
-        <button
-          v-for="b in actionButtons"
-          :key="b.action"
-          type="button"
-          class="game-touch-btn"
-          :class="`is-${b.action}`"
-          @pointerdown.prevent="hold(b.action, $event)"
-          @pointerup.prevent="letGo(b.action)"
-          @pointercancel="letGo(b.action)"
-          @lostpointercapture="letGo(b.action)"
-        >{{ b.label }}</button>
-      </div>
-    </div>
+    </template>
 
     <template #toolbar>
-      <button type="button" class="glass-button" @click="toggleMute">{{ muted ? '开启音效' : '静音' }}</button>
+      <button type="button" class="glass-button" :aria-pressed="muted" @click="toggleMute">{{ muted ? '音效已关闭' : '音效已开启' }}</button>
       <button type="button" class="glass-button" @click="game?.togglePause()">暂停 / 继续</button>
     </template>
   </GameFrame>

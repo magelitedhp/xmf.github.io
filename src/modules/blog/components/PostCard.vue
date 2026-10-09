@@ -1,5 +1,6 @@
 <template>
   <article class="post-card glass-panel">
+    <div class="post-art" :class="post.slug.includes('audio') ? 'post-art-music' : post.slug.includes('ink') ? 'post-art-effects' : ''" aria-hidden="true"><i></i><i></i><span>{{ post.slug.includes('audio') ? '♫' : post.slug.includes('ink') ? '≈' : 'n.' }}</span></div>
     <div class="post-card-meta">
       <time :datetime="post.date">{{ formatPostDate(post.date) }}</time>
       <span>{{ post.readingMinutes }} 分钟阅读</span>

@@ -176,11 +176,11 @@ export function drawPacket(ctx: Ctx, x: number, y: number, id: PlantId, o: Packe
   ctx.fillStyle = 'rgba(0,0,0,0.25)'
   ctx.fill()
   rrect(ctx, 0, 0, PACKET_W, PACKET_H, 8)
-  paint(ctx, linear(ctx, 0, 0, 0, PACKET_H, [[0, '#fbf1c8'], [1, '#e2cf92']]), '#7a5a22', 2.4)
+  paint(ctx, linear(ctx, 0, 0, 0, PACKET_H, [[0, '#fffdec'], [1, '#ebf2d7']]), '#97af89', 1.5)
   rrect(ctx, 4, 4, ICON_W, ICON_H, 6)
-  paint(ctx, linear(ctx, 0, 4, 0, 66, [[0, '#d4f0b0'], [1, '#8dc463']]), '#5f8a36', 1.4)
+  paint(ctx, linear(ctx, 0, 4, 0, 66, [[0, '#ecf4d9'], [1, '#c4dcac']]), '#b4c99c', 1)
   ctx.drawImage(packetIcon(id), 4, 4, ICON_W, ICON_H)
-  if (o.cost != null) text(ctx, String(o.cost), PACKET_W / 2, PACKET_H - 11, { size: 17, color: '#2a1d08', weight: 900 })
+  if (o.cost != null) text(ctx, String(o.cost), PACKET_W / 2, PACKET_H - 11, { size: 17, color: '#395f46', weight: 700 })
   if (o.off || o.picked) {
     rrect(ctx, 0, 0, PACKET_W, PACKET_H, 8)
     ctx.fillStyle = o.picked ? 'rgba(20,20,20,0.6)' : 'rgba(20,20,20,0.42)'

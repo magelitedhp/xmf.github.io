@@ -18,7 +18,7 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: 'building-nocturne',
-    title: '把个人主页做成一间夜航书斋',
+    title: '把个人主页做成一间Yumo 空间',
     excerpt: '从单一音乐播放器到多模块个人站：如何让功能、内容与视觉拥有各自清晰的位置。',
     date: '2026-09-10',
     readingMinutes: 6,
@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
     sections: [
       {
         paragraphs: [
-          'Nocturne 最早只是一个音乐播放器。随着 AI 工具和动画实验加入，音乐不再适合继续承担整个项目的入口，于是站点被重新拆成首页、内容页与独立功能模块。',
+          'Yumo 最早只是一个音乐播放器。随着 AI 工具和动画实验加入，音乐不再适合继续承担整个项目的入口，于是站点被重新拆成首页、内容页与独立功能模块。',
           '这次调整最重要的并不是增加路由，而是重新确认边界：首页负责表达与引导，模块负责完成具体任务，共享布局只提供导航、氛围和一致的交互语言。',
         ],
       },
@@ -59,7 +59,7 @@ export const blogPosts: BlogPost[] = [
       {
         paragraphs: [
           '一个可以工作的在线播放器，需要处理的不只是 Audio 元素。播放地址可能过期，封面可能被防盗链拦截，曲目也可能因为版权而没有可用链接。',
-          'Nocturne 目前使用真实音频地址，并在 320kbps 请求失败后回退到 128kbps。这个策略提高了成功率，但也会增加接口调用次数。',
+          'Yumo 目前使用真实音频地址，并在 320kbps 请求失败后回退到 128kbps。这个策略提高了成功率，但也会增加接口调用次数。',
         ],
       },
       {

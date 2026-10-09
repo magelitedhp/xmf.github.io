@@ -3,7 +3,7 @@
     <div class="playlist-detail">
       <CoverImage :src="tracks[0]?.artwork" :alt="`${headline} 封面`" img-class="large-cover" />
       <div class="playlist-copy">
-        <p class="volume-label">Volume · Search</p>
+        <p class="volume-label">FIND YOUR FREQUENCY</p>
         <h1>{{ headline }}</h1>
         <p class="meta">{{ metaCopy }}</p>
         <p>{{ description }}</p>
@@ -59,15 +59,15 @@ const startIndex = computed(() => (page.value - 1) * pageSize.value)
 const canPrev = computed(() => page.value > 1 && !props.loading)
 const canNext = computed(() => Boolean(props.hasMore) && !props.loading)
 const showPager = computed(() => Boolean(props.query?.trim()) && (page.value > 1 || props.hasMore || props.tracks.length > 0))
-const headline = computed(() => props.query?.trim() || '检索书房曲库')
+const headline = computed(() => props.query?.trim() || '下一首，想听什么？')
 const metaCopy = computed(() => {
   if (!props.tracks.length) return page.value > 1 ? `第 ${page.value} 页暂无结果` : '支持曲目、歌手与专辑名'
   return `第 ${page.value} 页 · ${props.tracks.length} 首`
 })
 const description = computed(() =>
   props.tracks.length
-    ? '点选任意一首即可请求播放地址、封面与歌词。可用底部分页继续翻阅。'
-    : '在顶部检索歌曲、艺人或专辑，结果会誊写在这里。',
+    ? '有些旋律，一听就对了。选一首，开始属于你的时间。'
+    : '一个歌名、一位歌手，或一张念念不忘的专辑。从上方搜索开始。',
 )
 const loadingCopy = computed(() => (page.value > 1 ? `正在载入第 ${page.value} 页…` : '正在检索曲库…'))
 </script>

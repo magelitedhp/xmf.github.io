@@ -1,52 +1,19 @@
 :root {
-  --bg: #1c1714;
-  --bg-alt: #251e19;
-  --bg-muted: #3d332b;
-  --text: #e8dfd4;
-  --text-muted: #9c8b7a;
-  --text-soft: #7a6b5c;
-  --border: #4a3f35;
-  --border-strong: #5c4f43;
-  --brass: #c9a962;
-  --brass-bright: #d4b872;
-  --brass-deep: #b8953f;
-  --crimson: #8b2635;
-  --accent: var(--brass);
-  --accent-bright: var(--brass-bright);
-  --champagne: var(--brass);
-  --champagne-bright: var(--brass-bright);
-  --moonlight: var(--brass);
-  --glass: var(--bg-alt);
-  --glass-hover: #2e261f;
-  --glass-border: var(--border);
-  --glass-border-hover: rgba(201, 169, 98, 0.5);
-  --sidebar-width: 260px;
-  --player-height: 96px;
-  --radius: 4px;
-  --radius-lg: 4px;
-  --radius-xl: 4px;
-  --radius-arch: 40% 40% 0 0 / 20% 20% 0 0;
-  --ease: ease-out;
-  --duration-fast: 150ms;
-  --duration: 300ms;
-  --duration-slow: 500ms;
-  --duration-dramatic: 700ms;
-  --shadow-panel: none;
-  --shadow-panel-hover: 0 8px 24px rgba(0, 0, 0, 0.3);
-  --shadow-button:
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-    0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-button-hover:
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
-    0 4px 12px rgba(201, 169, 98, 0.3);
-  --brass-gradient: linear-gradient(180deg, #d4b872 0%, #c9a962 50%, #b8953f 100%);
-  --engraved: 1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(255, 255, 255, 0.1);
-  --sepia: sepia(0.6) contrast(0.95) brightness(0.9);
-  --font-heading: "Cormorant Garamond", "Noto Serif SC", serif;
-  --font-body: "Crimson Pro", "Noto Serif SC", serif;
-  --font-display: "Cinzel", "Noto Serif SC", serif;
-  --font-title: var(--font-heading);
-  --scene-art: none;
+  --bg: #f4f3eb; --bg-alt: #fffef7; --bg-muted: #e9eadf;
+  --text: #192822; --text-muted: #6d766a; --text-soft: #8c9484;
+  --border: #d7dccd; --border-strong: #b5bea9;
+  --accent: #3155e7; --accent-bright: #2349d8;
+  --brass: var(--accent); --brass-bright: var(--accent-bright); --brass-deep: #2448cc;
+  --champagne: var(--accent); --champagne-bright: var(--accent-bright); --moonlight: var(--accent);
+  --crimson: #ee7757; --lime: #d5fa65; --coral: #ff906c;
+  --glass: var(--bg-alt); --glass-hover: #edf0e3; --glass-border: var(--border); --glass-border-hover: var(--border-strong);
+  --sidebar-width: 236px; --player-height: 108px;
+  --radius: 12px; --radius-lg: 20px; --radius-xl: 28px;
+  --ease: cubic-bezier(.22,1,.36,1); --duration-fast: 150ms; --duration: 250ms; --duration-slow: 500ms;
+  --shadow-panel: none; --shadow-panel-hover: 0 12px 30px #1c352010;
+  --shadow-button: none; --shadow-button-hover: none;
+  --brass-gradient: var(--accent); --sepia: none; --engraved: none;
+  --font-heading: "Avenir Next", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: "Avenir Next", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-display: var(--font-heading); --font-title: var(--font-heading); --font-mono: "SFMono-Regular", Consolas, monospace;
 }

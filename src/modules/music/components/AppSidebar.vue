@@ -1,32 +1,36 @@
 ﻿<template>
-  <aside class="sidebar glass-panel">
-    <RouterLink class="brand home-link-brand" to="/" aria-label="返回书房首页">
-      <div class="brand-mark">N</div>
+  <aside class="sidebar">
+    <RouterLink class="brand home-link-brand" to="/" aria-label="返回 Yumo 首页">
+      <div class="brand-mark">✳</div>
       <div>
-        <strong>Nocturne</strong>
-        <span>返回首页</span>
+        <strong>Yumo fm.</strong>
+        <span>← 返回Yumo</span>
       </div>
     </RouterLink>
 
+    <p class="sidebar-caption">YOUR LISTENING ROOM</p>
     <nav class="nav-list" aria-label="音乐模块导航">
       <button
         v-for="item in navItems"
         :key="item.id"
         class="nav-item"
         :class="{ active: activeView === item.id }"
+        :aria-pressed="activeView === item.id"
         type="button"
         @click="$emit('update:view', item.id)"
       >
-        <span class="nav-icon">{{ item.icon }}</span>
+        <MusicIcon class="nav-icon" :name="item.id" />
         <span>{{ item.label }}</span>
+        <span class="nav-indicator" aria-hidden="true">↗</span>
       </button>
     </nav>
 
+    <div class="sidebar-message"><span class="sidebar-flower" aria-hidden="true">✳</span><p>Less noise.<br>More <em>music.</em></p><small>给耳朵，一点自由。</small></div>
     <div class="account-card">
-      <div class="avatar-fallback" aria-hidden="true">卷</div>
+      <div class="avatar-fallback" aria-hidden="true">♡</div>
       <div>
         <strong>本地收藏</strong>
-        <span>GD 曲库</span>
+        <span>SAVED ON THIS DEVICE</span>
       </div>
     </div>
   </aside>
@@ -34,6 +38,7 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import MusicIcon from './MusicIcon.vue'
 import { navItems, type ViewId } from '../data/music'
 
 defineProps<{

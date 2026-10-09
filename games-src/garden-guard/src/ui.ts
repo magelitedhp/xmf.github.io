@@ -4,10 +4,10 @@ import { linear, paint, rrect, text, type Ctx } from './util'
 export type ButtonStyle = 'wood' | 'stone' | 'green' | 'red' | 'ghost'
 
 const STYLES: Record<ButtonStyle, { top: string; bottom: string; edge: string; ink: string; stroke: string | undefined }> = {
-  wood: { top: '#c98a4b', bottom: '#8a5426', edge: '#3e2210', ink: '#fff3d6', stroke: '#4a2a10' },
-  stone: { top: '#b9bcc0', bottom: '#7d8186', edge: '#3a3d41', ink: '#2a2d31', stroke: undefined },
-  green: { top: '#8fdc58', bottom: '#3f9424', edge: '#1d4a0e', ink: '#ffffff', stroke: '#1d4a0e' },
-  red: { top: '#f0705a', bottom: '#a8281a', edge: '#4a0c06', ink: '#ffffff', stroke: '#4a0c06' },
+  wood: { top: '#f4f6de', bottom: '#e2ebc8', edge: '#729874', ink: '#2c5142', stroke: undefined },
+  stone: { top: '#e3ece9', bottom: '#ccdcd7', edge: '#76968e', ink: '#2a4e46', stroke: undefined },
+  green: { top: '#426f55', bottom: '#2c5a47', edge: '#234638', ink: '#edf7d8', stroke: undefined },
+  red: { top: '#e9a389', bottom: '#d17e69', edge: '#a25e51', ink: '#fff8ed', stroke: undefined },
   ghost: { top: 'rgba(255,255,255,0.14)', bottom: 'rgba(255,255,255,0.06)', edge: 'rgba(255,255,255,0.4)', ink: '#ffffff', stroke: undefined },
 }
 
@@ -63,25 +63,18 @@ export class UI {
     const oy = press ? 2 : hover ? -1 : 0
     ctx.save()
     if (disabled) ctx.globalAlpha *= 0.45
-    rrect(ctx, x, y + 4, w, h, 12)
-    ctx.fillStyle = 'rgba(0,0,0,0.3)'
+    rrect(ctx, x, y + 4, w, h, 18)
+    ctx.fillStyle = 'rgba(35,69,54,0.12)'
     ctx.fill()
-    rrect(ctx, x, y + oy, w, h, 12)
-    paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, s.top], [1, s.bottom]]), s.edge, 3)
-    if (style === 'wood') {
-      ctx.strokeStyle = 'rgba(60,30,10,0.25)'
-      ctx.lineWidth = 1.5
-      ctx.beginPath()
-      for (let i = 1; i < 3; i++) {
-        ctx.moveTo(x + 10, y + oy + (h * i) / 3)
-        ctx.quadraticCurveTo(x + w / 2, y + oy + (h * i) / 3 + 3, x + w - 10, y + oy + (h * i) / 3)
-      }
-      ctx.stroke()
-    }
-    rrect(ctx, x + 4, y + oy + 3, w - 8, h * 0.38, 9)
-    ctx.fillStyle = hover ? 'rgba(255,255,255,0.28)' : 'rgba(255,255,255,0.16)'
-    ctx.fill()
-    text(ctx, label, x + w / 2, y + oy + h / 2 + 1, { size, color: s.ink, stroke: s.stroke, lw: 4, weight: 900 })
+    rrect(ctx, x, y + oy, w, h, 18)
+    paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, s.top], [1, s.bottom]]), s.edge, 1.5)
+    ctx.beginPath()
+    ctx.moveTo(x + 18, y + oy + 2)
+    ctx.lineTo(x + w - 18, y + oy + 2)
+    ctx.strokeStyle = hover ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.5)'
+    ctx.lineWidth = 1
+    ctx.stroke()
+    text(ctx, label, x + w / 2, y + oy + h / 2 + 1, { size, color: s.ink, stroke: s.stroke, lw: 4, weight: 650 })
     ctx.restore()
     if (disabled) return false
     const clicked = this.hit(x, y, w, h)

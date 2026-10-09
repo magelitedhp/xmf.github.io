@@ -40,6 +40,6 @@ const route = useRoute()
 const post = computed(() => findBlogPost(String(route.params.slug)))
 
 watchEffect(() => {
-  document.title = post.value ? `${post.value.title} · Nocturne` : '未找到文章 · Nocturne'
+  document.title = post.value ? `${post.value.title} · Yumo` : '未找到文章 · Yumo'
 })
 </script>

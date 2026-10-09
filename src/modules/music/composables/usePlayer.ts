@@ -132,17 +132,6 @@ export function usePlayer() {
     })
   }
 
-  function decorateStations(tracks: Track[]) {
-    playlists.value = playlists.value.map((playlist, index) => ({
-      ...playlist,
-      artwork: tracks[index % Math.max(tracks.length, 1)]?.artwork || playlist.artwork,
-    }))
-    collections.value = collections.value.map((collection, index) => ({
-      ...collection,
-      artwork: tracks[(index + 2) % Math.max(tracks.length, 1)]?.artwork || collection.artwork,
-    }))
-  }
-
   function persistLibrary() {
     writeStore(
       LIKED_STORAGE_KEY,
@@ -170,7 +159,6 @@ export function usePlayer() {
 
   async function hydrate(list: Track[]) {
     await hydrateArtworks(list)
-    decorateStations(discoverTracks.value.length ? discoverTracks.value : list)
   }
 
   async function loadLyrics(track: Track) {

@@ -64,7 +64,7 @@
       "format": "esm"
     },
     "games-src/garden-guard/src/art/items.ts": {
-      "bytes": 10552,
+      "bytes": 10550,
       "imports": [
         {
           "path": "games-src/garden-guard/src/data/plants.ts",
@@ -183,7 +183,7 @@
       "format": "esm"
     },
     "games-src/garden-guard/src/game/render.ts": {
-      "bytes": 22891,
+      "bytes": 22899,
       "imports": [
         {
           "path": "games-src/garden-guard/src/art/items.ts",
@@ -245,7 +245,7 @@
       "format": "esm"
     },
     "games-src/garden-guard/src/scenes.ts": {
-      "bytes": 24334,
+      "bytes": 24558,
       "imports": [
         {
           "path": "games-src/garden-guard/src/art/items.ts",
@@ -296,7 +296,7 @@
       "format": "esm"
     },
     "games-src/garden-guard/src/ui.ts": {
-      "bytes": 3255,
+      "bytes": 2978,
       "imports": [
         {
           "path": "games-src/garden-guard/src/util.ts",
@@ -417,10 +417,10 @@
           "bytesInOutput": 13846
         },
         "games-src/garden-guard/src/art/zombies.ts": {
-          "bytesInOutput": 12435
+          "bytesInOutput": 12442
         },
         "games-src/garden-guard/src/art/items.ts": {
-          "bytesInOutput": 5853
+          "bytesInOutput": 5851
         },
         "games-src/garden-guard/src/data/zombies.ts": {
           "bytesInOutput": 3496
@@ -435,16 +435,16 @@
           "bytesInOutput": 17333
         },
         "games-src/garden-guard/src/game/render.ts": {
-          "bytesInOutput": 13315
+          "bytesInOutput": 13323
         },
         "games-src/garden-guard/src/save.ts": {
           "bytesInOutput": 337
         },
         "games-src/garden-guard/src/scenes.ts": {
-          "bytesInOutput": 14668
+          "bytesInOutput": 15057
         },
         "games-src/garden-guard/src/ui.ts": {
-          "bytesInOutput": 1652
+          "bytesInOutput": 1504
         },
         "games-src/garden-guard/src/app.ts": {
           "bytesInOutput": 5771
@@ -456,7 +456,7 @@
           "bytesInOutput": 263
         }
       },
-      "bytes": 125067
+      "bytes": 125321
     },
     "games-src/garden-guard/.build/min/main.css": {
       "imports": [],

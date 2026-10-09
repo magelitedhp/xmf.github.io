@@ -1,9 +1,9 @@
 ﻿<template>
-  <article class="playlist-card group-card" @click="$emit('open')">
-    <CoverImage :src="playlist.artwork" :alt="`${playlist.title} 封面`" img-class="cover" />
+  <button type="button" class="playlist-card group-card" @click="$emit('open')">
+    <div class="playlist-art"><CoverImage :src="playlist.artwork" :alt="`${playlist.title} 封面`" img-class="cover" /><span class="playlist-open" aria-hidden="true">↗</span></div>
     <h3>{{ playlist.title }}</h3>
     <p>{{ playlist.subtitle }}</p>
-  </article>
+  </button>
 </template>
 
 <script setup lang="ts">

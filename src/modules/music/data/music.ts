@@ -62,7 +62,7 @@ export const emptyTrack: Track = {
   lyricId: '',
   title: '尚未选择曲目',
   artist: '从发现页或搜索开始聆听',
-  album: 'Nocturne',
+  album: 'Yumo',
   duration: '0:00',
   seconds: 0,
   artwork: '',
@@ -72,18 +72,20 @@ export const emptyTrack: Track = {
 
 export const discoverQuery = '流行'
 
+const stationArt = (id: string) => (import.meta.env.BASE_URL || './') + 'music/covers/' + id + '.svg'
+
 export const playlists: Playlist[] = [
-  { id: 'jazz', title: '爵士书斋', subtitle: '低语与铜管', query: '爵士', artwork: '' },
-  { id: 'focus', title: '研读时刻', subtitle: '安静的工作节拍', query: '轻音乐', artwork: '' },
-  { id: 'pulse', title: '午夜电子', subtitle: '灯下律动', query: '电子', artwork: '' },
-  { id: 'folk', title: '原声手稿', subtitle: '不插电精选', query: '民谣', artwork: '' },
-  { id: 'classic', title: '经典回廊', subtitle: '重温黄金时代', query: '经典', artwork: '' },
+  { id: 'jazz', title: '微醺爵士', subtitle: '一杯咖啡的即兴时间', query: '爵士', artwork: stationArt('jazz') },
+  { id: 'focus', title: '专注频率', subtitle: '给思绪一片安静', query: '轻音乐', artwork: stationArt('focus') },
+  { id: 'pulse', title: '午夜电子', subtitle: '灯下律动', query: '电子', artwork: stationArt('pulse') },
+  { id: 'folk', title: '原声漫游', subtitle: '带着吉他去远方', query: '民谣', artwork: stationArt('folk') },
+  { id: 'classic', title: '时光唱片', subtitle: '好音乐，没有保质期', query: '经典', artwork: stationArt('classic') },
 ]
 
 export const collections: Collection[] = [
-  { id: 'city', title: '城市夜窗', subtitle: '雨后的街灯', query: 'R&B', artwork: '' },
-  { id: 'piano', title: '钢琴独白', subtitle: '给深夜留白', query: '钢琴', artwork: '' },
-  { id: 'live', title: '现场回声', subtitle: '更近一点的呼吸', query: 'live', artwork: '' },
+  { id: 'city', title: '城市夜窗', subtitle: '雨后的街灯', query: 'R&B', artwork: stationArt('city') },
+  { id: 'piano', title: '钢琴独白', subtitle: '给深夜留白', query: '钢琴', artwork: stationArt('piano') },
+  { id: 'live', title: '现场回声', subtitle: '更近一点的呼吸', query: 'live', artwork: stationArt('live') },
 ]
 
 export const LIKED_STORAGE_KEY = 'nocturne.liked'

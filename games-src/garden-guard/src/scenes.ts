@@ -51,28 +51,8 @@ function view(id: ZombieId, t: number, phase: number, state = 'walk'): ZombieVie
 }
 
 function plank(ctx: Ctx, x: number, y: number, w: number, h: number) {
-  rrect(ctx, x, y + 6, w, h, 16)
-  ctx.fillStyle = 'rgba(0,0,0,0.35)'
-  ctx.fill()
-  rrect(ctx, x, y, w, h, 16)
-  paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, '#c98a4b'], [0.5, '#a96a32'], [1, '#7a4a1e']]), '#3e2210', 4)
-  ctx.strokeStyle = 'rgba(60,30,10,0.3)'
-  ctx.lineWidth = 2
-  for (let i = 1; i < 4; i++) {
-    ctx.beginPath()
-    ctx.moveTo(x + 14, y + (h * i) / 4)
-    ctx.bezierCurveTo(x + w * 0.3, y + (h * i) / 4 + 5, x + w * 0.7, y + (h * i) / 4 - 5, x + w - 14, y + (h * i) / 4)
-    ctx.stroke()
-  }
-  for (const [nx, ny] of [
-    [x + 16, y + 16],
-    [x + w - 16, y + 16],
-    [x + 16, y + h - 16],
-    [x + w - 16, y + h - 16],
-  ]) {
-    circle(ctx, nx, ny, 5)
-    paint(ctx, radial(ctx, nx - 1.5, ny - 1.5, 0.5, nx, ny, 5, [[0, '#e6e6e6'], [1, '#6a6a6a']]), '#2a2a2a', 1)
-  }
+  rrect(ctx,x,y+8,w,h,25);paint(ctx,'rgba(28,67,48,0.15)');rrect(ctx,x,y,w,h,25);paint(ctx,linear(ctx,0,y,0,y+h,[[0,'#ffffed'],[1,'#edf2d5']]),'#93b292',1.5)
+  ctx.strokeStyle='#ccd9b7';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x+24,y+h-20);ctx.lineTo(x+w-24,y+h-20);ctx.stroke()
 }
 
 function parchment(ctx: Ctx, x: number, y: number, w: number, h: number) {
@@ -80,7 +60,7 @@ function parchment(ctx: Ctx, x: number, y: number, w: number, h: number) {
   ctx.fillStyle = 'rgba(0,0,0,0.35)'
   ctx.fill()
   rrect(ctx, x, y, w, h, 20)
-  paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, '#f6ead0'], [1, '#e1cca0']]), '#6a4a1c', 4)
+  paint(ctx, linear(ctx, 0, y, 0, y + h, [[0, '#fcfff9f5'], [1, '#e9f3e6f2']]), '#adc7b4', 1.5)
 }
 
 function backButton(ctx: Ctx, app: App) {
@@ -159,57 +139,47 @@ export class TitleScene implements Scene {
       }
       for (const p of this.peas) if (p.row === r) drawPea(ctx, p.x, rowFeet(r) - 61, r === 2 ? 'snow' : 'pea', this.t)
     }
-    const g = linear(ctx, 0, 0, 0, VIEW_H, [
-      [0, 'rgba(10,20,6,0.55)'],
-      [0.35, 'rgba(10,20,6,0.15)'],
-      [1, 'rgba(10,20,6,0.35)'],
-    ])
-    ctx.fillStyle = g
+
+    // Botanical field notes: a translucent menu and living specimen cards.
+    ctx.fillStyle = linear(ctx, 0, 0, VIEW_W, 0, [[0, '#eaf4eaf5'], [0.55, '#e5f2ebeb'], [1, '#d9ebe4bd']])
     ctx.fillRect(0, 0, VIEW_W, VIEW_H)
-
-    // hanging title sign
-    const swing = Math.sin(this.t * 1.2) * 0.012
-    ctx.save()
-    ctx.translate(VIEW_W / 2, 0)
-    ctx.rotate(swing)
-    ctx.strokeStyle = '#5a3a1a'
-    ctx.lineWidth = 5
-    ctx.beginPath()
-    ctx.moveTo(-250, -10)
-    ctx.lineTo(-240, 46)
-    ctx.moveTo(250, -10)
-    ctx.lineTo(240, 46)
-    ctx.stroke()
-    plank(ctx, -330, 40, 660, 168)
-    ctx.font = `900 96px ${FONT}`
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'middle'
-    ctx.lineJoin = 'round'
-    ctx.lineWidth = 16
-    ctx.strokeStyle = '#2a1606'
-    ctx.strokeText('花园保卫战', 0, 112)
-    ctx.fillStyle = linear(ctx, 0, 70, 0, 150, [
-      [0, '#eaff9a'],
-      [0.5, '#8be04a'],
-      [1, '#3f9a1c'],
-    ])
-    ctx.fillText('花园保卫战', 0, 112)
-    text(ctx, 'GARDEN GUARD · 守住你的草坪', 0, 182, { size: 20, color: '#ffe9b0', stroke: '#3e2210', lw: 4, weight: 800 })
-    ctx.restore()
-
-    const bx = VIEW_W / 2 - 160
-    let by = 262
+    parchment(ctx, 48, 48, 530, 620)
+    text(ctx, 'YUMO GARDENS / NO. 02', 86, 91, { size: 13, color: '#637f75', align: 'left', weight: 500 })
+    text(ctx, '花园保卫战', 84, 172, { size: 67, color: '#285448', align: 'left', weight: 800 })
+    text(ctx, 'A LITTLE DEFENCE OF JOY.', 88, 221, { size: 19, color: '#638975', align: 'left', weight: 500 })
+    text(ctx, '种下希望，守住好时光。', 88, 267, { size: 20, color: '#6b8375', align: 'left', weight: 500 })
+    ctx.strokeStyle = '#c3d6c7'
+    ctx.lineWidth = 1
+    ctx.beginPath(); ctx.moveTo(88, 302); ctx.lineTo(537, 302); ctx.stroke()
     const lv = LEVELS[Math.min(app.save.unlocked, LEVELS.length - 1)]
-    rrect(ctx, bx - 26, by - 22, 372, 362, 22)
-    paint(ctx, 'rgba(20,14,6,0.55)', 'rgba(255,230,170,0.35)', 2)
-    if (app.ui.button(ctx, '冒险模式', bx, by, 320, 70, 'green', 30)) app.startLevel(lv)
-    text(ctx, `下一关 ${lv.id} · ${lv.name}`, VIEW_W / 2, by + 88, { size: 16, color: '#ffe9b0', weight: 700 })
-    by += 112
-    if (app.ui.button(ctx, '关卡与小游戏', bx, by, 320, 58, 'wood', 24)) app.go(new SelectScene(app))
-    by += 72
-    if (app.ui.button(ctx, '图鉴', bx, by, 154, 58, 'wood', 24)) app.go(new AlmanacScene(app))
-    if (app.ui.button(ctx, '设置', bx + 166, by, 154, 58, 'wood', 24)) app.go(new SettingsScene(app))
-    text(ctx, '致敬经典塔防玩法的非官方同人作品 · 美术、代码与音乐均为原创', VIEW_W / 2, VIEW_H - 18, { size: 14, color: 'rgba(255,240,200,0.75)', weight: 600 })
+    if (app.ui.button(ctx, '开始冒险  ↗', 88, 329, 450, 70, 'green', 28)) app.startLevel(lv)
+    text(ctx, `下一站  ${lv.id} · ${lv.name}`, 313, 425, { size: 15, color: '#628174', weight: 500 })
+    if (app.ui.button(ctx, '关卡与小游戏', 88, 459, 450, 57, 'wood', 22)) app.go(new SelectScene(app))
+    if (app.ui.button(ctx, '植物图鉴', 88, 532, 218, 54, 'wood', 20)) app.go(new AlmanacScene(app))
+    if (app.ui.button(ctx, '设置', 320, 532, 218, 54, 'wood', 20)) app.go(new SettingsScene(app))
+    text(ctx, '12 关冒险     /     15 种植物     /     无限好时光', 313, 626, { size: 13, color: '#718b7e', weight: 500 })
+
+    text(ctx, 'GROW.', 660, 124, { size: 64, color: '#325e50', align: 'left', weight: 800 })
+    text(ctx, 'GUARD. REPEAT.', 664, 165, { size: 20, color: '#668a79', align: 'left', weight: 500 })
+    ctx.save()
+    ctx.translate(962, 330); ctx.rotate(0.11)
+    parchment(ctx, -153, -144, 306, 322)
+    text(ctx, 'SPECIMEN 01 / SUNFLOWER', 0, -112, { size: 11, color: '#738b7b', weight: 500 })
+    circle(ctx, 0, 7, 96); paint(ctx, '#ecedce')
+    ctx.save(); ctx.translate(0, 98); ctx.scale(1.6, 1.6); drawPlant(ctx, 'sunflower', 0, 0, { t: this.t, hp: 1 }); ctx.restore()
+    text(ctx, '阳光，是最好的补给。', 0, 147, { size: 15, color: '#587563', weight: 500 })
+    ctx.restore()
+    ctx.save()
+    ctx.translate(756, 482); ctx.rotate(-0.1)
+    parchment(ctx, -116, -127, 232, 271)
+    text(ctx, '02 / PEA SHOOTER', 0, -98, { size: 11, color: '#738b7b', weight: 500 })
+    circle(ctx, 0, -4, 71); paint(ctx, '#d9e9db')
+    ctx.save(); ctx.translate(0, 70); ctx.scale(1.3, 1.3); drawPlant(ctx, 'peashooter', 0, 0, { t: this.t, hp: 1 }); ctx.restore()
+    text(ctx, '小小一株，大大勇气。', 0, 115, { size: 13, color: '#587563', weight: 500 })
+    ctx.restore()
+    text(ctx, '✳', 1084, 592, { size: 72, color: '#83a988', weight: 500 })
+    text(ctx, 'KEEP THE GARDEN GROWING.', 896, 668, { size: 13, color: '#557c68', weight: 500 })
+
   }
 
   key(k: string) {
@@ -248,10 +218,10 @@ export class SelectScene implements Scene {
       ctx.save()
       if (hover) ctx.translate(0, -3)
       plank(ctx, x, y, cw, ch)
-      text(ctx, lv.id, x + 18, y + 38, { size: 34, color: '#fff3d6', stroke: '#3e2210', lw: 6, align: 'left', weight: 900 })
-      text(ctx, lv.name, x + 18, y + 80, { size: 17, color: '#ffe9b0', stroke: '#3e2210', lw: 4, align: 'left' })
+      text(ctx, lv.id, x + 18, y + 38, { size: 34, color: '#31594a', align: 'left', weight: 900 })
+      text(ctx, lv.name, x + 18, y + 80, { size: 17, color: '#476854', align: 'left' })
       const tag = lv.mode === 'bowling' ? '保龄球' : lv.mode === 'conveyor' ? '传送带' : `${lv.waves} 波`
-      text(ctx, tag, x + 18, y + 108, { size: 14, color: '#f0d8a8', align: 'left', weight: 700 })
+      text(ctx, tag, x + 18, y + 108, { size: 14, color: '#71856c', align: 'left', weight: 700 })
       if (lv.reward[0]) drawPacket(ctx, x + cw - 58, y + 26, lv.reward[0], { scale: 0.62 })
       else drawTrophy(ctx, x + cw - 38, y + 92, 0.36, this.t)
       if (cleared) {
@@ -275,7 +245,7 @@ export class SelectScene implements Scene {
     // mini-games
     const mx = 820
     parchment(ctx, mx, 92, 356, 428)
-    text(ctx, '小游戏', mx + 178, 128, { size: 28, color: '#5a3a10', weight: 900 })
+    text(ctx, '小游戏', mx + 178, 128, { size: 28, color: '#315447', weight: 900 })
     const games: { lv: LevelDef; title: string; sub: string; need: number; best: string }[] = [
       { lv: BOWLING, title: '坚果保龄球 · 挑战', sub: '20 波保龄球，打出最高连击', need: 4, best: `最高连击 ${save.bowlingBest}` },
       { lv: ENDLESS, title: '无尽生存', sub: '一波接一波，看你能撑多久', need: 9, best: `最佳纪录 ${save.endlessBest} 波` },
@@ -358,8 +328,8 @@ export class AlmanacScene implements Scene {
         if (owned) drawPacket(ctx, x, y, id, { cost: PLANTS[id].cost, hover })
         else {
           rrect(ctx, x, y, PACKET_W, PACKET_H, 8)
-          paint(ctx, '#bfae86', '#7a5a22', 2.4)
-          text(ctx, '?', x + PACKET_W / 2, y + PACKET_H / 2, { size: 40, color: '#7a5a22', weight: 900 })
+          paint(ctx, '#dce7d8', '#8ba38b', 2.4)
+          text(ctx, '?', x + PACKET_W / 2, y + PACKET_H / 2, { size: 40, color: '#8ba38b', weight: 900 })
         }
         if (this.plant === id) {
           rrect(ctx, x - 4, y - 4, PACKET_W + 8, PACKET_H + 8, 10)
@@ -372,7 +342,7 @@ export class AlmanacScene implements Scene {
           app.audio.play('pick')
         }
       })
-      text(ctx, '保龄球专用：保龄坚果 · 爆炸坚果 · 巨型坚果', 280, 670, { size: 14, color: '#8a6a3a' })
+      text(ctx, '保龄球专用：保龄坚果 · 爆炸坚果 · 巨型坚果', 280, 670, { size: 14, color: '#6c8170' })
       this.plantDetail(ctx, this.plant, save.plants.includes(this.plant))
     } else {
       ZOMBIE_ORDER.forEach((id, i) => {
@@ -413,7 +383,7 @@ export class AlmanacScene implements Scene {
     }
     ctx.restore()
     rrect(ctx, x, y, 560, 300, 16)
-    ctx.strokeStyle = '#6a4a1c'
+    ctx.strokeStyle = '#5b7563'
     ctx.lineWidth = 4
     ctx.stroke()
   }
@@ -430,13 +400,13 @@ export class AlmanacScene implements Scene {
       drawPlant(ctx, id, 0, 0, { t: this.t, hp: 1, state: st, anim: id === 'sunflower' ? (Math.sin(this.t) + 1) / 2 : 0 })
       ctx.restore()
     } else text(ctx, '尚未获得', 866, 262, { size: 34, color: '#2c4a14', weight: 900 })
-    text(ctx, owned ? d.name : '？？？', 866, 446, { size: 32, color: '#5a3a10', weight: 900 })
+    text(ctx, owned ? d.name : '？？？', 866, 446, { size: 32, color: '#315447', weight: 900 })
     if (!owned) return
     text(ctx, `阳光 ${d.cost}　·　冷却 ${d.cooldown >= 30 ? '慢' : '快'}　·　耐久 ${d.hp}`, 866, 484, { size: 17, color: '#8a5a1a', weight: 800 })
     let y = 522
     ctx.font = `600 18px ${FONT}`
     for (const ln of wrapText(ctx, d.desc, 520)) {
-      text(ctx, ln, 866, y, { size: 18, color: '#4a3010', weight: 600 })
+      text(ctx, ln, 866, y, { size: 18, color: '#465e51', weight: 600 })
       y += 28
     }
     y += 8
@@ -455,13 +425,13 @@ export class AlmanacScene implements Scene {
       drawZombie(ctx, 0, 0, view(id, this.t, this.t * 2.2, 'preview'))
       ctx.restore()
     } else text(ctx, '尚未遭遇', 866, 262, { size: 34, color: '#2c4a14', weight: 900 })
-    text(ctx, seen ? d.name : '？？？', 866, 446, { size: 32, color: '#5a3a10', weight: 900 })
+    text(ctx, seen ? d.name : '？？？', 866, 446, { size: 32, color: '#315447', weight: 900 })
     if (!seen) return
     text(ctx, d.toughness, 866, 484, { size: 17, color: '#8a1a1a', weight: 800 })
     let y = 522
     ctx.font = `600 18px ${FONT}`
     for (const ln of wrapText(ctx, d.desc, 520)) {
-      text(ctx, ln, 866, y, { size: 18, color: '#4a3010', weight: 600 })
+      text(ctx, ln, 866, y, { size: 18, color: '#465e51', weight: 600 })
       y += 28
     }
   }
@@ -494,7 +464,7 @@ export class SettingsScene implements Scene {
     const x = (VIEW_W - w) / 2
     const y = 120
     parchment(ctx, x, y, w, h)
-    text(ctx, '设置', VIEW_W / 2, y + 50, { size: 36, color: '#5a3a10', weight: 900 })
+    text(ctx, '设置', VIEW_W / 2, y + 50, { size: 36, color: '#315447', weight: 900 })
     const a = app.audio
     if (app.ui.button(ctx, `背景音乐：${a.musicOn ? '开' : '关'}`, x + 70, y + 96, w - 140, 58, a.musicOn ? 'green' : 'stone', 24)) {
       a.setMusicOn(!a.musicOn)
@@ -525,7 +495,7 @@ export class SettingsScene implements Scene {
         this.toastT = 2
       } else this.confirmReset = 3
     }
-    text(ctx, '进度保存在浏览器本地 · 快捷键：空格暂停、1–8 选卡、Q 铲子、F 加速', VIEW_W / 2, y + h - 40, { size: 14, color: '#8a6a3a' })
+    text(ctx, '进度保存在浏览器本地 · 快捷键：空格暂停、1–8 选卡、Q 铲子、F 加速', VIEW_W / 2, y + h - 40, { size: 14, color: '#6c8170' })
     if (this.toastT > 0) {
       ctx.save()
       ctx.globalAlpha = Math.min(1, this.toastT * 2)
@@ -558,8 +528,8 @@ export class RewardScene implements Scene {
   render(ctx: Ctx) {
     const app = this.app
     ctx.fillStyle = linear(ctx, 0, 0, 0, VIEW_H, [
-      [0, '#fffbe8'],
-      [1, '#f0dcae'],
+      [0, '#f4faf0'],
+      [1, '#dfece0'],
     ])
     ctx.fillRect(0, 0, VIEW_W, VIEW_H)
     ctx.save()
@@ -591,15 +561,15 @@ export class RewardScene implements Scene {
         plantShadow(ctx, 0, 2, 34)
         drawPlant(ctx, id, 0, 0, { t: this.t, hp: 1, state: id === 'potato' ? 'armed' : undefined })
         ctx.restore()
-        text(ctx, d.name, cx, 430, { size: 34, color: '#5a3a10', weight: 900 })
+        text(ctx, d.name, cx, 430, { size: 34, color: '#315447', weight: 900 })
         ctx.font = `600 18px ${FONT}`
-        wrapText(ctx, d.desc, 360).forEach((ln, k) => text(ctx, ln, cx, 470 + k * 28, { size: 18, color: '#6a4a1c', weight: 600 }))
+        wrapText(ctx, d.desc, 360).forEach((ln, k) => text(ctx, ln, cx, 470 + k * 28, { size: 18, color: '#5b7563', weight: 600 }))
         text(ctx, `${d.cost} 阳光`, cx, 540, { size: 18, color: '#b07a1a', weight: 800 })
       })
     } else {
       text(ctx, this.final ? '恭喜通关！你守住了花园' : `关卡 ${this.level.id} 完成！`, VIEW_W / 2, 84, { size: 46, color: '#b07a1a', stroke: '#fff', lw: 8, weight: 900 })
       drawTrophy(ctx, VIEW_W / 2, 420, 2.1 * pop, this.t)
-      if (this.final) text(ctx, '感谢游玩 · 去小游戏里挑战更高纪录吧', VIEW_W / 2, 500, { size: 22, color: '#6a4a1c', weight: 700 })
+      if (this.final) text(ctx, '感谢游玩 · 去小游戏里挑战更高纪录吧', VIEW_W / 2, 500, { size: 22, color: '#5b7563', weight: 700 })
     }
     if (this.t > 0.8 && app.ui.button(ctx, '继续', VIEW_W / 2 - 120, VIEW_H - 120, 240, 64, 'green', 28)) app.go(new SelectScene(app))
   }
