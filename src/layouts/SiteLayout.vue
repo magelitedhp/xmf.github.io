@@ -5,7 +5,7 @@
     <RouterView />
     <footer v-if="showFooter" class="site-footer">
       <p>{{ footerLeft }}</p>
-      <p>{{ footerRight }}</p>
+      <p v-if="footerRight">{{ footerRight }}</p>
     </footer>
   </div>
 </template>
@@ -36,6 +36,6 @@ const footerLeft = computed(() => {
 
 const footerRight = computed(() => {
   if (route.name === 'tools') return '空白页 · 待续'
-  return '曲库注明 GD音乐台 (music.gdstudio.xyz)'
+  return ''
 })
 </script>

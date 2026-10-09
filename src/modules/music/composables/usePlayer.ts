@@ -254,7 +254,7 @@ export function usePlayer() {
       void ensureArtwork(track)
       await element.play()
       isPlaying.value = true
-      statusMessage.value = `曲库来源 GD音乐台 · ${track.source}`
+      statusMessage.value = `正在播放 · ${track.title}`
     } catch {
       isPlaying.value = false
       statusMessage.value = '当前曲目暂时无法播放，可尝试下一首'
@@ -416,13 +416,13 @@ export function usePlayer() {
   async function loadDiscover() {
     isDiscovering.value = true
     discoverError.value = ''
-    statusMessage.value = '正在连接 GD音乐台…'
+    statusMessage.value = '正在连接曲库…'
     try {
       const hits = await requestSearch(discoverQuery, { count: 12 })
       discoverTracks.value = mapHits(hits)
       await hydrate(discoverTracks.value)
       if (!queue.value.length) queue.value = discoverTracks.value
-      statusMessage.value = '曲库来源 GD音乐台 music.gdstudio.xyz'
+      statusMessage.value = '曲库已就绪'
     } catch (error) {
       discoverError.value = error instanceof Error ? error.message : '发现页加载失败'
       statusMessage.value = discoverError.value

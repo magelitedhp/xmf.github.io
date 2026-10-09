@@ -62,7 +62,7 @@ const showPager = computed(() => Boolean(props.query?.trim()) && (page.value > 1
 const headline = computed(() => props.query?.trim() || '检索书房曲库')
 const metaCopy = computed(() => {
   if (!props.tracks.length) return page.value > 1 ? `第 ${page.value} 页暂无结果` : '支持曲目、歌手与专辑名'
-  return `第 ${page.value} 页 · ${props.tracks.length} 首来自 GD音乐台`
+  return `第 ${page.value} 页 · ${props.tracks.length} 首`
 })
 const description = computed(() =>
   props.tracks.length

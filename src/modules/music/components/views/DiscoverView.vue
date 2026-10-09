@@ -16,7 +16,7 @@
     <div class="ornate-divider" aria-hidden="true"></div>
 
     <p v-if="error" class="empty-copy">{{ error }}</p>
-    <p v-else-if="loading" class="empty-copy">正在从 GD音乐台翻开今日歌谱…</p>
+    <p v-else-if="loading" class="empty-copy">正在翻开今日歌谱…</p>
 
     <section class="section-block">
       <div class="section-heading">

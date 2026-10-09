@@ -49,6 +49,6 @@ defineEmits<{
 }>()
 
 const emptyCopy = computed(() =>
-  props.startIndex > 0 ? '这一页没有更多曲子了。' : '输入关键词，从 GD音乐台检索曲目。',
+  props.startIndex > 0 ? '这一页没有更多曲子了。' : '输入关键词，检索曲目。',
 )
 </script>
