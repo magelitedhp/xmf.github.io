@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/style.css"],
+  "sourcesContent": ["html,\r\nbody {\r\n  margin: 0;\r\n  height: 100%;\r\n  overflow: hidden;\r\n  background: #0b0f08;\r\n  overscroll-behavior: none;\r\n}\r\n\r\n#game {\r\n  display: block;\r\n  touch-action: none;\r\n  user-select: none;\r\n  -webkit-user-select: none;\r\n  -webkit-tap-highlight-color: transparent;\r\n}\r\n\r\n#boot {\r\n  position: fixed;\r\n  inset: 0;\r\n  display: grid;\r\n  place-items: center;\r\n  background: radial-gradient(circle at 50% 40%, #2f5a1c, #0b0f08 70%);\r\n  color: #e9ffc8;\r\n  font: 800 22px/1.4 \"Microsoft YaHei\", \"PingFang SC\", sans-serif;\r\n  letter-spacing: 0.2em;\r\n  transition: opacity 0.5s ease;\r\n  z-index: 2;\r\n}\r\n\r\n#boot.done {\r\n  opacity: 0;\r\n  pointer-events: none;\r\n}\r\n"],
+  "mappings": ";AAAA;AACA;AACE,UAAQ;AACR,UAAQ;AACR,YAAU;AACV,cAAY;AACZ,uBAAqB;AACvB;AAEA,CAAC;AACC,WAAS;AACT,gBAAc;AACd,eAAa;AACb,uBAAqB;AACrB,+BAA6B;AAC/B;AAEA,CAAC;AACC,YAAU;AACV,SAAO;AACP,WAAS;AACT,eAAa;AACb;AAAA,IAAY;AAAA,MAAgB,OAAO,GAAG,IAAI,GAA9B;AAAA,MAAmC,OAAnC;AAAA,MAA4C,QAAQ;AAChE,SAAO;AACP;AAAA,IAAM,IAAI,IAAI,CAAC,IAAI,iBAAiB;AAAA,IAAE,aAAa;AAAA,IAAE;AACrD,kBAAgB;AAChB,cAAY,QAAQ,KAAK;AACzB,WAAS;AACX;AAEA,CAbC,IAaI,CAAC;AACJ,WAAS;AACT,kBAAgB;AAClB;",
+  "names": []
+}

@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "game:garden": "tsc -p games-src/garden-guard && node games-src/garden-guard/build.mjs",
+    "game:garden:watch": "node games-src/garden-guard/build.mjs --watch"
   },
   "dependencies": {
     "vue": "^3.4.29",

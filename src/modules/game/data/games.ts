@@ -61,6 +61,36 @@ export const games: GameEntry[] = [
     },
     load: () => import('../games/ember-lantern/EmberLantern.vue'),
   },
+  {
+    slug: 'garden-guard',
+    name: '花园保卫战',
+    enName: 'Garden Guard',
+    genre: '策略塔防',
+    summary: '种下植物，守住草坪。12 关冒险、坚果保龄球与无尽生存。',
+    description:
+      '经典草坪塔防。收集阳光种下 15 种植物，抵御 10 种僵尸——路障、铁桶、撑杆、读报、铁栅门、橄榄球直至巨人与小鬼；12 关冒险之外还有坚果保龄球、传送带关卡与无尽生存。',
+    cover: 'games/garden-guard/cover.png',
+    tags: ['塔防', '策略', '单文件'],
+    released: '2026-10-09',
+    controls: [
+      { keys: ['鼠标'], label: '点击卡片再点击草地种植，也可直接拖拽；点击阳光收集' },
+      { keys: ['1', '…', '8'], label: '快速选择种子卡片' },
+      { keys: ['Q'], label: '铲子，移除植物' },
+      { keys: ['F'], label: '切换 1× / 2× 速度' },
+      { keys: ['空格', 'Esc'], label: '暂停 / 取消手中的植物' },
+    ],
+    notes: [
+      '整款游戏编译为一个约 120 KB 的独立 HTML：画面全部由 Canvas 矢量实时绘制，音乐与音效由 WebAudio 合成，无任何外部素材。',
+      '进度、植物收集与小游戏纪录保存在本地浏览器；设置中可一键解锁全部内容。',
+    ],
+    credit: {
+      prefix: '玩法致敬',
+      label: 'PopCap《植物大战僵尸》',
+      href: 'https://www.ea.com/ea-studios/popcap/plants-vs-zombies',
+      suffix: '；本作为非官方同人作品，美术、代码与音乐均为原创。',
+    },
+    load: () => import('../games/garden-guard/GardenGuard.vue'),
+  },
 ]
 
 export const findGame = (slug: string) => games.find((g) => g.slug === slug)

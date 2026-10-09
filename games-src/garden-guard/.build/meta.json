@@ -1,0 +1,471 @@
+{
+  "inputs": {
+    "games-src/garden-guard/src/audio.ts": {
+      "bytes": 11212,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/config.ts": {
+      "bytes": 1194,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/util.ts": {
+      "bytes": 6555,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/art/background.ts": {
+      "bytes": 9591,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/config.ts",
+          "kind": "import-statement",
+          "original": "../config"
+        },
+        {
+          "path": "games-src/garden-guard/src/util.ts",
+          "kind": "import-statement",
+          "original": "../util"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/data/levels.ts": {
+      "bytes": 5660,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/data/plants.ts": {
+      "bytes": 6667,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/art/plants.ts": {
+      "bytes": 24058,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/util.ts",
+          "kind": "import-statement",
+          "original": "../util"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/art/zombies.ts": {
+      "bytes": 21923,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/util.ts",
+          "kind": "import-statement",
+          "original": "../util"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/art/items.ts": {
+      "bytes": 10552,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/data/plants.ts",
+          "kind": "import-statement",
+          "original": "../data/plants"
+        },
+        {
+          "path": "games-src/garden-guard/src/util.ts",
+          "kind": "import-statement",
+          "original": "../util"
+        },
+        {
+          "path": "games-src/garden-guard/src/art/plants.ts",
+          "kind": "import-statement",
+          "original": "./plants"
+        },
+        {
+          "path": "games-src/garden-guard/src/art/zombies.ts",
+          "kind": "import-statement",
+          "original": "./zombies"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/data/zombies.ts": {
+      "bytes": 4190,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/game/behaviors.ts": {
+      "bytes": 17646,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/art/zombies.ts",
+          "kind": "import-statement",
+          "original": "../art/zombies"
+        },
+        {
+          "path": "games-src/garden-guard/src/config.ts",
+          "kind": "import-statement",
+          "original": "../config"
+        },
+        {
+          "path": "games-src/garden-guard/src/data/plants.ts",
+          "kind": "import-statement",
+          "original": "../data/plants"
+        },
+        {
+          "path": "games-src/garden-guard/src/util.ts",
+          "kind": "import-statement",
+          "original": "../util"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/game/waves.ts": {
+      "bytes": 2264,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/data/zombies.ts",
+          "kind": "import-statement",
+          "original": "../data/zombies"
+        },
+        {
+          "path": "games-src/garden-guard/src/util.ts",
+          "kind": "import-statement",
+          "original": "../util"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/game/battle.ts": {
+      "bytes": 31614,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/art/items.ts",
+          "kind": "import-statement",
+          "original": "../art/items"
+        },
+        {
+          "path": "games-src/garden-guard/src/art/zombies.ts",
+          "kind": "import-statement",
+          "original": "../art/zombies"
+        },
+        {
+          "path": "games-src/garden-guard/src/config.ts",
+          "kind": "import-statement",
+          "original": "../config"
+        },
+        {
+          "path": "games-src/garden-guard/src/data/plants.ts",
+          "kind": "import-statement",
+          "original": "../data/plants"
+        },
+        {
+          "path": "games-src/garden-guard/src/data/zombies.ts",
+          "kind": "import-statement",
+          "original": "../data/zombies"
+        },
+        {
+          "path": "games-src/garden-guard/src/util.ts",
+          "kind": "import-statement",
+          "original": "../util"
+        },
+        {
+          "path": "games-src/garden-guard/src/game/behaviors.ts",
+          "kind": "import-statement",
+          "original": "./behaviors"
+        },
+        {
+          "path": "games-src/garden-guard/src/game/waves.ts",
+          "kind": "import-statement",
+          "original": "./waves"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/game/render.ts": {
+      "bytes": 22891,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/art/items.ts",
+          "kind": "import-statement",
+          "original": "../art/items"
+        },
+        {
+          "path": "games-src/garden-guard/src/art/plants.ts",
+          "kind": "import-statement",
+          "original": "../art/plants"
+        },
+        {
+          "path": "games-src/garden-guard/src/art/zombies.ts",
+          "kind": "import-statement",
+          "original": "../art/zombies"
+        },
+        {
+          "path": "games-src/garden-guard/src/config.ts",
+          "kind": "import-statement",
+          "original": "../config"
+        },
+        {
+          "path": "games-src/garden-guard/src/data/plants.ts",
+          "kind": "import-statement",
+          "original": "../data/plants"
+        },
+        {
+          "path": "games-src/garden-guard/src/util.ts",
+          "kind": "import-statement",
+          "original": "../util"
+        },
+        {
+          "path": "games-src/garden-guard/src/game/battle.ts",
+          "kind": "import-statement",
+          "original": "./battle"
+        },
+        {
+          "path": "games-src/garden-guard/src/game/behaviors.ts",
+          "kind": "import-statement",
+          "original": "./behaviors"
+        },
+        {
+          "path": "games-src/garden-guard/src/game/waves.ts",
+          "kind": "import-statement",
+          "original": "./waves"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/save.ts": {
+      "bytes": 1147,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/config.ts",
+          "kind": "import-statement",
+          "original": "./config"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/scenes.ts": {
+      "bytes": 24334,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/art/items.ts",
+          "kind": "import-statement",
+          "original": "./art/items"
+        },
+        {
+          "path": "games-src/garden-guard/src/art/plants.ts",
+          "kind": "import-statement",
+          "original": "./art/plants"
+        },
+        {
+          "path": "games-src/garden-guard/src/art/zombies.ts",
+          "kind": "import-statement",
+          "original": "./art/zombies"
+        },
+        {
+          "path": "games-src/garden-guard/src/config.ts",
+          "kind": "import-statement",
+          "original": "./config"
+        },
+        {
+          "path": "games-src/garden-guard/src/data/levels.ts",
+          "kind": "import-statement",
+          "original": "./data/levels"
+        },
+        {
+          "path": "games-src/garden-guard/src/data/plants.ts",
+          "kind": "import-statement",
+          "original": "./data/plants"
+        },
+        {
+          "path": "games-src/garden-guard/src/data/zombies.ts",
+          "kind": "import-statement",
+          "original": "./data/zombies"
+        },
+        {
+          "path": "games-src/garden-guard/src/save.ts",
+          "kind": "import-statement",
+          "original": "./save"
+        },
+        {
+          "path": "games-src/garden-guard/src/util.ts",
+          "kind": "import-statement",
+          "original": "./util"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/ui.ts": {
+      "bytes": 3255,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/util.ts",
+          "kind": "import-statement",
+          "original": "./util"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/app.ts": {
+      "bytes": 10524,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/audio.ts",
+          "kind": "import-statement",
+          "original": "./audio"
+        },
+        {
+          "path": "games-src/garden-guard/src/art/background.ts",
+          "kind": "import-statement",
+          "original": "./art/background"
+        },
+        {
+          "path": "games-src/garden-guard/src/config.ts",
+          "kind": "import-statement",
+          "original": "./config"
+        },
+        {
+          "path": "games-src/garden-guard/src/data/levels.ts",
+          "kind": "import-statement",
+          "original": "./data/levels"
+        },
+        {
+          "path": "games-src/garden-guard/src/game/battle.ts",
+          "kind": "import-statement",
+          "original": "./game/battle"
+        },
+        {
+          "path": "games-src/garden-guard/src/game/render.ts",
+          "kind": "import-statement",
+          "original": "./game/render"
+        },
+        {
+          "path": "games-src/garden-guard/src/save.ts",
+          "kind": "import-statement",
+          "original": "./save"
+        },
+        {
+          "path": "games-src/garden-guard/src/data/plants.ts",
+          "kind": "import-statement",
+          "original": "./data/plants"
+        },
+        {
+          "path": "games-src/garden-guard/src/data/zombies.ts",
+          "kind": "import-statement",
+          "original": "./data/zombies"
+        },
+        {
+          "path": "games-src/garden-guard/src/scenes.ts",
+          "kind": "import-statement",
+          "original": "./scenes"
+        },
+        {
+          "path": "games-src/garden-guard/src/ui.ts",
+          "kind": "import-statement",
+          "original": "./ui"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/garden-guard/src/style.css": {
+      "bytes": 660,
+      "imports": []
+    },
+    "games-src/garden-guard/src/main.ts": {
+      "bytes": 423,
+      "imports": [
+        {
+          "path": "games-src/garden-guard/src/app.ts",
+          "kind": "import-statement",
+          "original": "./app"
+        },
+        {
+          "path": "games-src/garden-guard/src/style.css",
+          "kind": "import-statement",
+          "original": "./style.css"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "games-src/garden-guard/.build/min/main.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "games-src/garden-guard/src/main.ts",
+      "cssBundle": "games-src/garden-guard/.build/min/main.css",
+      "inputs": {
+        "games-src/garden-guard/src/audio.ts": {
+          "bytesInOutput": 6695
+        },
+        "games-src/garden-guard/src/config.ts": {
+          "bytesInOutput": 162
+        },
+        "games-src/garden-guard/src/util.ts": {
+          "bytesInOutput": 2722
+        },
+        "games-src/garden-guard/src/art/background.ts": {
+          "bytesInOutput": 5154
+        },
+        "games-src/garden-guard/src/data/levels.ts": {
+          "bytesInOutput": 4781
+        },
+        "games-src/garden-guard/src/data/plants.ts": {
+          "bytesInOutput": 6452
+        },
+        "games-src/garden-guard/src/art/plants.ts": {
+          "bytesInOutput": 13846
+        },
+        "games-src/garden-guard/src/art/zombies.ts": {
+          "bytesInOutput": 12435
+        },
+        "games-src/garden-guard/src/art/items.ts": {
+          "bytesInOutput": 5853
+        },
+        "games-src/garden-guard/src/data/zombies.ts": {
+          "bytesInOutput": 3496
+        },
+        "games-src/garden-guard/src/game/behaviors.ts": {
+          "bytesInOutput": 9278
+        },
+        "games-src/garden-guard/src/game/waves.ts": {
+          "bytesInOutput": 829
+        },
+        "games-src/garden-guard/src/game/battle.ts": {
+          "bytesInOutput": 17333
+        },
+        "games-src/garden-guard/src/game/render.ts": {
+          "bytesInOutput": 13315
+        },
+        "games-src/garden-guard/src/save.ts": {
+          "bytesInOutput": 337
+        },
+        "games-src/garden-guard/src/scenes.ts": {
+          "bytesInOutput": 14668
+        },
+        "games-src/garden-guard/src/ui.ts": {
+          "bytesInOutput": 1652
+        },
+        "games-src/garden-guard/src/app.ts": {
+          "bytesInOutput": 5771
+        },
+        "games-src/garden-guard/src/style.css": {
+          "bytesInOutput": 0
+        },
+        "games-src/garden-guard/src/main.ts": {
+          "bytesInOutput": 263
+        }
+      },
+      "bytes": 125067
+    },
+    "games-src/garden-guard/.build/min/main.css": {
+      "imports": [],
+      "inputs": {
+        "games-src/garden-guard/src/style.css": {
+          "bytesInOutput": 508
+        }
+      },
+      "bytes": 509
+    }
+  }
+}
