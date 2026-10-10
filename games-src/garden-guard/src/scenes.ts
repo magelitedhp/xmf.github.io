@@ -352,8 +352,14 @@ export class AlmanacScene implements Scene {
         const hover = app.ui.over(x, y, 104, 112)
         rrect(ctx, x, y - (hover ? 2 : 0), 104, 112, 12)
         paint(ctx, linear(ctx, 0, y, 0, y + 112, [[0, '#7cc152'], [1, '#4c8a2c']]), this.zombie === id ? '#fff3a0' : '#2c4a14', this.zombie === id ? 4 : 2.4)
-        if (seen) drawZombieHead(ctx, id, x + 56, y + 52, -0.1, id === 'garg' ? 0.62 : id === 'imp' ? 0.95 : 1)
-        else text(ctx, '?', x + 52, y + 52, { size: 46, color: '#2c4a14', weight: 900 })
+        if (seen) {
+          ctx.save()
+          ctx.translate(x + (id === 'garg' ? 76 : 61), y + 82)
+          const scale = id === 'garg' ? 0.28 : id === 'flag' ? 0.34 : id === 'imp' ? 0.72 : id === 'cone' ? 0.42 : 0.46
+          ctx.scale(scale, scale)
+          drawZombie(ctx, 0, 0, view(id, 0.7, 1.1, 'preview'))
+          ctx.restore()
+        } else text(ctx, '?', x + 52, y + 52, { size: 46, color: '#2c4a14', weight: 900 })
         text(ctx, seen ? ZOMBIES[id].name : '???', x + 52, y + 98, { size: 14, color: '#fff', stroke: '#1d3a0c', lw: 3, weight: 800 })
         if (app.ui.hit(x, y, 104, 112)) {
           this.zombie = id

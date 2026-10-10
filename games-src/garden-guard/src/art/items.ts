@@ -1,7 +1,7 @@
 import { PLANTS, type PlantId } from '../data/plants'
 import type { ZombieId } from '../data/zombies'
 import { C, FONT, TAU, circle, ellipse, linear, paint, radial, rrect, text, type Ctx } from '../util'
-import { drawPlant, flame } from './plants'
+import { cabbageBall, drawPlant, flame } from './plants'
 import { drawZombieHead } from './zombies'
 
 export const PACKET_W = 64
@@ -79,15 +79,7 @@ export function drawCabbageBall(ctx: Ctx, x: number, y: number, rot: number) {
   ctx.save()
   ctx.translate(x, y)
   ctx.rotate(rot)
-  circle(ctx, 0, 0, 13)
-  paint(ctx, radial(ctx, -4, -4, 1, 0, 0, 14, [[0, '#e6ffb8'], [0.6, '#92d651'], [1, '#4f9a26']]), C('#2d5e14'), 2)
-  ctx.strokeStyle = C('#5fae2e')
-  ctx.lineWidth = 1.6
-  ctx.beginPath()
-  ctx.arc(-8, 2, 10, -0.9, 0.7)
-  ctx.moveTo(14, 2)
-  ctx.arc(8, 2, 10, Math.PI - 0.7, Math.PI + 0.9)
-  ctx.stroke()
+  cabbageBall(ctx, 0.5)
   ctx.restore()
 }
 
@@ -151,7 +143,7 @@ function packetIcon(id: PlantId): HTMLCanvasElement {
   const def = PLANTS[id]
   c.translate(ICON_W / 2, ICON_H - 14 + def.iconY)
   c.scale(def.icon, def.icon)
-  drawPlant(c, id, 0, 0, { t: 0.4, hp: 1 })
+  drawPlant(c, id, 0, 0, { t: 0.4, hp: 1, state: id === 'potato' ? 'armed' : undefined })
   iconCache.set(id, cv)
   return cv
 }

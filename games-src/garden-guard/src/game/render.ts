@@ -12,7 +12,7 @@ import {
   drawTrophy,
 } from '../art/items'
 import { drawPlant, flame, plantShadow, type PlantView } from '../art/plants'
-import { drawZombie, drawZombieHead, zombieShadow, type ZombieView } from '../art/zombies'
+import { drawZombie, drawZombieArm, drawZombieArmor, drawZombieHead, zombieShadow, type ZombieView } from '../art/zombies'
 import { CELL_H, CELL_W, LAWN_B, LAWN_X, LAWN_Y, MAX_SLOTS, ROWS, VIEW_H, VIEW_W, WORLD_W, colCenter, rowFeet } from '../config'
 import { PLANTS } from '../data/plants'
 import type { UI } from '../ui'
@@ -129,24 +129,10 @@ function drawParticle(ctx: Ctx, b: Battle, p: Particle) {
       ctx.globalAlpha = Math.min(1, k * 2.5)
       drawZombieHead(ctx, p.zid ?? 'basic', p.x, p.y, p.rot, 1)
       break
-    case 'arm': {
+    case 'arm':
       ctx.globalAlpha = Math.min(1, k * 2.5)
-      ctx.translate(p.x, p.y)
-      ctx.rotate(p.rot)
-      ctx.lineCap = 'round'
-      ctx.lineWidth = 12
-      ctx.strokeStyle = '#2a2219'
-      ctx.beginPath()
-      ctx.moveTo(0, -12)
-      ctx.lineTo(0, 12)
-      ctx.stroke()
-      ctx.lineWidth = 9
-      ctx.strokeStyle = p.zid === 'pole' ? '#e6e1d6' : p.zid === 'football' ? '#c8242c' : '#7d6850'
-      ctx.stroke()
-      circle(ctx, 0, 16, 6)
-      paint(ctx, '#aac08e', '#3d4a30', 1.6)
+      drawZombieArm(ctx, p.zid ?? 'basic', p.x, p.y, p.rot)
       break
-    }
     case 'armor':
       ctx.globalAlpha = Math.min(1, k * 2.5)
       ctx.translate(p.x, p.y)
@@ -172,39 +158,7 @@ function drawParticle(ctx: Ctx, b: Battle, p: Particle) {
 }
 
 function drawArmorPiece(ctx: Ctx, p: Particle) {
-  switch (p.armorKind) {
-    case 'cone':
-      ctx.beginPath()
-      ctx.moveTo(-20, 16)
-      ctx.lineTo(-2, -30)
-      ctx.lineTo(18, 16)
-      ctx.closePath()
-      paint(ctx, '#f27a22', '#6e2d07', 2)
-      ctx.fillStyle = '#fff4e6'
-      ctx.fillRect(-12, -2, 22, 6)
-      break
-    case 'bucket':
-      ctx.beginPath()
-      ctx.moveTo(-20, 18)
-      ctx.lineTo(-15, -20)
-      ctx.lineTo(17, -16)
-      ctx.lineTo(22, 18)
-      ctx.closePath()
-      paint(ctx, linear(ctx, -20, 0, 22, 0, [[0, '#7a838a'], [0.4, '#dfe5ea'], [1, '#6d757c']]), '#3b4146', 2)
-      break
-    case 'helmet':
-      ctx.beginPath()
-      ctx.ellipse(0, 6, 24, 24, 0, Math.PI, Math.PI * 2)
-      ctx.closePath()
-      paint(ctx, '#c8242c', '#4a070c', 2)
-      break
-    case 'door':
-      rrect(ctx, -22, -60, 44, 120, 3)
-      paint(ctx, 'rgba(200,210,215,0.35)', '#4c5156', 5)
-      break
-    default:
-      break
-  }
+  if (p.armorKind) drawZombieArmor(ctx, p.armorKind)
 }
 
 // ------------------------------------------------------------------ world

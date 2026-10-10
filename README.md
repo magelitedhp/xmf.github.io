@@ -2,7 +2,7 @@
 
 Vue 3 + TypeScript + Vite 个人站，以浅色毛玻璃、彩色品牌海报与卡片布局呈现随笔、音乐、工具、交互实验和游戏厅。
 
-当前版本为 **v0.1.6**。本轮改动见 [v0.1.6 更新日志](changelog/v0.1.6.md)，后续开发见 [未发布更新日志](changelog/unreleased.md)，历史版本见 [更新日志索引](changelog/README.md)。
+当前版本为 **v0.1.7**。本轮改动见 [v0.1.7 更新日志](changelog/v0.1.7.md)，后续开发见 [未发布更新日志](changelog/unreleased.md)，历史版本见 [更新日志索引](changelog/README.md)。
 
 在线预览（GitHub Pages，`docs/` 目录）：
 
@@ -30,7 +30,7 @@ https://magelitedhp.github.io/xmf.github.io/
 | 花园保卫战 | 草坪塔防；15 种植物、10 种僵尸、12 关冒险、保龄球挑战、无尽生存、图鉴与本地存档 | 独立 TypeScript 源码编译为单个 HTML，站内以 iframe 嵌入；构建说明见 [游戏 README](games-src/garden-guard/README.md) |
 | 瓜体实验室 | 半流体水果合成；果冻 / 半流体 / 果汁三种材质、容器倾斜、能量搅动、十级水果演化与本地最高分 | Canvas 物理模拟，支持鼠标、键盘及触屏；独立 HTML 配合 `studio.css`，站内 iframe 自适应内容高度 |
 
-《烬灯行》玩法风格致敬 [熵刃 ENTROPY BLADE](https://game.inc.re/entropy-blade/)；《花园保卫战》玩法致敬 PopCap《植物大战僵尸》，为非官方同人；《瓜体实验室》概念与交互参考 [半流体西瓜游戏](https://melon-game.jack-514.chatgpt.site/)。站内游戏的代码与视觉素材为独立实现。
+《烬灯行》玩法风格致敬 [熵刃 ENTROPY BLADE](https://game.inc.re/entropy-blade/)；《花园保卫战》为致敬 PopCap《植物大战僵尸》的非官方同人，角色参考经典版造型，以 Canvas 2D 矢量重新绘制，游戏厅 SVG 封面也由同一套角色函数生成；《瓜体实验室》概念与交互参考 [半流体西瓜游戏](https://melon-game.jack-514.chatgpt.site/)。站内游戏代码独立实现，《花园保卫战》不包含原版图片或音频文件。
 
 ## 目录结构
 
@@ -65,7 +65,7 @@ docs/                            # GitHub Pages 发布目录
 npm install
 npm run dev
 npm run build
-npm run game:garden        # 类型检查并重新编译花园保卫战单文件 HTML
+npm run game:garden        # 类型检查并生成花园保卫战单文件 HTML 与 SVG 封面
 npm run game:garden:watch  # 监听源码自动重编
 ```
 

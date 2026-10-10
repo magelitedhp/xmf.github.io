@@ -11,6 +11,7 @@ import * as esbuild from 'esbuild'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { buildCover } from './tools/build-cover.mjs'
 
 const root = path.dirname(fileURLToPath(import.meta.url))
 const buildDir = path.join(root, '.build')
@@ -39,6 +40,7 @@ async function inline() {
   await fs.writeFile(path.join(outDir, 'garden-guard.html'), html)
   await fs.mkdir(path.dirname(siteCopy), { recursive: true })
   await fs.writeFile(siteCopy, html)
+  await buildCover(root)
   console.log(`[garden-guard] output/garden-guard.html  ${(Buffer.byteLength(html) / 1024).toFixed(1)} KB`)
 }
 

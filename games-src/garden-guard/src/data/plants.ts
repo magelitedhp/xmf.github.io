@@ -179,8 +179,8 @@ export const PLANTS: Record<PlantId, PlantDef> = {
     hp: 300,
     desc: '穿过它的豌豆会燃烧，伤害翻倍并溅射。\n冰豌豆穿过会被融化成普通豌豆。',
     stats: ['效果：豌豆伤害 ×2', '附带溅射'],
-    icon: 0.5,
-    iconY: 6,
+    icon: 0.43,
+    iconY: 8,
   }),
   tallnut: P({
     id: 'tallnut',
@@ -202,7 +202,7 @@ export const PLANTS: Record<PlantId, PlantDef> = {
     desc: '同时向三行发射豌豆。\n三个脑袋，一个目标。',
     stats: ['伤害：中等', '射击：三行'],
     icon: 0.44,
-    iconY: 12,
+    iconY: 8,
   }),
   bowlnut: P({
     id: 'bowlnut',
@@ -238,7 +238,7 @@ export const PLANTS: Record<PlantId, PlantDef> = {
     stats: ['碾压伤害：3000', '贯穿整行'],
     bowling: true,
     icon: 0.3,
-    iconY: 14,
+    iconY: 12,
   }),
 }
 

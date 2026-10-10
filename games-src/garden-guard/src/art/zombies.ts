@@ -1,3 +1,4 @@
+import { shape } from './paths'
 import type { ArmorKind, ZombieId } from '../data/zombies'
 import { C, circle, clamp, easeInCubic, easeOutCubic, ellipse, lerp, linear, paint, radial, rrect, type Ctx } from '../util'
 
@@ -33,15 +34,15 @@ interface Outfit {
 }
 
 const BASE: Outfit = {
-  coat: '#7d6850',
-  coatDark: '#5a4a38',
-  shirt: '#ece7da',
-  tie: '#b3262a',
-  pants: '#5b4a36',
-  pantsDark: '#3e3224',
-  skin: '#aac08e',
-  skinDark: '#7d9465',
-  shoe: '#2b2420',
+  coat: '#79543a',
+  coatDark: '#503c2b',
+  shirt: '#e6ddbc',
+  tie: '#a83424',
+  pants: '#525f79',
+  pantsDark: '#35425c',
+  skin: '#8eaa91',
+  skinDark: '#617e69',
+  shoe: '#574631',
   scale: 1,
   head: 1,
 }
@@ -52,11 +53,11 @@ const OUTFITS: Record<ZombieId, Outfit> = {
   cone: BASE,
   bucket: BASE,
   door: { ...BASE, coat: '#6f6a5c', coatDark: '#4f4b40' },
-  paper: { ...BASE, coat: '#8a7a62', coatDark: '#665944', tie: '#3a5a8a', pants: '#4a5768', pantsDark: '#323c49' },
+  paper: { ...BASE, coat: '#8b5145', coatDark: '#623c34', shirt: '#ded4b9', tie: null, pants: '#eee3c9', pantsDark: '#b6ad94' },
   pole: { ...BASE, coat: '#e6e1d6', coatDark: '#b8b1a3', shirt: '#e6e1d6', tie: null, pants: '#c23b3b', pantsDark: '#8a2525' },
   football: { ...BASE, coat: '#c8242c', coatDark: '#8f1820', shirt: '#c8242c', tie: null, pants: '#d9d4c8', pantsDark: '#a9a397', scale: 1.08 },
-  garg: { ...BASE, coat: '#c9b89a', coatDark: '#9c8c70', shirt: '#c9b89a', tie: null, pants: '#55678a', pantsDark: '#3b4a66', skin: '#9fb584', skinDark: '#748a5d', scale: 1.72, head: 0.85 },
-  imp: { ...BASE, coat: '#d8cfb8', coatDark: '#aaa08a', shirt: '#d8cfb8', tie: null, pants: '#6b5a44', pantsDark: '#4a3e2e', scale: 0.62, head: 1.3 },
+  garg: { ...BASE, coat: '#807968', coatDark: '#595c4e', shirt: '#807968', tie: null, pants: '#55678a', pantsDark: '#3b4a66', skin: '#9fb584', skinDark: '#748a5d', scale: 1.72, head: 0.96 },
+  imp: { ...BASE, coat: '#b94932', coatDark: '#793526', shirt: '#b94932', tie: null, pants: '#6b5a44', pantsDark: '#4a3e2e', scale: 0.62, head: 1.25 },
 }
 
 interface Point {
@@ -65,127 +66,92 @@ interface Point {
 }
 
 /** Two-segment limb. Angles are measured from straight down; negative swings toward −x (forward). */
-function limb(ctx: Ctx, x: number, y: number, a1: number, l1: number, a2: number, l2: number, w: number, color: string, edge: string) {
-  const kx = x + Math.sin(a1) * l1
-  const ky = y + Math.cos(a1) * l1
-  const fx = kx + Math.sin(a2) * l2
-  const fy = ky + Math.cos(a2) * l2
-  ctx.lineCap = 'round'
-  ctx.lineJoin = 'round'
-  ctx.beginPath()
-  ctx.moveTo(x, y)
-  ctx.lineTo(kx, ky)
-  ctx.lineTo(fx, fy)
-  ctx.lineWidth = w + 3.4
-  ctx.strokeStyle = C(edge)
-  ctx.stroke()
-  ctx.lineWidth = w
-  ctx.strokeStyle = C(color)
-  ctx.stroke()
-  return { kx, ky, fx, fy }
+function segment(ctx: Ctx, x: number, y: number, angle: number, len: number, width: number, fill: string, kind: 'cloth' | 'skin' | 'pants') {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(-angle); ctx.scale(width / 12, len / 28)
+  const d = kind === 'cloth'
+    ? 'M-7 0 Q-10 7 -6 21 L-7 28 L-3 25 L0 29 L3 25 L6 28 L7 19 Q8 6 5 0Z'
+    : kind === 'pants' ? 'M-7 -2 L7 -2 Q9 11 5 28 L-7 28 L-5 18Z'
+    : 'M-5 -2 Q-8 4 -4 11 L-4 28 L4 28 Q2 18 5 6 L5 -2Z'
+  shape(ctx, d, fill, kind === 'skin' ? '#454d35' : '#342f23', 2)
+  if (kind === 'cloth') shape(ctx, 'M-4 7 L2 11 M-4 20 L2 17', null, '#473e2d', 1.1)
+  if (kind === 'skin') shape(ctx, 'M-2 6 L1 10 M0 15 L1 24', null, '#75805e', 1)
+  ctx.restore()
+  return {x: x + Math.sin(angle) * len, y: y + Math.cos(angle) * len}
 }
 
-function hand(ctx: Ctx, p: Point, o: Outfit, a: number) {
-  circle(ctx, p.x, p.y, 6)
-  paint(ctx, C(o.skin), C('#3d4a30'), 1.8)
-  ctx.lineWidth = 2.2
-  ctx.lineCap = 'round'
-  ctx.strokeStyle = C(o.skinDark)
-  ctx.beginPath()
-  for (let i = -1; i <= 1; i++) {
-    const fa = a + i * 0.35
-    ctx.moveTo(p.x + Math.sin(fa) * 4, p.y + Math.cos(fa) * 4)
-    ctx.lineTo(p.x + Math.sin(fa) * 10, p.y + Math.cos(fa) * 10)
+function hand(ctx: Ctx, p: Point, o: Outfit, angle: number) {
+  ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(-angle)
+  shape(ctx, 'M-4 -3 L4 -3 L6 2 L5 8 L9 12 Q10 15 7 14 L2 10 L1 16 Q-1 18 -2 15 L-3 10 L-4 17 Q-7 19 -7 15 L-7 9 L-9 13 Q-12 13 -10 9 L-8 2Z', o.skin, '#454d35', 1.5)
+  shape(ctx, 'M-5 3 L2 3 M-4 7 L1 7', null, o.skinDark, 1)
+  ctx.restore()
+}
+
+function arm(ctx: Ctx, x: number, y: number, a: number, fore: number, o: Outfit, id: ZombieId, intact = true, back = false) {
+  const heavy = id === 'garg', bare = heavy || id === 'pole' || id === 'imp'
+  const w = heavy ? 20 : id === 'football' ? 14 : 12
+  const elbow = segment(ctx, x, y, a, intact ? 27 : 10, w, bare ? o.skin : back ? o.coatDark : o.coat, bare ? 'skin' : 'cloth')
+  if (!intact) {
+    ellipse(ctx, elbow.x, elbow.y, w * 0.35, 3); paint(ctx, C('#7a5944'), C('#454334'), 1)
+    return elbow
   }
-  ctx.stroke()
+  const wrist = segment(ctx, elbow.x, elbow.y, fore, 21, heavy ? 15 : 9, back ? o.skinDark : o.skin, 'skin')
+  hand(ctx, wrist, o, fore)
+  return wrist
+}
+
+function leg(ctx: Ctx, x: number, a: number, o: Outfit, id: ZombieId, back: boolean) {
+  const heavy = id === 'garg', sport = id === 'pole', paper = id === 'paper'
+  const knee = segment(ctx, x, -46, a, 23, heavy ? 20 : 14, back ? o.pantsDark : o.pants, 'pants')
+  const lower = a * 0.45 + (a < 0 ? 0.28 : -0.1)
+  const ankle = segment(ctx, knee.x, knee.y, lower, 22, heavy ? 16 : 11, sport || paper ? o.skin : back ? o.pantsDark : o.pants, sport || paper ? 'skin' : 'pants')
+  if (!sport && !paper) {
+    ctx.save(); ctx.translate(knee.x, knee.y); ctx.rotate(-lower)
+    shape(ctx, 'M-5 -3 L2 -5 L6 -1 L2 4 L-4 3Z', o.skinDark, '#344334', 1.2)
+    shape(ctx, 'M-6 -4 L-2 -1 M4 3 L6 5', null, '#c0c5aa', 1)
+    ctx.restore()
+  }
+  ctx.save(); ctx.translate(ankle.x, ankle.y)
+  if (sport || id === 'football') {
+    shape(ctx, 'M-7 -8 L5 -8 L5 -1 Q6 4 -5 5 L-21 4 L-23 0 L-16 -4Z', '#e8e2c6', '#504b38', 1.8)
+    shape(ctx, 'M-21 1 L5 2 M-12 -3 L-7 -1 M-7 -5 L-2 -3', null, '#b74330', 1.5)
+  } else {
+    shape(ctx, 'M-7 -7 L5 -6 L7 1 Q9 7 -2 7 L-22 6 Q-28 4 -24 0 L-17 -3 L-13 -8Z', o.shoe, '#332c22', 2)
+    shape(ctx, 'M-23 4 L6 4 M-15 -3 L-7 -2 M-13 -5 L-5 -4', null, '#918068', 1.1)
+  }
+  ctx.restore()
 }
 
 function torso(ctx: Ctx, o: Outfit, id: ZombieId) {
-  ctx.beginPath()
-  ctx.moveTo(-19, -100)
-  ctx.quadraticCurveTo(-2, -107, 14, -100)
-  ctx.lineTo(18, -60)
-  ctx.quadraticCurveTo(17, -42, 12, -38)
-  ctx.lineTo(-16, -40)
-  ctx.quadraticCurveTo(-23, -70, -19, -100)
-  paint(ctx, linear(ctx, -20, 0, 18, 0, [[0, o.coat], [0.7, o.coat], [1, o.coatDark]]), C('#2a2219'), 2.6)
-  if (id === 'pole') {
-    ctx.lineWidth = 4
-    ctx.strokeStyle = C('#c23b3b')
-    ctx.beginPath()
-    ctx.moveTo(-17, -98)
-    ctx.lineTo(-14, -42)
-    ctx.moveTo(12, -100)
-    ctx.lineTo(15, -40)
-    ctx.stroke()
+  if (id === 'garg') {
+    shape(ctx, 'M-31 -99 Q-11 -111 17 -102 Q36 -99 38 -80 L28 -43 L-26 -40 Q-39 -60 -31 -99Z', linear(ctx, -27, -90, 33, -45, [[0, o.coat], [1, o.coatDark]]), '#343c2c', 2.8)
+    shape(ctx, 'M-27 -99 L-17 -94 L-14 -100 L-8 -93 L7 -96 L11 -103 M-31 -69 L-20 -65 L-22 -48 M29 -68 L18 -65 L20 -46', null, '#3d4437', 2)
+    shape(ctx, 'M-21 -45 L-25 -83 L-17 -88 L-9 -52 L11 -52 L16 -91 L24 -86 L23 -45Z', o.pants, '#344535', 2)
+    shape(ctx, 'M-26 -52 L27 -54 L28 -36 L3 -33 L-25 -37Z', o.pants, '#303e35', 2)
+    shape(ctx, 'M-8 -53 L-8 -39 L10 -39 L10 -53 M-18 -78 L-14 -76 M17 -78 L21 -77', null, '#94a4a1', 1.4)
     return
   }
-  if (id === 'football') {
-    ctx.font = `900 18px sans-serif`
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'middle'
-    ctx.fillStyle = C('#ffffff')
-    ctx.fillText('13', -2, -70)
-    return
-  }
-  if (id === 'garg' || id === 'imp') {
-    ctx.lineWidth = 1.6
-    ctx.strokeStyle = C(o.coatDark)
-    ctx.beginPath()
-    ctx.moveTo(-8, -60)
-    ctx.lineTo(-2, -52)
-    ctx.lineTo(4, -60)
-    ctx.moveTo(6, -84)
-    ctx.lineTo(10, -78)
-    ctx.stroke()
-    if (id === 'garg') {
-      rrect(ctx, -17, -64, 32, 26, 4)
-      paint(ctx, C(o.pants), C('#2a2219'), 2)
-      ctx.lineWidth = 4
-      ctx.strokeStyle = C(o.pants)
-      ctx.beginPath()
-      ctx.moveTo(-12, -64)
-      ctx.lineTo(-14, -98)
-      ctx.moveTo(10, -64)
-      ctx.lineTo(10, -98)
-      ctx.stroke()
+  const sport = id === 'pole' || id === 'football', imp = id === 'imp'
+  shape(ctx, 'M-19 -99 Q-1 -105 16 -92 Q24 -76 19 -53 L23 -42 L13 -38 L8 -43 L0 -37 L-10 -41 L-16 -37 Q-20 -55 -22 -75Z', linear(ctx, -19, -90, 19, -50, [[0, o.coat], [1, o.coatDark]]), '#362e23', 2.5)
+  if (sport) {
+    if (id === 'pole') {
+      shape(ctx, 'M-16 -96 L-14 -42 M11 -94 L15 -43', null, '#a83b2c', 3.5)
+      shape(ctx, 'M-10 -69 L10 -69 L9 -52 L-9 -52Z', '#f6ebcb', '#b1a687', 1)
     }
+    ctx.font = '900 17px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = C(id === 'pole' ? '#a53626' : '#f8ebcd'); ctx.fillText(id === 'pole' ? '1' : '13', 0, -63)
     return
   }
-  ctx.beginPath()
-  ctx.moveTo(-13, -101)
-  ctx.lineTo(3, -103)
-  ctx.lineTo(-4, -74)
-  ctx.closePath()
-  paint(ctx, C(o.shirt), C('#5a5448'), 1.4)
+  if (imp) {
+    shape(ctx, 'M-17 -84 L-6 -77 L-13 -66 M16 -82 L7 -74 L14 -69 M-5 -50 L2 -46 L9 -52', null, '#e47e52', 1.8)
+    return
+  }
+  shape(ctx, 'M-15 -99 L1 -99 L6 -85 L-1 -51 L-13 -54 L-16 -72Z', o.shirt, '#706448', 1.6)
+  shape(ctx, 'M-15 -98 L-21 -86 L-12 -80 L-17 -75 L-9 -58 M3 -96 L11 -86 L5 -76 L8 -70 L-2 -54', o.coat, '#493b29', 1.8)
   if (o.tie) {
-    ctx.beginPath()
-    ctx.moveTo(-7, -100)
-    ctx.lineTo(-1, -100)
-    ctx.lineTo(2, -84)
-    ctx.lineTo(-3, -68)
-    ctx.lineTo(-8, -84)
-    ctx.closePath()
-    paint(ctx, C(o.tie), C('#4a0c0e'), 1.4)
+    shape(ctx, 'M-11 -94 L-4 -95 L-2 -88 L-6 -84 L-1 -65 L-7 -55 L-13 -63 L-10 -85 L-14 -88Z', o.tie, '#633221', 1.5)
+    shape(ctx, 'M-10 -80 L-5 -76 M-10 -70 L-4 -66 M-10 -61 L-6 -58', null, '#dfb77a', 2)
   }
-  ctx.lineWidth = 1.6
-  ctx.strokeStyle = C(o.coatDark)
-  ctx.beginPath()
-  ctx.moveTo(-13, -101)
-  ctx.lineTo(-8, -76)
-  ctx.moveTo(3, -103)
-  ctx.lineTo(-1, -78)
-  ctx.stroke()
-  ctx.beginPath()
-  ctx.moveTo(6, -64)
-  ctx.lineTo(13, -60)
-  ctx.lineTo(9, -54)
-  ctx.closePath()
-  paint(ctx, C(o.coatDark))
-  for (const by of [-62, -51]) {
-    circle(ctx, -12, by, 1.8)
-    paint(ctx, C('#2a2219'))
-  }
+  shape(ctx, 'M9 -66 L15 -64 L12 -57 L6 -59 M-16 -49 L-12 -48', null, '#493c2c', 1.6)
+  if (id === 'paper') shape(ctx, 'M-10 -76 L-9 -47 M-5 -73 L-6 -66 M-7 -58 L-7 -52', null, '#a27f63', 1.3)
 }
 
 function headwear(ctx: Ctx, v: ZombieView, hx: number, hy: number) {
@@ -278,6 +244,11 @@ function headwear(ctx: Ctx, v: ZombieView, hx: number, hy: number) {
       ctx.moveTo(hx - 26, hy + 5)
       ctx.lineTo(hx - 8, hy + 7)
       ctx.stroke()
+      ctx.save()
+      ctx.translate(hx, hy)
+      shape(ctx, 'M-25 1 L-34 5 L-33 24 L-14 33 L5 28 L10 9 M-33 14 L-9 22 L6 18 M-23 8 L-22 27 M-10 11 L-10 29', null, '#464e48', 4)
+      shape(ctx, 'M-25 1 L-34 5 L-33 24 L-14 33 L5 28 L10 9 M-33 14 L-9 22 L6 18 M-23 8 L-22 27 M-10 11 L-10 29', null, '#a8b5a7', 2)
+      ctx.restore()
       if (r < 0.5) {
         ctx.lineWidth = 1.6
         ctx.strokeStyle = C('#3a0508')
@@ -293,81 +264,49 @@ function headwear(ctx: Ctx, v: ZombieView, hx: number, hy: number) {
 }
 
 function head(ctx: Ctx, v: ZombieView, o: Outfit, hx: number, hy: number, jaw: number) {
-  const skin = v.angry ? '#c99c86' : o.skin
-  const skinDark = v.angry ? '#a0705c' : o.skinDark
-  rrect(ctx, hx + 2, hy + 12, 11, 14, 3)
-  paint(ctx, C(skinDark), C('#3d4a30'), 1.6)
-  ellipse(ctx, hx + 17, hy + 1, 5, 7)
-  paint(ctx, C(skinDark), C('#3d4a30'), 1.6)
-  ellipse(ctx, hx, hy, 20.5, 22.5)
-  paint(ctx, radial(ctx, hx - 6, hy - 8, 3, hx, hy, 24, [[0, skin], [0.75, skin], [1, skinDark]]), C('#3d4a30'), 2.4)
-  if (!(v.armor > 0 && (v.armorKind === 'bucket' || v.armorKind === 'helmet' || v.armorKind === 'cone'))) {
-    ctx.lineWidth = 1.6
-    ctx.strokeStyle = C('#3a3328')
-    ctx.beginPath()
-    ctx.moveTo(hx + 2, hy - 21)
-    ctx.quadraticCurveTo(hx + 4, hy - 30, hx + 12, hy - 31)
-    ctx.moveTo(hx + 7, hy - 20)
-    ctx.quadraticCurveTo(hx + 12, hy - 27, hx + 18, hy - 24)
-    ctx.moveTo(hx - 4, hy - 21)
-    ctx.quadraticCurveTo(hx - 6, hy - 28, hx - 2, hy - 33)
-    ctx.stroke()
+  const skin = v.angry ? '#bfa284' : o.skin, dark = v.angry ? '#947858' : o.skinDark
+  ctx.save(); ctx.translate(hx, hy); ctx.scale(o.head, o.head)
+  shape(ctx, 'M3 17 L15 12 L15 32 L2 33 L-3 26Z', dark, '#414b34', 1.8)
+  shape(ctx, 'M21 -3 Q34 -12 33 0 Q32 12 23 10 L19 5Z', skin, '#414b34', 1.8)
+  shape(ctx, 'M26 0 Q31 -3 28 5', null, dark, 1.8)
+  // Asymmetric forehead, projecting nose, sunken cheek and a separate jaw.
+  shape(ctx, 'M-23 -8 C-28 -17 -18 -31 -4 -32 C13 -36 26 -25 27 -11 Q28 3 19 11 L13 23 Q-1 31 -19 23 L-24 13 L-30 8 L-31 2 L-24 -1Z', linear(ctx, -19, -29, 22, 24, [[0, '#b0bea0'], [0.35, skin], [1, dark]]), '#374735', 2.5)
+  shape(ctx, 'M12 -23 Q17 -19 20 -19 M16 9 L22 5 M10 15 L16 13 M-16 -25 L-8 -27', null, dark, 1.4)
+  const covered = v.armor > 0 && ['bucket', 'helmet', 'cone'].includes(v.armorKind ?? '')
+  if (!covered) {
+    shape(ctx, 'M-7 -31 Q-13 -40 -8 -43 M0 -33 Q-1 -42 6 -43 M7 -31 Q12 -39 18 -37', null, '#424533', 1.8)
+    if (v.id === 'paper') shape(ctx, 'M13 -28 Q23 -36 28 -21 M18 -27 Q28 -30 29 -16', null, '#d9d8bb', 3)
   }
-  ctx.lineWidth = 1.6
-  ctx.strokeStyle = C(skinDark)
-  ctx.beginPath()
-  ctx.arc(hx - 11, hy - 2, 9, 0.2 * Math.PI, 0.8 * Math.PI)
-  ctx.stroke()
-  circle(ctx, hx - 11, hy - 5, 7.5)
-  paint(ctx, C('#f4f1e6'), C('#3d4a30'), 1.6)
-  circle(ctx, hx - 13, hy - 4, 2.2)
-  paint(ctx, C('#1a1a1a'))
-  circle(ctx, hx + 2, hy - 7, 5.2)
-  paint(ctx, C('#ebe6d6'), C('#3d4a30'), 1.4)
-  circle(ctx, hx + 1, hy - 6, 1.7)
-  paint(ctx, C('#1a1a1a'))
+  ellipse(ctx, -16, -7, 9, 10, -0.18); paint(ctx, C('#f1edcf'), C('#454a35'), 1.8)
+  ellipse(ctx, 3, -9, 10.6, 11.2, 0.08); paint(ctx, C('#faf5dc'), C('#454a35'), 1.8)
+  circle(ctx, -18.5, -6, 2.2); paint(ctx, C('#272e20'))
+  circle(ctx, 0.5, -7.5, 2.8); paint(ctx, C('#272e20'))
+  shape(ctx, 'M-23 4 L-27 7 L-18 9 L-14 7', skin, '#4a5239', 1.5)
+  shape(ctx, 'M-23 -19 Q-16 -24 -9 -19 M-6 -23 Q3 -27 12 -22', null, '#69764f', 2)
+  if (v.id === 'garg' || v.angry) shape(ctx, 'M-26 -18 L-10 -14 M-5 -16 L15 -22', null, '#4a5539', 4)
+  const open = 3 + jaw * 5
+  ctx.save(); ctx.translate(0, open)
+  shape(ctx, 'M-25 9 Q-12 12 5 7 L7 16 Q-1 26 -17 23 L-25 20Z', dark, '#374735', 2)
+  shape(ctx, 'M-25 7 Q-13 11 4 6 L3 17 Q-7 21 -22 16Z', '#392d23', '#42432c', 1.5)
+  shape(ctx, 'M-22 9 L-21 14 L-16 15 L-15 10 M-7 10 L-7 14 L-3 13 L-3 9 M-12 18 L-12 15 L-7 15 L-6 19', '#e6dfb6', '#7f7955', 0.7)
+  ctx.restore()
+  shape(ctx, 'M-23 6 Q-11 10 8 5 L10 9', null, '#535b3d', 2)
   if (v.id === 'paper') {
-    ctx.lineWidth = 1.6
-    ctx.strokeStyle = C('#222222')
-    ctx.beginPath()
-    ctx.arc(hx - 11, hy - 5, 9, 0, Math.PI * 2)
-    ctx.moveTo(hx + 7.5, hy - 7)
-    ctx.arc(hx + 2, hy - 7, 6.5, 0, Math.PI * 2)
-    ctx.moveTo(hx - 2, hy - 6)
-    ctx.lineTo(hx - 4.5, hy - 6)
-    ctx.stroke()
+    ellipse(ctx, -16, -7, 10.5, 11); paint(ctx, null, C('#565040'), 1.6)
+    ellipse(ctx, 3, -9, 12, 12.5); paint(ctx, null, C('#565040'), 1.6)
+    shape(ctx, 'M-5 -9 L-7 -8 M15 -10 L27 -6', null, '#565040', 1.6)
   }
-  ctx.lineWidth = 2.2
-  ctx.strokeStyle = C('#3d4a30')
-  ctx.beginPath()
-  ctx.moveTo(hx - 19, hy - 15)
-  ctx.lineTo(hx - 6, hy - 13 + (v.angry ? 4 : 0))
-  ctx.stroke()
-  const mOpen = 2 + jaw * 5
-  ellipse(ctx, hx - 10, hy + 12 + mOpen * 0.4, 7.5, mOpen)
-  paint(ctx, C('#2a1a14'))
-  ctx.fillStyle = C('#efe8cc')
-  ctx.fillRect(hx - 14, hy + 10, 3, 3)
-  ctx.fillRect(hx - 9, hy + 10, 3, 3.5)
-  ctx.lineWidth = 1.8
-  ctx.strokeStyle = C('#3d4a30')
-  ctx.beginPath()
-  ctx.arc(hx - 6, hy + 14 + jaw * 4, 13, 0.55 * Math.PI, 0.95 * Math.PI)
-  ctx.stroke()
   if (v.id === 'pole') {
-    ctx.fillStyle = C('#c23b3b')
-    ctx.fillRect(hx - 21, hy - 19, 42, 6)
+    shape(ctx, 'M-24 -22 Q0 -28 26 -21 L26 -15 Q0 -23 -25 -16Z', '#c9402d', '#6d3824', 1.5)
+    shape(ctx, 'M26 -20 L39 -12 L27 -13 L37 -4 L24 -10Z', '#c9402d', '#6d3824', 1.3)
   }
   if (v.angry) {
-    const k = (v.t * 2) % 1
-    ctx.globalAlpha *= 1 - k
-    for (const sx of [-6, 8]) {
-      circle(ctx, hx + sx, hy - 30 - k * 20, 4 + k * 4)
-      paint(ctx, 'rgba(255,255,255,0.8)')
-    }
-    ctx.globalAlpha /= Math.max(0.01, 1 - k)
+    ctx.save(); const k = (v.t * 2) % 1; ctx.globalAlpha *= 1 - k
+    for (const x of [-6, 8]) { circle(ctx, x, -36 - k * 20, 3 + k * 4); paint(ctx, C('#eae6cf')) }
+    ctx.restore()
   }
-  headwear(ctx, v, hx, hy)
+  headwear(ctx, v, 0, -10)
+  ctx.restore()
 }
 
 export function drawZombieHead(ctx: Ctx, id: ZombieId, x: number, y: number, rot: number, scale = 1) {
@@ -375,7 +314,7 @@ export function drawZombieHead(ctx: Ctx, id: ZombieId, x: number, y: number, rot
   ctx.save()
   ctx.translate(x, y)
   ctx.rotate(rot)
-  ctx.scale(o.scale * o.head * scale, o.scale * o.head * scale)
+  ctx.scale(o.scale * scale, o.scale * scale)
   head(
     ctx,
     { id, t: 0, phase: 0, state: 'walk', stateT: 0, deathT: 0, hasArm: true, hasHead: true, hasPole: false, hasImp: false, armorKind: null, armor: 0, angry: false },
@@ -387,26 +326,44 @@ export function drawZombieHead(ctx: Ctx, id: ZombieId, x: number, y: number, rot
   ctx.restore()
 }
 
+/** Detached pieces use exactly the same outfit and contours as living sprites. */
+export function drawZombieArm(ctx: Ctx, id: ZombieId, x: number, y: number, rot: number) {
+  ctx.save()
+  ctx.translate(x, y)
+  ctx.rotate(rot)
+  ctx.scale(0.7, 0.7)
+  arm(ctx, 0, -25, 0.1, -0.2, OUTFITS[id], id)
+  ctx.restore()
+}
+
+export function drawZombieArmor(ctx: Ctx, kind: ArmorKind) {
+  ctx.save()
+  if (kind === 'door') {
+    ctx.translate(48, 84)
+    screenDoor(ctx, 0.3)
+  } else if (kind === 'paper') {
+    ctx.translate(48, 78)
+    newspaper(ctx, 0.3, 0)
+  } else {
+    headwear(ctx, { id: 'basic', t: 0, phase: 0, state: 'preview', stateT: 0, deathT: 0, hasArm: true, hasHead: true, hasPole: false, hasImp: false, armorKind: kind, armor: 0.3, angry: false }, 0, 20)
+  }
+  ctx.restore()
+}
+
 function newspaper(ctx: Ctx, r: number, wob: number) {
   ctx.save()
-  ctx.translate(-54, -92)
+  ctx.translate(-48, -78)
   ctx.rotate(-0.08 + wob * 0.03)
-  ctx.beginPath()
-  ctx.moveTo(-20, -28)
-  ctx.lineTo(18, -30)
-  if (r < 0.5) {
-    ctx.lineTo(16, -6)
-    ctx.lineTo(6, 2)
-    ctx.lineTo(12, 12)
-  }
-  ctx.lineTo(18, 26)
-  ctx.lineTo(-20, 28)
-  ctx.closePath()
-  paint(ctx, linear(ctx, -20, 0, 18, 0, [[0, '#f2f0e6'], [1, '#d6d3c4']]), C('#6b6b62'), 1.8)
+  shape(ctx, r < 0.5 ? 'M-26 -25 L0 -21 L27 -27 L25 -7 L16 0 L24 7 L17 20 L0 27 L-27 23Z' : 'M-26 -25 L0 -21 L27 -27 L29 23 L0 28 L-27 23Z', linear(ctx, -26, 0, 29, 0, [[0, '#e5e1cc'], [0.45, '#f1edd7'], [0.5, '#c9c5ad'], [1, '#e9e5d0']]), '#767762', 1.8)
+  shape(ctx, 'M0 -21 L0 26', null, '#aaa68e', 1)
   ctx.fillStyle = C('#4a4a44')
-  ctx.fillRect(-15, -24, 26, 6)
+  ctx.fillRect(-21, -18, 16, 4)
+  ctx.fillRect(4, -20, 17, 4)
   ctx.fillStyle = C('#9a988c')
-  for (let i = 0; i < 6; i++) ctx.fillRect(-15, -13 + i * 6, i % 3 === 2 ? 14 : 26, 2)
+  for (let i = 0; i < 7; i++) {
+    ctx.fillRect(-21, -10 + i * 4, i % 3 === 2 ? 11 : 16, 1.3)
+    if (i < 3 || r >= 0.5) ctx.fillRect(4, -12 + i * 4, i % 3 === 2 ? 11 : 17, 1.3)
+  }
   ctx.restore()
 }
 
@@ -495,154 +452,68 @@ function imp(ctx: Ctx, x: number, y: number, s: number, t: number) {
 }
 
 function drawBody(ctx: Ctx, v: ZombieView, o: Outfit) {
-  const st = v.state
-  const running = v.id === 'pole' && v.hasPole
-  let legA = 0
-  let backArm = -1.3
-  let backFore = -1.45
-  let frontArm = -1.3
-  let frontFore = -1.5
-  let jaw = 0.15
-  let headDy = 0
-  let lean = -0.06
-
-  if (st === 'walk' || st === 'preview' || st === 'angry' || st === 'fly') {
-    const amp = running ? 0.62 : v.id === 'imp' ? 0.5 : 0.42
-    legA = Math.sin(v.phase) * amp
-    const sw = Math.sin(v.phase) * 0.12
-    backArm += sw
-    frontArm -= sw
-    headDy = -Math.abs(Math.cos(v.phase)) * 2
-    if (running) lean = -0.22
-    if (st === 'preview') {
-      legA = Math.sin(v.phase) * 0.08
-      headDy = Math.sin(v.phase) * 1.5
-    }
-  } else if (st === 'eat') {
-    legA = Math.sin(v.phase * 0.25) * 0.05
-    const k = Math.sin(v.phase)
-    frontArm = -1.05 + k * 0.35
-    backArm = -1.15 - k * 0.3
-    frontFore = -1.3
-    jaw = (k + 1) / 2
-    headDy = k * 2
-    lean = -0.16
-  } else if (st === 'vault') {
-    legA = 0.5
-    lean = -0.55
-  } else if (st === 'dying' || st === 'ash' || st === 'squashed' || st === 'mowed') {
-    frontArm = -0.5
-    backArm = -0.4
-    frontFore = -0.3
-    backFore = -0.3
+  const st = v.state, running = (v.id === 'pole' && v.hasPole) || v.id === 'football'
+  const dead = ['dying', 'ash', 'squashed', 'mowed'].includes(st)
+  let legA = Math.sin(v.phase) * (running ? 0.65 : 0.28)
+  let frontArm = -0.12 + Math.sin(v.phase) * 0.08, frontFore = -0.35
+  let backArm = -0.28 - Math.sin(v.phase) * 0.1, backFore = -0.55
+  let jaw = 0.2, headDy = Math.sin(v.phase) * 1.4, lean = 0.045
+  if (st === 'preview') legA *= 0.18
+  if (running) { lean = -0.1; frontArm = -0.65; frontFore = -1.7; backArm = 0.5; backFore = -0.9 }
+  if (v.id === 'football') lean = -0.28
+  if (st === 'eat') {
+    legA *= 0.12; jaw = (Math.sin(v.phase) + 1) * 0.5; headDy = Math.sin(v.phase) * 2
+    frontArm = -0.75 + Math.sin(v.phase) * 0.18; frontFore = -1.85; backArm = -0.65; lean = -0.04
   }
-  if (v.armorKind === 'paper' && v.armor > 0 && st !== 'eat') {
-    frontArm = -1.2
-    frontFore = -1.9
-    backArm = -1.1
-    backFore = -1.8
-  }
-  if (v.armorKind === 'door' && v.armor > 0) {
-    frontArm = -1.0
-    frontFore = -1.6
-  }
-  if (running) {
-    frontArm = -0.9
-    frontFore = -1.8
-    backArm = -0.7
-    backFore = -1.9
-  }
-  if (v.id === 'flag') {
-    backArm = -2.2
-    backFore = -2.9
-  }
-  if (v.id === 'garg' && st !== 'smash' && st !== 'dying' && st !== 'ash' && st !== 'squashed' && st !== 'mowed') {
-    frontArm = -0.75 + Math.sin(v.phase) * 0.08
-    frontFore = -2.55
-  }
+  if (st === 'vault') { legA = 0.8; lean = -0.35 }
+  if (dead) { frontArm = 0.1; backArm = 0.2; frontFore = -0.3; backFore = -0.4 }
+  if (v.armorKind === 'paper' && v.armor > 0) { frontArm = -0.55; frontFore = -2; backArm = -0.7; backFore = -1.9 }
+  if (v.id === 'flag') { backArm = -1.6; backFore = -2.75 }
+  if (v.id === 'garg' && !dead) { frontArm = -0.5; frontFore = -1.7 }
   if (v.id === 'garg' && st === 'smash') {
     const t = v.stateT
-    frontArm = t < 0.9 ? lerp(-1.3, -3.0, easeOutCubic(t / 0.9)) : t < 1.05 ? lerp(-3.0, -0.8, easeInCubic((t - 0.9) / 0.15)) : -0.8
-    frontFore = frontArm - 0.2
+    frontArm = t < 0.9 ? lerp(-0.5, -2.8, easeOutCubic(t / 0.9)) : t < 1.05 ? lerp(-2.8, -0.7, easeInCubic((t - 0.9) / 0.15)) : -0.7
+    frontFore = frontArm - 0.4
   }
   if (v.id === 'garg' && st === 'throw') {
-    const t = v.stateT
-    backArm = t < 0.9 ? lerp(-1.2, 0.9, t / 0.9) : lerp(0.9, -2.4, clamp((t - 0.9) / 0.2, 0, 1))
+    backArm = v.stateT < 0.9 ? lerp(-0.6, 1.3, v.stateT / 0.9) : lerp(1.3, -2.4, clamp((v.stateT - 0.9) / 0.2, 0, 1))
     backFore = backArm - 0.3
   }
-
   ctx.rotate(lean)
   if (v.id === 'garg' && v.hasImp && !(st === 'throw' && v.stateT > 0.9)) {
-    if (st === 'throw') {
-      const sx = 10 + Math.sin(backArm) * 40
-      const sy = -96 + Math.cos(backArm) * 40
-      imp(ctx, sx, sy + 30, 0.42, v.t)
-    } else imp(ctx, 20, -86, 0.42, v.t)
+    shape(ctx, 'M20 -87 L18 -127 L42 -126 L44 -78Z', '#765333', '#413b28', 2)
+    if (st === 'throw') imp(ctx, 18 + Math.sin(backArm) * 40, -68 + Math.cos(backArm) * 40, 0.44, v.t)
+    else imp(ctx, 34, -87, 0.44, v.t)
   }
-
-  const bs = { x: 10, y: -97 }
-  const ba = limb(ctx, bs.x, bs.y, backArm, 21, backFore, 19, 9, o.coatDark, '#2a2219')
-  hand(ctx, { x: ba.fx, y: ba.fy }, o, backFore)
-  if (v.id === 'flag') flag(ctx, { x: ba.fx, y: ba.fy }, v.t)
-
-  for (const [hx, a, col] of [
-    [6, legA, o.pantsDark],
-    [-4, -legA, o.pants],
-  ] as const) {
-    const a2 = a * 0.55 + (a < 0 ? 0.32 : 0.12)
-    const l = limb(ctx, hx, -50, a, 25, a2, 24, 11, col, '#231b12')
-    ellipse(ctx, l.fx - 5, l.fy + 1, 10, 5)
-    paint(ctx, C(o.shoe), C('#111111'), 1.6)
-  }
-
+  const ba = arm(ctx, v.id === 'garg' ? 25 : 10, -92, backArm, backFore, o, v.id, true, true)
+  if (v.id === 'flag') flag(ctx, ba, v.t)
+  leg(ctx, v.id === 'garg' ? 14 : 8, legA, o, v.id, true)
+  leg(ctx, v.id === 'garg' ? -13 : -7, -legA, o, v.id, false)
   torso(ctx, o, v.id)
-
   if (v.id === 'football') {
-    for (const sx of [-14, 10]) {
-      ellipse(ctx, sx, -98, 15, 10, sx < 0 ? 0.2 : -0.2)
-      paint(ctx, radial(ctx, sx - 4, -102, 2, sx, -98, 16, [[0, '#ff6b6b'], [1, '#9a141c']]), C('#4a070c'), 2)
-    }
+    shape(ctx, 'M-25 -101 Q-34 -99 -29 -85 L-13 -85 L-6 -96 L15 -94 L18 -83 L36 -87 Q47 -98 39 -106 Q27 -113 15 -104Z', '#e0dfcd', '#504b39', 2.5)
+    shape(ctx, 'M-29 -89 L-12 -88 M18 -87 Q32 -84 40 -97', null, '#bf3827', 6)
+    shape(ctx, 'M20 -103 Q28 -108 36 -106', null, '#fff6de', 2)
   }
-
+  if (v.hasHead) head(ctx, v, o, v.id === 'garg' ? -15 : -17, -117 + headDy, jaw)
+  else { ellipse(ctx, -8, -100, 8, 4); paint(ctx, C('#78694b'), C('#414331'), 1.5) }
   if (v.armorKind === 'paper' && v.armor > 0) newspaper(ctx, v.armor, Math.sin(v.phase))
-
-  if (v.hasHead) head(ctx, v, o, -12, -124 * 1 + headDy - (o.head - 1) * 10, jaw)
-  else {
-    ellipse(ctx, -3, -104, 8, 4)
-    paint(ctx, C('#6e2b20'), C('#3d1810'), 1.5)
+  const fa = arm(ctx, v.id === 'garg' ? -28 : -17, -92, frontArm, frontFore, o, v.id, v.hasArm)
+  if (v.hasArm && v.id === 'garg') {
+    ctx.save(); ctx.translate(fa.x, fa.y); ctx.rotate(-frontFore - 0.2)
+    shape(ctx, 'M-7 -23 L7 -23 L8 78 L4 87 L-7 84Z', '#9a8052', '#51462e', 2.3)
+    shape(ctx, 'M-3 -19 L-2 76 M4 -10 L4 53', null, '#c0a777', 1.6)
+    shape(ctx, 'M-22 55 L21 55 L21 64 L-22 64Z', '#79684b', '#45422e', 2)
+    shape(ctx, 'M-15 50 L-15 68 M15 50 L15 68', null, '#b6bba5', 5)
+    ctx.restore(); hand(ctx, fa, o, frontFore)
   }
-
-  const fs = { x: -12, y: -95 }
-  if (v.hasArm) {
-    const fa = limb(ctx, fs.x, fs.y, frontArm, 21, frontFore, 19, 9.5, o.coat, '#2a2219')
-    hand(ctx, { x: fa.fx, y: fa.fy }, o, frontFore)
-    if (v.id === 'garg') {
-      const len = 78
-      ctx.lineCap = 'round'
-      ctx.lineWidth = 12
-      ctx.strokeStyle = C('#3a2610')
-      ctx.beginPath()
-      ctx.moveTo(fa.fx - Math.sin(frontFore) * 10, fa.fy - Math.cos(frontFore) * 10)
-      ctx.lineTo(fa.fx + Math.sin(frontFore) * len, fa.fy + Math.cos(frontFore) * len)
-      ctx.stroke()
-      ctx.lineWidth = 8
-      ctx.strokeStyle = C('#8a5a2a')
-      ctx.stroke()
-    }
-    if (running) {
-      ctx.lineWidth = 4
-      ctx.strokeStyle = C('#8b5a2b')
-      ctx.beginPath()
-      ctx.moveTo(fa.fx - 54, fa.fy + 8)
-      ctx.lineTo(fa.fx + 62, fa.fy - 8)
-      ctx.stroke()
-    }
-  } else {
-    limb(ctx, fs.x, fs.y, frontArm, 8, frontArm, 1, 9.5, o.coat, '#2a2219')
-    circle(ctx, fs.x + Math.sin(frontArm) * 9, fs.y + Math.cos(frontArm) * 9, 3.4)
-    paint(ctx, C('#6e2b20'))
+  if (v.hasArm && v.id === 'pole' && v.hasPole) {
+    ctx.save(); ctx.translate(fa.x, fa.y); ctx.rotate(-0.1)
+    shape(ctx, 'M-76 0 L94 0', null, '#665839', 4.5)
+    shape(ctx, 'M-73 -1 L93 -1', null, '#d5bd80', 2)
+    shape(ctx, 'M-3 -2 L9 -2', null, '#e6dbb8', 4)
+    ctx.restore()
   }
-
   if (v.armorKind === 'door' && v.armor > 0) screenDoor(ctx, v.armor)
 }
 
