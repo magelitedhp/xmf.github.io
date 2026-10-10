@@ -34,6 +34,35 @@ export interface GameEntry {
 
 export const games: GameEntry[] = [
   {
+    slug: 'super-mario',
+    name: '超级玛丽',
+    enName: 'Super Mario · Mushroom Kingdom',
+    genre: '像素平台冒险',
+    summary: '顶起一块砖，跃过一片云。四个世界、隐藏密室与十二枚星章，重温跳跃的快乐。',
+    description: '蘑菇王国的新冒险。从青风草原出发，穿过萤石地底与云上群岛，闯入余烬城堡。收集金币、顶砖变身、踩怪踢龟壳，寻找隐藏房间与十二枚星章，击败城堡守卫，救出公主。',
+    cover: 'games/super-mario/cover.svg',
+    tags: ['动作', '平台', '像素', '单文件'],
+    released: '2026-10-10',
+    controls: [
+      { keys: ['←', '→', 'A', 'D'], label: '左右移动' },
+      { keys: ['空格', 'Z', 'K'], label: '跳跃；长按跳得更高，踩怪时按住可弹得更高' },
+      { keys: ['Shift', 'J'], label: '冲刺；火焰形态下持续发射火球' },
+      { keys: ['X'], label: '火焰形态下发射火球' },
+      { keys: ['↓', 'S'], label: '蹲下；站在带箭头的水管上进入隐藏房间' },
+      { keys: ['Esc', 'P'], label: '暂停 / 继续' },
+    ],
+    notes: [
+      '四个手工设计的世界、移动平台、隐藏金币房、检查点与城堡首领。蘑菇成长、火焰花和无敌星星带来不同玩法，100 枚金币奖励额外生命。',
+      '画面由 Canvas 与手绘像素矩阵生成，音乐与音效由 WebAudio 合成；整款游戏编译为一个可离线打开的 HTML，源码、调试文件和压缩中间产物全部保留。',
+      '手机提供独立于画面的多点触控按钮。已解锁世界、通关星章与最高得分保存在本地浏览器。',
+    ],
+    credit: {
+      prefix: '致敬', label: 'Nintendo《超级马力欧兄弟》', href: 'https://mario.nintendo.com/',
+      suffix: '的经典平台玩法；本作为非官方同人作品，代码、关卡、像素画面与合成音乐独立实现。',
+    },
+    load: () => import('../games/super-mario/SuperMario.vue'),
+  },
+  {
     slug: 'ember-lantern',
     name: '烬灯行',
     enName: 'Ember Lantern',

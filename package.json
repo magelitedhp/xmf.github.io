@@ -1,14 +1,16 @@
 {
   "name": "yumo",
   "private": true,
-  "version": "0.1.7",
+  "version": "0.1.8",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "game:garden": "tsc -p games-src/garden-guard && node games-src/garden-guard/build.mjs",
-    "game:garden:watch": "node games-src/garden-guard/build.mjs --watch"
+    "game:garden:watch": "node games-src/garden-guard/build.mjs --watch",
+    "game:mario": "tsc -p games-src/super-mario && node games-src/super-mario/build.mjs",
+    "game:mario:watch": "node games-src/super-mario/build.mjs --watch"
   },
   "dependencies": {
     "vue": "^3.4.29",

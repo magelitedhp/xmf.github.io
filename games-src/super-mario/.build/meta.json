@@ -1,0 +1,191 @@
+{
+  "inputs": {
+    "games-src/super-mario/src/style.css": {
+      "bytes": 15757,
+      "imports": []
+    },
+    "games-src/super-mario/src/types.ts": {
+      "bytes": 2006,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/super-mario/src/levels.ts": {
+      "bytes": 6337,
+      "imports": [
+        {
+          "path": "games-src/super-mario/src/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/super-mario/src/audio.ts": {
+      "bytes": 3270,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/super-mario/src/input.ts": {
+      "bytes": 2576,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/super-mario/src/save.ts": {
+      "bytes": 954,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/super-mario/src/game.ts": {
+      "bytes": 15937,
+      "imports": [
+        {
+          "path": "games-src/super-mario/src/levels.ts",
+          "kind": "import-statement",
+          "original": "./levels"
+        },
+        {
+          "path": "games-src/super-mario/src/audio.ts",
+          "kind": "import-statement",
+          "original": "./audio"
+        },
+        {
+          "path": "games-src/super-mario/src/input.ts",
+          "kind": "import-statement",
+          "original": "./input"
+        },
+        {
+          "path": "games-src/super-mario/src/save.ts",
+          "kind": "import-statement",
+          "original": "./save"
+        },
+        {
+          "path": "games-src/super-mario/src/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/super-mario/src/sprites.ts": {
+      "bytes": 4111,
+      "imports": [],
+      "format": "esm"
+    },
+    "games-src/super-mario/src/art.ts": {
+      "bytes": 13325,
+      "imports": [
+        {
+          "path": "games-src/super-mario/src/sprites.ts",
+          "kind": "import-statement",
+          "original": "./sprites"
+        },
+        {
+          "path": "games-src/super-mario/src/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/super-mario/src/render.ts": {
+      "bytes": 6008,
+      "imports": [
+        {
+          "path": "games-src/super-mario/src/types.ts",
+          "kind": "import-statement",
+          "original": "./types"
+        },
+        {
+          "path": "games-src/super-mario/src/art.ts",
+          "kind": "import-statement",
+          "original": "./art"
+        }
+      ],
+      "format": "esm"
+    },
+    "games-src/super-mario/src/main.ts": {
+      "bytes": 8900,
+      "imports": [
+        {
+          "path": "games-src/super-mario/src/style.css",
+          "kind": "import-statement",
+          "original": "./style.css"
+        },
+        {
+          "path": "games-src/super-mario/src/game.ts",
+          "kind": "import-statement",
+          "original": "./game"
+        },
+        {
+          "path": "games-src/super-mario/src/render.ts",
+          "kind": "import-statement",
+          "original": "./render"
+        },
+        {
+          "path": "games-src/super-mario/src/levels.ts",
+          "kind": "import-statement",
+          "original": "./levels"
+        },
+        {
+          "path": "games-src/super-mario/src/save.ts",
+          "kind": "import-statement",
+          "original": "./save"
+        }
+      ],
+      "format": "esm"
+    }
+  },
+  "outputs": {
+    "games-src/super-mario/.build/min/main.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "games-src/super-mario/src/main.ts",
+      "cssBundle": "games-src/super-mario/.build/min/main.css",
+      "inputs": {
+        "games-src/super-mario/src/style.css": {
+          "bytesInOutput": 0
+        },
+        "games-src/super-mario/src/types.ts": {
+          "bytesInOutput": 148
+        },
+        "games-src/super-mario/src/levels.ts": {
+          "bytesInOutput": 4997
+        },
+        "games-src/super-mario/src/audio.ts": {
+          "bytesInOutput": 2433
+        },
+        "games-src/super-mario/src/input.ts": {
+          "bytesInOutput": 1991
+        },
+        "games-src/super-mario/src/save.ts": {
+          "bytesInOutput": 622
+        },
+        "games-src/super-mario/src/game.ts": {
+          "bytesInOutput": 13307
+        },
+        "games-src/super-mario/src/sprites.ts": {
+          "bytesInOutput": 3705
+        },
+        "games-src/super-mario/src/art.ts": {
+          "bytesInOutput": 10096
+        },
+        "games-src/super-mario/src/render.ts": {
+          "bytesInOutput": 4408
+        },
+        "games-src/super-mario/src/main.ts": {
+          "bytesInOutput": 8835
+        }
+      },
+      "bytes": 50567
+    },
+    "games-src/super-mario/.build/min/main.css": {
+      "imports": [],
+      "inputs": {
+        "games-src/super-mario/src/style.css": {
+          "bytesInOutput": 12233
+        }
+      },
+      "bytes": 12234
+    }
+  }
+}

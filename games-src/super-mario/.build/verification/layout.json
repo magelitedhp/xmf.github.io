@@ -1,0 +1,68 @@
+{
+  "keyboard": {
+    "x": 192.8527777777778,
+    "y": 321.01388888888886,
+    "mode": "playing"
+  },
+  "layouts": [
+    {
+      "width": 320,
+      "height": 740,
+      "overflow": false,
+      "canvasBottom": 403.5,
+      "controlsTop": 403.5,
+      "controlsBottom": 484.5,
+      "visible": true,
+      "startVisible": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "canvasBottom": 475.1875,
+      "controlsTop": 475.1875,
+      "controlsBottom": 556.1875,
+      "visible": true,
+      "startVisible": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "overflow": false,
+      "canvasBottom": 291.984375,
+      "controlsTop": 291.984375,
+      "controlsBottom": 354.984375,
+      "visible": true,
+      "startVisible": true
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "overflow": false,
+      "canvasBottom": 613.5,
+      "controlsTop": 613.5,
+      "controlsBottom": 698.5,
+      "visible": true,
+      "startVisible": true
+    }
+  ],
+  "touch": {
+    "right": true,
+    "run": true,
+    "jump": true,
+    "vy": -447.49999999999983
+  },
+  "iframe": {
+    "loaded": true,
+    "height": 753,
+    "contentHeight": 752.625,
+    "overflow": false
+  },
+  "fullscreen": {
+    "active": true,
+    "iframeHeight": 883,
+    "contentHeight": 844.875,
+    "innerWidth": 1422
+  },
+  "runtimeErrors": []
+}

@@ -2,7 +2,7 @@
 
 Vue 3 + TypeScript + Vite 个人站，以浅色毛玻璃、彩色品牌海报与卡片布局呈现随笔、音乐、工具、交互实验和游戏厅。
 
-当前版本为 **v0.1.7**。本轮改动见 [v0.1.7 更新日志](changelog/v0.1.7.md)，后续开发见 [未发布更新日志](changelog/unreleased.md)，历史版本见 [更新日志索引](changelog/README.md)。
+当前版本为 **v0.1.8**。本轮改动见 [v0.1.8 更新日志](changelog/v0.1.8.md)，后续开发见 [未发布更新日志](changelog/unreleased.md)，历史版本见 [更新日志索引](changelog/README.md)。
 
 在线预览（GitHub Pages，`docs/` 目录）：
 
@@ -26,11 +26,14 @@ https://magelitedhp.github.io/xmf.github.io/
 
 | 游戏 | 内容 | 实现 |
 | --- | --- | --- |
+| 超级玛丽 | 像素平台冒险；四个世界、十二枚星章、变身道具、隐藏金币房、检查点与城堡首领 | TypeScript + Canvas + WebAudio，编译为可离线打开的单 HTML；键盘 / 多指触屏 / 全屏，保留全部构建中间文件；见 [游戏 README](games-src/super-mario/README.md) |
 | 烬灯行 | 像素横版动作肉鸽；十层两首领、三段连击、冲刺无敌、每层三选一强化 | Vue + Canvas，支持键盘、鼠标与触屏；移动端按钮独立位于画面下方，横屏及全屏时也不遮挡画面 |
 | 花园保卫战 | 草坪塔防；15 种植物、10 种僵尸、12 关冒险、保龄球挑战、无尽生存、图鉴与本地存档 | 独立 TypeScript 源码编译为单个 HTML，站内以 iframe 嵌入；构建说明见 [游戏 README](games-src/garden-guard/README.md) |
 | 瓜体实验室 | 半流体水果合成；果冻 / 半流体 / 果汁三种材质、容器倾斜、能量搅动、十级水果演化与本地最高分 | Canvas 物理模拟，支持鼠标、键盘及触屏；独立 HTML 配合 `studio.css`，站内 iframe 自适应内容高度 |
 
 《烬灯行》玩法风格致敬 [熵刃 ENTROPY BLADE](https://game.inc.re/entropy-blade/)；《花园保卫战》为致敬 PopCap《植物大战僵尸》的非官方同人，角色参考经典版造型，以 Canvas 2D 矢量重新绘制，游戏厅 SVG 封面也由同一套角色函数生成；《瓜体实验室》概念与交互参考 [半流体西瓜游戏](https://melon-game.jack-514.chatgpt.site/)。站内游戏代码独立实现，《花园保卫战》不包含原版图片或音频文件。
+
+《超级玛丽》为致敬 Nintendo《超级马力欧兄弟》的非官方同人，像素画面、代码、关卡与合成配乐独立实现。
 
 ## 目录结构
 
@@ -46,15 +49,18 @@ src/
     games/ember-lantern/          # 烬灯行组件与 engine/
     games/garden-guard/           # 花园保卫战 iframe 组件
     games/melon-fluid/            # 瓜体实验室自适应 iframe 组件
+    games/super-mario/            # 超级玛丽自适应 iframe 与单文件下载入口
   router/routes/                 # site.ts / music.ts
   styles/                        # 全局、站点、音乐、游戏厅与响应式样式
 public/
   games/<slug>/cover.svg          # 游戏 SVG 封面
   games/garden-guard/index.html   # 花园保卫战单文件构建产物
   games/melon-fluid/              # 瓜体实验室 HTML、样式与封面
+  games/super-mario/              # 超级玛丽单文件 HTML 与生成的 SVG 封面
   music/covers/                  # 主题歌单与精选合集 SVG 封面
   effects/aquaInk/                # AquaInkGL 静态演示（iframe）
 games-src/garden-guard/           # 花园保卫战独立源码（TS + esbuild）
+games-src/super-mario/            # 超级玛丽源码、调试产物、测试材料与离线 HTML
 changelog/                       # 未发布改动与历史发版说明
 docs/                            # GitHub Pages 发布目录
 ```
@@ -67,6 +73,8 @@ npm run dev
 npm run build
 npm run game:garden        # 类型检查并生成花园保卫战单文件 HTML 与 SVG 封面
 npm run game:garden:watch  # 监听源码自动重编
+npm run game:mario         # 类型检查并生成超级玛丽单 HTML 与 SVG 封面
+npm run game:mario:watch   # 监听超级玛丽源码自动重编
 ```
 
 本地打开 `http://localhost:5173/`（Hash 路由，例如 `/#/games/ember-lantern`）。`npm run build` 输出到 `dist/`；发版时再同步到 `docs/`，保留其中的 `CNAME` 域名配置与 `music-api.md` 文档，提交并推送以触发 GitHub Pages 更新。

@@ -1,7 +1,9 @@
-/* A glass cabinet for three different little worlds. */
+/* A glass cabinet for different little worlds. */
 .game-frame { --cabinet-ink:#344b74; --cabinet-accent:#647ed2; padding:9px; border:1px solid #b9cbe0; border-radius:24px; background:linear-gradient(140deg,#ffffffe6,#e0e8f5b8); box-shadow:inset 0 1px 0 #fff,0 20px 50px #4f689b16; }
 .game-tone-garden { --cabinet-ink:#3e645b; --cabinet-accent:#6c9e74; background:linear-gradient(140deg,#fafff8e6,#e1eee6b8); }
 .game-tone-melon { --cabinet-ink:#5b628e; --cabinet-accent:#9392c8; background:linear-gradient(140deg,#ffffffe6,#e6e5f7c9); }
+.game-tone-mario { --cabinet-ink:#365b40; --cabinet-accent:#de6247; background:linear-gradient(140deg,#fff9eae6,#e2ecd0c9); }
+.game-frame.game-tone-mario.is-fullscreen .mario-iframe { height:100% !important; }
 .game-cabinet-header { display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:45px; padding:5px 16px 12px; color:var(--cabinet-ink); }
 .cabinet-label { display:flex; align-items:center; gap:8px; font:9px var(--font-mono); letter-spacing:1.3px; }
 .cabinet-label i { width:6px; height:6px; border-radius:50%; background:var(--cabinet-accent); box-shadow:0 0 0 4px #889fcc14; }

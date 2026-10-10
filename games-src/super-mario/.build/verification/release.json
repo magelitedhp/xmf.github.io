@@ -1,0 +1,45 @@
+{
+  "offline": {
+    "mode": "playing",
+    "resources": [],
+    "external": 0
+  },
+  "renderTiming": [
+    {
+      "world": 1,
+      "medianMs": 1.0999999940395355,
+      "p95Ms": 2.699999988079071
+    },
+    {
+      "world": 2,
+      "medianMs": 0.7000000178813934,
+      "p95Ms": 1.600000023841858
+    },
+    {
+      "world": 3,
+      "medianMs": 0.800000011920929,
+      "p95Ms": 1.9000000059604645
+    },
+    {
+      "world": 4,
+      "medianMs": 0.800000011920929,
+      "p95Ms": 1.9000000059604645
+    }
+  ],
+  "mobileEmbedded": {
+    "width": 352,
+    "height": 289,
+    "overflow": false,
+    "controlsVisible": true
+  },
+  "mobileFullscreen": {
+    "active": true,
+    "height": 326,
+    "contentHeight": 311.984375,
+    "controlsTop": 227.984375,
+    "canvasBottom": 227.984375,
+    "controlsBottom": 290.984375,
+    "startVisible": true
+  },
+  "runtimeErrors": []
+}

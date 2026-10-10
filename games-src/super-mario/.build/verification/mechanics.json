@@ -1,0 +1,27 @@
+{
+  "jump": {
+    "short": 45.25,
+    "long": 115.79166666666669
+  },
+  "sprint": {
+    "walking": 231.31944444444446,
+    "running": 293.2777777777777
+  },
+  "question": true,
+  "mushroom": true,
+  "breakBrick": true,
+  "coyote": true,
+  "bufferedJump": true,
+  "stomp": true,
+  "shell": true,
+  "fireball": true,
+  "damage": true,
+  "checkpoint": true,
+  "secretRoom": true,
+  "medalAndExtraLife": true,
+  "bossAndEnding": true,
+  "pause": true,
+  "runtimeErrors": [],
+  "singleFileBytes": 65131,
+  "outputsMatch": true
+}
