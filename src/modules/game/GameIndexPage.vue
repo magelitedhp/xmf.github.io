@@ -10,6 +10,6 @@
 import { computed, ref } from 'vue'
 import GameCard from './components/GameCard.vue'
 import { games } from './data/games'
-const filters=['全部','动作','策略','物理'],active=ref('全部')
+const filters=['全部','动作','策略','物理','益智'],active=ref('全部')
 const filtered=computed(()=>games.filter(game=>active.value==='全部'||(active.value==='策略'?game.tags.includes('塔防'):game.tags.includes(active.value))))
 </script>

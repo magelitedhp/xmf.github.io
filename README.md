@@ -2,7 +2,7 @@
 
 Vue 3 + TypeScript + Vite 个人站，以浅色毛玻璃、彩色品牌海报与卡片布局呈现随笔、音乐、工具、交互实验和游戏厅。
 
-当前版本为 **v0.1.8**。本轮改动见 [v0.1.8 更新日志](changelog/v0.1.8.md)，后续开发见 [未发布更新日志](changelog/unreleased.md)，历史版本见 [更新日志索引](changelog/README.md)。
+当前版本为 **v0.1.9**。本轮改动见 [v0.1.9 更新日志](changelog/v0.1.9.md)，后续开发见 [未发布更新日志](changelog/unreleased.md)，历史版本见 [更新日志索引](changelog/README.md)。
 
 在线预览（GitHub Pages，`docs/` 目录）：
 
@@ -20,12 +20,13 @@ https://magelitedhp.github.io/xmf.github.io/
 - Yumo FM：发现、分页搜索、本地收藏、最近播放与唱片机播放界面；支持点击歌词跳转、随机播放、单曲循环和音量调节，主题歌单使用本地 SVG 封面。
 - 灵感工作台：JSON 格式化、压缩与语法检查，支持中文和 Emoji 的 Base64 编解码，以及配色切换与复制；输入内容在浏览器内处理。
 - 交互实验：嵌入 [AquaInkGL](https://github.com/WishMelz/AquaInkGL) 的 WebGL 流体画布，可拖动绘制、注入色彩、暂停、隐藏介绍与全屏游玩。
-- 游戏厅：`/games` 支持全部 / 动作 / 策略 / 物理筛选，`/games/:slug` 提供游戏画面、操作说明、全屏工具栏与其他游戏入口。
+- 游戏厅：`/games` 支持全部 / 动作 / 策略 / 物理 / 益智筛选，`/games/:slug` 提供游戏画面、操作说明、全屏工具栏与其他游戏入口。
 
 ## 游戏
 
 | 游戏 | 内容 | 实现 |
 | --- | --- | --- |
+| 数独 | 经典逻辑解谜；五档难度、唯一解生成、候选笔记、撤销、提示、计时、最佳成绩与断点续玩 | Vue + TypeScript；桌面键盘 / 手机触屏 / 全屏，题目与求解验证均在浏览器本地完成 |
 | 超级玛丽 | 像素平台冒险；四个世界、十二枚星章、变身道具、隐藏金币房、检查点与城堡首领 | TypeScript + Canvas + WebAudio，编译为可离线打开的单 HTML；键盘 / 多指触屏 / 全屏，保留全部构建中间文件；见 [游戏 README](games-src/super-mario/README.md) |
 | 烬灯行 | 像素横版动作肉鸽；十层两首领、三段连击、冲刺无敌、每层三选一强化 | Vue + Canvas，支持键盘、鼠标与触屏；移动端按钮独立位于画面下方，横屏及全屏时也不遮挡画面 |
 | 花园保卫战 | 草坪塔防；15 种植物、10 种僵尸、12 关冒险、保龄球挑战、无尽生存、图鉴与本地存档 | 独立 TypeScript 源码编译为单个 HTML，站内以 iframe 嵌入；构建说明见 [游戏 README](games-src/garden-guard/README.md) |
@@ -49,6 +50,7 @@ src/
     games/ember-lantern/          # 烬灯行组件与 engine/
     games/garden-guard/           # 花园保卫战 iframe 组件
     games/melon-fluid/            # 瓜体实验室自适应 iframe 组件
+    games/sudoku/                 # 数独唯一解生成器、棋盘与本地存档
     games/super-mario/            # 超级玛丽自适应 iframe 与单文件下载入口
   router/routes/                 # site.ts / music.ts
   styles/                        # 全局、站点、音乐、游戏厅与响应式样式

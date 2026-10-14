@@ -34,6 +34,40 @@ export interface GameEntry {
 
 export const games: GameEntry[] = [
   {
+    slug: 'sudoku',
+    name: '数独',
+    enName: 'Sudoku · A Quiet Logic Ritual',
+    genre: '经典逻辑解谜',
+    summary: '让 1–9 各归其位。五档难度、候选笔记与唯一解题目，随时开始一场安静的推理。',
+    description:
+      '一款完整的经典数独。每局实时生成唯一解题目，提供五档难度、候选笔记、错误提示、撤销、擦除与智能提示；计时、最佳成绩和未完成进度会自动保存在本地。',
+    cover: 'games/sudoku/cover.svg',
+    tags: ['益智', '逻辑', '经典'],
+    released: '2026-10-14',
+    controls: [
+      { keys: ['鼠标', '触屏'], label: '选择格子，再使用数字面板填写；再次点击笔记数字可取消' },
+      { keys: ['1', '…', '9'], label: '填写数字或候选笔记' },
+      { keys: ['方向键'], label: '在九宫格中移动选中位置' },
+      { keys: ['N'], label: '开启 / 关闭笔记模式' },
+      { keys: ['Backspace', 'Delete'], label: '擦除当前格内容' },
+      { keys: ['Ctrl', 'Z'], label: '撤销上一步' },
+      { keys: ['H'], label: '提示当前格；未选择可填写格时自动寻找下一格' },
+      { keys: ['Esc', 'P'], label: '暂停 / 继续' },
+    ],
+    notes: [
+      '简单、中等、较难、专家与极限五档题目均在浏览器内即时生成，并通过回溯求解器验证唯一解；题面使用中心对称挖空，兼顾逻辑性与视觉平衡。',
+      '支持同行、同列、同宫及相同数字高亮，正确填写会自动清理相关候选笔记。游戏进度每五秒及每次操作后保存在本地，切换页面后也可继续。',
+      '桌面端支持完整键盘操作，手机端提供紧凑数字键盘与工具栏；棋盘包含可访问性标签，并适配全屏游玩。',
+    ],
+    credit: {
+      prefix: '玩法与交互参考',
+      label: 'TheSudoku.com',
+      href: 'https://thesudoku.com/zh-CN/easy-sudoku',
+      suffix: '的在线数独体验；本站版本的生成算法、界面、交互与视觉均为独立实现。',
+    },
+    load: () => import('../games/sudoku/Sudoku.vue'),
+  },
+  {
     slug: 'super-mario',
     name: '超级玛丽',
     enName: 'Super Mario · Mushroom Kingdom',
