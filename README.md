@@ -2,7 +2,7 @@
 
 Vue 3 + TypeScript + Vite 个人站，以浅色毛玻璃、彩色品牌海报与卡片布局呈现随笔、音乐、阅读、工具、交互实验和游戏厅。
 
-当前版本为 **v0.2.0**。本轮改动见 [v0.2.0 更新日志](changelog/v0.2.0.md)，后续开发见 [未发布更新日志](changelog/unreleased.md)，历史版本见 [更新日志索引](changelog/README.md)。
+当前版本为 **v0.1.10**。本轮改动见 [v0.1.10 更新日志](changelog/v0.1.10.md)，后续开发见 [未发布更新日志](changelog/unreleased.md)，历史版本见 [更新日志索引](changelog/README.md)。
 
 在线预览（GitHub Pages，`docs/` 目录）：
 
