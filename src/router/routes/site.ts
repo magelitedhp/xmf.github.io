@@ -26,6 +26,24 @@ export const siteRoutes: RouteRecordRaw[] = [
         meta: { title: '随笔 · Yumo', module: 'blog' },
       },
       {
+        path: 'read',
+        name: 'reader-library',
+        component: () => import('../../modules/reader/ReaderLibraryPage.vue'),
+        meta: { title: '阅读 · Yumo', module: 'reader' },
+      },
+      {
+        path: 'read/book/:id',
+        name: 'reader-book',
+        component: () => import('../../modules/reader/BookDetailPage.vue'),
+        meta: { title: '书籍详情 · Yumo', module: 'reader' },
+      },
+      {
+        path: 'read/book/:id/chapter/:chapter',
+        name: 'reader-chapter',
+        component: () => import('../../modules/reader/ReaderChapterPage.vue'),
+        meta: { title: '正在阅读 · Yumo', module: 'reader' },
+      },
+      {
         path: 'tools',
         name: 'tools',
         component: () => import('../../pages/ToolsPage.vue'),

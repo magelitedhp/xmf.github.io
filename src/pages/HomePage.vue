@@ -9,14 +9,14 @@
         <div class="button-row home-actions"><RouterLink class="champagne-button" to="/blog">从一篇随笔开始 <span>↗</span></RouterLink><a class="text-link" href="#explore" @click.prevent="explore">随意逛逛 <span>↓</span></a></div>
       </div>
       <BrandCanvas />
-      <div class="hero-baseline"><span>Yumo / CREATIVE SPACE</span><span>记录 · 聆听 · 实验 · 玩耍</span><span class="baseline-scroll">SCROLL TO EXPLORE ↓</span></div>
+      <div class="hero-baseline"><span>Yumo / CREATIVE SPACE</span><span>记录 · 聆听 · 阅读 · 实验 · 玩耍</span><span class="baseline-scroll">SCROLL TO EXPLORE ↓</span></div>
     </section>
     <section id="explore" class="home-portals">
       <div class="home-section-heading"><div><p class="effects-kicker">01 / SPACE INDEX</p><h2>走进不同的频率<span class="heading-dot">.</span></h2></div><p class="section-aside">不必急着到达。<br>每个入口，都值得停留。</p></div>
       <div class="portal-grid">
         <RouterLink v-for="portal in portals" :key="portal.to" class="portal-card" :class="'portal-' + portal.art" :to="portal.to">
           <div class="portal-topline"><span>{{ portal.number }} / {{ portal.english }}</span><span class="round-arrow">↗</span></div>
-          <div class="portal-visual" aria-hidden="true"><div v-if="portal.art === 'music'" class="record-art"><i></i><b>n.</b></div><div v-else-if="portal.art === 'tools'" class="tool-art"><span>✳</span><i>⌘</i></div><div v-else-if="portal.art === 'effects'" class="ink-art"><i></i><i></i><i></i></div><div v-else class="arcade-art"><span>PLAY</span><b>▶</b></div></div>
+          <div class="portal-visual" aria-hidden="true"><div v-if="portal.art === 'music'" class="record-art"><i></i><b>n.</b></div><div v-else-if="portal.art === 'books'" class="book-art"><i></i><b>阅</b><span>YUMO READER</span></div><div v-else-if="portal.art === 'tools'" class="tool-art"><span>✳</span><i>⌘</i></div><div v-else-if="portal.art === 'effects'" class="ink-art"><i></i><i></i><i></i></div><div v-else class="arcade-art"><span>PLAY</span><b>▶</b></div></div>
           <div class="portal-copy"><h3>{{ portal.title }}</h3><p>{{ portal.copy }}</p></div>
         </RouterLink>
       </div>
@@ -36,9 +36,10 @@ import { blogPosts } from '../modules/blog/data/posts'
 const latestPosts = blogPosts.slice(0, 3)
 const portals = [
   { number: '01', english: 'LISTEN', title: '把世界，调成喜欢的声音。', copy: '音乐电台 / 发现、收藏与循环播放', to: '/music', art: 'music' },
-  { number: '02', english: 'MAKE', title: '给灵感一张工作台。', copy: '工具实验室 / 整理文字，拆解想法', to: '/tools', art: 'tools' },
-  { number: '03', english: 'FEEL', title: '让指尖，留下一场流动。', copy: '视觉现场 / 一块可以触碰的画布', to: '/effects', art: 'effects' },
-  { number: '04', english: 'PLAY', title: '今天也要，认真玩耍。', copy: 'Yumo 游戏厅 / 把快乐交给下一关', to: '/games', art: 'games' },
+  { number: '02', english: 'READ', title: '把喜欢的故事，留在书架。', copy: 'Yumo 阅读 / 搜索、导入与在线阅读', to: '/read', art: 'books' },
+  { number: '03', english: 'MAKE', title: '给灵感一张工作台。', copy: '工具实验室 / 整理文字，拆解想法', to: '/tools', art: 'tools' },
+  { number: '04', english: 'FEEL', title: '让指尖，留下一场流动。', copy: '视觉现场 / 一块可以触碰的画布', to: '/effects', art: 'effects' },
+  { number: '05', english: 'PLAY', title: '今天也要，认真玩耍。', copy: 'Yumo 游戏厅 / 把快乐交给下一关', to: '/games', art: 'games' },
 ]
 function explore() { document.querySelector('#explore')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }) }
 </script>

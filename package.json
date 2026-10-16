@@ -1,7 +1,7 @@
 {
   "name": "yumo",
   "private": true,
-  "version": "0.1.9",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,10 +13,13 @@
     "game:mario:watch": "node games-src/super-mario/build.mjs --watch"
   },
   "dependencies": {
+    "jszip": "^3.10.2",
+    "qrcode": "^1.5.4",
     "vue": "^3.4.29",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@types/qrcode": "^1.5.6",
     "@vitejs/plugin-vue": "^5.0.5",
     "typescript": "^5.4.5",
     "vite": "^5.3.1",
