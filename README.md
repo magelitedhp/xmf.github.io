@@ -32,10 +32,9 @@ https://magelitedhp.github.io/xmf.github.io/
 | 数独 | 经典逻辑解谜；五档难度、唯一解生成、候选笔记、撤销、提示、计时、最佳成绩与断点续玩 | Vue + TypeScript；桌面键盘 / 手机触屏 / 全屏，题目与求解验证均在浏览器本地完成 |
 | 超级玛丽 | 像素平台冒险；四个世界、十二枚星章、变身道具、隐藏金币房、检查点与城堡首领 | TypeScript + Canvas + WebAudio，编译为可离线打开的单 HTML；键盘 / 多指触屏 / 全屏，保留全部构建中间文件；见 [游戏 README](games-src/super-mario/README.md) |
 | 烬灯行 | 像素横版动作肉鸽；十层两首领、三段连击、冲刺无敌、每层三选一强化 | Vue + Canvas，支持键盘、鼠标与触屏；移动端按钮独立位于画面下方，横屏及全屏时也不遮挡画面 |
-| 花园保卫战 | 草坪塔防；15 种植物、10 种僵尸、12 关冒险、保龄球挑战、无尽生存、图鉴与本地存档 | 独立 TypeScript 源码编译为单个 HTML，站内以 iframe 嵌入；构建说明见 [游戏 README](games-src/garden-guard/README.md) |
 | 瓜体实验室 | 半流体水果合成；果冻 / 半流体 / 果汁三种材质、容器倾斜、能量搅动、十级水果演化与本地最高分 | Canvas 物理模拟，支持鼠标、键盘及触屏；独立 HTML 配合 `studio.css`，站内 iframe 自适应内容高度 |
 
-站内游戏均独立实现。《烬灯行》使用 Canvas 实时绘制像素画面；《花园保卫战》以 Canvas 2D 矢量绘制角色，游戏厅 SVG 封面也由同一套函数生成；《瓜体实验室》围绕可变物性与流体变形展开；《超级玛丽》的像素画面、关卡与合成配乐均在项目内完成。
+站内游戏均独立实现。《烬灯行》使用 Canvas 实时绘制像素画面；《瓜体实验室》围绕可变物性与流体变形展开；《超级玛丽》的像素画面、关卡与合成配乐均在项目内完成。
 
 ## 目录结构
 
@@ -51,7 +50,6 @@ src/
   modules/reader/                # 书架、默认书单、MD/TXT/EPUB 解析、书源与阅读器
   modules/game/                  # 游戏列表、详情、GameFrame 与 data/games.ts 注册表
     games/ember-lantern/          # 烬灯行组件与 engine/
-    games/garden-guard/           # 花园保卫战 iframe 组件
     games/melon-fluid/            # 瓜体实验室自适应 iframe 组件
     games/sudoku/                 # 数独唯一解生成器、棋盘与本地存档
     games/minesweeper/            # 星穹扫雷规则、星空特效、仪表盘与本地续玩
@@ -61,12 +59,10 @@ src/
 public/
   default-read/                 # 自动加入书架的文本、EPUB 与相对图片附件
   games/<slug>/cover.svg          # 游戏 SVG 封面
-  games/garden-guard/index.html   # 花园保卫战单文件构建产物
   games/melon-fluid/              # 瓜体实验室 HTML、样式与封面
   games/super-mario/              # 超级玛丽单文件 HTML 与生成的 SVG 封面
   music/covers/                  # 主题歌单与精选合集 SVG 封面
   effects/aquaInk/                # AquaInkGL 静态演示（iframe）
-games-src/garden-guard/           # 花园保卫战独立源码（TS + esbuild）
 games-src/super-mario/            # 超级玛丽源码、调试产物、测试材料与离线 HTML
 changelog/                       # 未发布改动与历史发版说明
 docs/                            # GitHub Pages 发布目录
@@ -78,9 +74,7 @@ docs/                            # GitHub Pages 发布目录
 npm install
 npm run dev
 npm run build
-node --test tests/*.test.mjs # 扫雷规则与默认阅读 / Markdown 回归测试
-npm run game:garden        # 类型检查并生成花园保卫战单文件 HTML 与 SVG 封面
-npm run game:garden:watch  # 监听源码自动重编
+node --test tests/*.test.mjs # 扫雷规则、播放 / 路由分包恢复与默认阅读回归测试
 npm run game:mario         # 类型检查并生成超级玛丽单 HTML 与 SVG 封面
 npm run game:mario:watch   # 监听超级玛丽源码自动重编
 ```
@@ -97,4 +91,4 @@ npm run game:mario:watch   # 监听超级玛丽源码自动重编
 - 开发中的改动记录到 `changelog/unreleased.md`；正式发版时整理为版本文档并更新索引。
 - 新增游戏：在 `src/modules/game/games/<slug>/` 写一个根组件，封面放 `public/games/<slug>/`，再在 `src/modules/game/data/games.ts` 注册封面路径与游戏信息，路由无需改动。
 - `GameFrame` 默认插槽放画布或 iframe，`controls` 插槽放画面下方的触屏按钮，`toolbar` 插槽放工具栏操作；全屏覆盖整个游戏外壳。
-- 独立打包的游戏（如花园保卫战）：源码放 `games-src/<slug>/`，构建产物输出到 `public/games/<slug>/index.html`，站内组件用 `GameFrame` 包一个 iframe 即可。
+- 独立打包的游戏（如超级玛丽）：源码放 `games-src/<slug>/`，构建产物输出到 `public/games/<slug>/index.html`，站内组件用 `GameFrame` 包一个 iframe 即可。

@@ -15,6 +15,7 @@ dist-ssr
 # Local reference checkouts, build checks, and debugging artifacts
 /.reference-*
 /.tmp-*
+/.codex/
 /lx-lyric-probe.html
 /lx-timeline-probe.html
 /$null

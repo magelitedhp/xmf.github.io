@@ -79,9 +79,12 @@ const progressText = computed(() => formatInterval(state.progress))
 const maxTimeText = computed(() => formatInterval(state.maxTime))
 const progressPercent = computed(() => (state.maxTime > 0 ? (state.progress / state.maxTime) * 100 : 0))
 
-function ensureAudio(): HTMLAudioElement {
+function ensureAudio(useCors = true): HTMLAudioElement {
   if (audio) return audio
   const element = new Audio()
+  // Web Audio silences cross-origin media unless it was loaded with CORS.
+  // Sources without CORS are retried through native audio below.
+  if (useCors) element.crossOrigin = 'anonymous'
   element.preload = 'auto'
   element.volume = state.volume
   element.muted = state.isMute
@@ -187,20 +190,57 @@ function updateMediaPosition() {
 
 function ensureAnalyser() {
   if (analyser || !audio) return
+  if (audio.crossOrigin !== 'anonymous') return
   if (!getSetting('player.audioVisualization')) return
   const Ctor = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
   if (!Ctor) return
   try {
     audioContext = new Ctor()
-    sourceNode = audioContext.createMediaElementSource(audio)
     analyser = audioContext.createAnalyser()
     analyser.fftSize = 512
     analyser.smoothingTimeConstant = 0.78
-    sourceNode.connect(analyser)
     analyser.connect(audioContext.destination)
+    sourceNode = audioContext.createMediaElementSource(audio)
+    sourceNode.connect(analyser)
     spectrum = new Uint8Array(new ArrayBuffer(analyser.frequencyBinCount))
   } catch {
+    // A connected media source must always have an audible output.
+    sourceNode?.disconnect()
+    if (sourceNode && audioContext) sourceNode.connect(audioContext.destination)
     analyser = null
+  }
+}
+
+async function playAudio(element: HTMLAudioElement) {
+  if (audioContext?.state === 'suspended') await audioContext.resume()
+  try {
+    await element.play()
+  } catch (cause) {
+    // A CDN may allow native playback but reject anonymous CORS requests.
+    // A media element already bound to Web Audio cannot be unbound: replace it
+    // and keep the fallback element out of the analyser for this session.
+    if (element !== audio || element.crossOrigin !== 'anonymous' || !element.error
+      || ![2, 4].includes(element.error.code)) throw cause
+    const url = element.src
+    const position = element.currentTime
+    element.pause()
+    element.removeAttribute('src')
+    element.load()
+    sourceNode?.disconnect()
+    analyser?.disconnect()
+    if (audioContext) void audioContext.close()
+    audioContext = null
+    analyser = null
+    sourceNode = null
+    spectrum = null
+    state.audioPower = 0
+    state.audioBands = { bass: 0, lowMid: 0, mid: 0, vocal: 0, treble: 0 }
+    audio = null
+    const fallback = ensureAudio(false)
+    fallback.src = url
+    fallback.load()
+    fallback.currentTime = position
+    await fallback.play()
   }
 }
 
@@ -276,6 +316,8 @@ async function loadCurrent(autoplay: boolean) {
   if (!music) return
   const element = ensureAudio()
   ensureAnalyser()
+  // Resume during the user's gesture, before waiting for the URL request.
+  if (autoplay && audioContext?.state === 'suspended') void audioContext.resume().catch(() => {})
   startVisualizerLoop()
 
   state.isLoading = true
@@ -294,8 +336,7 @@ async function loadCurrent(autoplay: boolean) {
     }
     void loadLyric(music)
     if (autoplay) {
-      if (audioContext?.state === 'suspended') void audioContext.resume()
-      await element.play()
+      await playAudio(element)
       state.isPlay = true
       state.statusText = `正在播放 · ${music.name}`
     }
@@ -345,9 +386,8 @@ export async function togglePlay() {
     return
   }
   if (loadedKey === currentMusic.value.id && element.src) {
-    if (audioContext?.state === 'suspended') void audioContext.resume()
     try {
-      await element.play()
+      await playAudio(element)
       state.isPlay = true
     } catch {
       await loadCurrent(true)

@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { lxMusicRoutes } from './routes/lxmusic'
 import { musicRoutes } from './routes/music'
 import { siteRoutes } from './routes/site'
+import { recoverRouteChunk } from './chunkRecovery'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -9,6 +10,10 @@ const router = createRouter({
   scrollBehavior() {
     return { top: 0 }
   },
+})
+
+router.onError((error, to) => {
+  if (!recoverRouteChunk(error, to.fullPath)) console.error(error)
 })
 
 router.afterEach((to) => {
