@@ -7,7 +7,7 @@
         <p class="reader-kicker">{{ book.sourceName }} / {{ book.chapters.length }} CHAPTERS</p>
         <h1>{{ book.title }}</h1>
         <p class="reader-detail-author">{{ book.author }}</p>
-        <p class="reader-detail-description">{{ book.description }}</p>
+        <p class="reader-detail-description" :title="description">{{ description }}</p>
         <div class="reader-detail-actions">
           <RouterLink class="reader-primary" :to="`/read/book/${book.id}/chapter/${book.currentChapter}`">{{ book.currentChapter ? '继续阅读' : '开始阅读' }} ↗</RouterLink>
           <button class="reader-secondary" @click="exportTxt(book)">导出 TXT</button>
@@ -36,15 +36,28 @@ import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import type { LibraryBook } from './types'
 import { exportEpub, exportTxt } from './services/export'
-import { getBook } from './services/storage'
+import { getReaderBook } from './services/defaultBooks'
+import { markdownPlainText, parseMarkdownBlocks } from './services/markdown'
 
 const route = useRoute()
 const book = ref<LibraryBook>()
 const error = ref('')
 const filter = ref('')
+const description = computed(() => {
+  if (!book.value) return ''
+  if (book.value.format !== 'md') return book.value.description
+  // Older cached Markdown books only saved a 150-character excerpt.
+  const opening = parseMarkdownBlocks(book.value.chapters[0]?.content ?? '')
+    .find((block) => block.kind === 'paragraph')
+  return opening ? markdownPlainText(opening.text).replace(/\s+/g, ' ') : book.value.description
+})
 onMounted(async () => {
-  book.value = await getBook(String(route.params.id))
-  if (!book.value) error.value = '没有找到这本书。'
+  try {
+    book.value = await getReaderBook(String(route.params.id))
+    if (!book.value) error.value = '没有找到这本书。'
+  } catch (cause) {
+    error.value = cause instanceof Error ? cause.message : '书籍加载失败，请刷新重试。'
+  }
 })
 const wordCount = computed(() => new Intl.NumberFormat('zh-CN', { notation: 'compact', maximumFractionDigits: 1 }).format(book.value?.chapters.reduce((sum, chapter) => sum + chapter.content.length, 0) ?? 0))
 const chapterGroups = computed(() => {
@@ -62,4 +75,21 @@ function coverText(title: string) {
   return title.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase()
 }
 </script>
+
+<style scoped>
+.reader-detail-copy {
+  min-width: 0;
+}
+
+.reader-detail-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  text-overflow: ellipsis;
+  cursor: help;
+}
+</style>
 

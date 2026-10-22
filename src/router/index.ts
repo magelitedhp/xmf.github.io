@@ -1,10 +1,11 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { lxMusicRoutes } from './routes/lxmusic'
 import { musicRoutes } from './routes/music'
 import { siteRoutes } from './routes/site'
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: [...siteRoutes, ...musicRoutes],
+  routes: [...siteRoutes, ...musicRoutes, ...lxMusicRoutes],
   scrollBehavior() {
     return { top: 0 }
   },

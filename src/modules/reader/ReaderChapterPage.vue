@@ -20,6 +20,7 @@
       <h1>{{ chapter.title }}</h1>
       <div v-if="loading" class="reading-loading">正在从 {{ book.sourceName }} 读取正文…</div>
       <div v-else-if="error" class="reading-error"><b>本章暂时无法读取</b><p>{{ error }}</p><button @click="loadChapter">重新尝试</button></div>
+      <ReaderMarkdown v-else-if="book.format === 'md'" :content="chapter.content" :base-url="book.contentBaseUrl" />
       <div v-else class="reading-content"><p v-for="(paragraph, index) in paragraphs" :key="index">{{ paragraph }}</p></div>
       <footer class="reading-navigation">
         <RouterLink v-if="chapterIndex > 0" :to="`/read/book/${book.id}/chapter/${chapterIndex - 1}`">← 上一章</RouterLink><span v-else>已经是第一章</span>
@@ -34,8 +35,10 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import type { BookSource, LibraryBook } from './types'
+import ReaderMarkdown from './components/ReaderMarkdown.vue'
+import { getReaderBook } from './services/defaultBooks'
 import { fetchChapterContent } from './services/sourceEngine'
-import { getBook, loadReaderSettings, loadSources, saveBook, saveReaderSettings } from './services/storage'
+import { loadReaderSettings, loadSources, saveBook, saveReaderSettings } from './services/storage'
 
 const route = useRoute(), router = useRouter()
 const book = ref<LibraryBook>(), chapterIndex = ref(0), loading = ref(false), error = ref('')
@@ -48,7 +51,13 @@ const paperStyle = computed(() => ({ maxWidth: `${settings.value.contentWidth}px
 async function openRoute() {
   window.clearTimeout(saveTimer)
   error.value = ''
-  book.value = await getBook(String(route.params.id))
+  try {
+    book.value = await getReaderBook(String(route.params.id))
+  } catch (cause) {
+    book.value = undefined
+    error.value = cause instanceof Error ? cause.message : '书籍加载失败，请刷新重试。'
+    return
+  }
   if (!book.value) { error.value = '没有找到这本书。'; return }
   const nextChapter = Math.min(Math.max(Number(route.params.chapter) || 0, 0), book.value.chapters.length - 1)
   if (book.value.currentChapter !== nextChapter) book.value.currentOffset = 0

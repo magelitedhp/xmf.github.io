@@ -1,4 +1,4 @@
-export type BookFormat = 'txt' | 'epub' | 'online' | 'guide'
+export type BookFormat = 'txt' | 'md' | 'epub' | 'online' | 'guide'
 
 export interface BookChapter {
   id: string
@@ -16,6 +16,11 @@ export interface LibraryBook {
   sourceName: string
   sourceId?: string
   format: BookFormat
+  /** Stable public catalog path and content fingerprint for default books. */
+  defaultPath?: string
+  defaultRevision?: string
+  /** Base URL used to resolve relative Markdown images and links. */
+  contentBaseUrl?: string
   createdAt: number
   updatedAt: number
   currentChapter: number

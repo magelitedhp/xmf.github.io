@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { defaultReadCatalog } from './plugins/defaultReadCatalog'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), defaultReadCatalog()],
   base: './',
   server: {
     proxy: {

@@ -4,7 +4,7 @@
       <div>
         <p class="reader-kicker">YUMO READER / PRIVATE LIBRARY</p>
         <h1>搜书，也读书<span>.</span></h1>
-        <p>导入 TXT、EPUB，或连接自己的书源。把散落的章节整理成一座安静书架。</p>
+        <p>翻开默认书籍，导入 MD、TXT、EPUB，或连接自己的书源。把散落的章节整理成一座安静书架。</p>
       </div>
       <div class="reader-hero-mark" aria-hidden="true"><i></i><b>阅</b></div>
     </section>
@@ -20,15 +20,16 @@
           <label class="reader-encoding">TXT 编码
             <select v-model="txtEncoding" aria-label="TXT 文件编码"><option value="auto">自动识别</option><option value="utf-8">UTF-8</option><option value="gb18030">GB18030</option><option value="big5">Big5</option></select>
           </label>
-          <button class="reader-primary" @click="fileInput?.click()">＋ 导入书籍</button>
-          <input ref="fileInput" class="sr-only" type="file" accept=".txt,.text,.epub,text/plain,application/epub+zip" multiple @change="importFiles">
+          <button class="reader-primary" :disabled="loadingShelf" @click="fileInput?.click()">＋ 导入书籍</button>
+          <input ref="fileInput" class="sr-only" type="file" accept=".md,.markdown,.txt,.text,.epub,text/markdown,text/plain,application/epub+zip" multiple @change="importFiles">
         </div>
       </header>
 
       <div v-if="notice" class="reader-notice" :class="{ error: noticeError }" role="status">{{ notice }}</div>
 
       <section v-if="view === 'shelf'" class="reader-panel reader-shelf">
-        <div class="reader-section-title"><div><span>01 / LIBRARY</span><h2>最近阅读</h2></div><p>书籍与阅读进度只保存在当前浏览器。</p></div>
+        <div class="reader-section-title"><div><span>01 / LIBRARY</span><h2>最近阅读</h2></div><p>默认书籍自动加入，阅读进度保存在当前浏览器。</p></div>
+        <div v-if="loadingShelf" class="reader-loading" role="status">正在整理默认书籍…</div>
         <div v-if="books.length" class="reader-book-grid">
           <article v-for="(book, index) in books" :key="book.id" class="reader-book-card">
             <RouterLink class="reader-cover" :to="`/read/book/${book.id}`" :style="coverStyle(book, index)">
@@ -44,7 +45,7 @@
             </div>
           </article>
         </div>
-        <div v-else class="reader-empty"><b>书架还是空的</b><p>导入一本 TXT 或 EPUB，开始你的第一段阅读。</p><button class="reader-primary" @click="fileInput?.click()">选择本地书籍</button></div>
+        <div v-else-if="!loadingShelf" class="reader-empty"><b>书架还是空的</b><p>导入一本 MD、TXT 或 EPUB，开始你的第一段阅读。</p><button class="reader-primary" @click="fileInput?.click()">选择本地书籍</button></div>
       </section>
 
       <section v-else-if="view === 'search'" class="reader-panel reader-search-panel">
@@ -105,10 +106,10 @@
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import type { BookSource, LibraryBook, OnlineSearchResult } from './types'
-import { parseEpubFile } from './services/epub'
+import { syncDefaultBooks } from './services/defaultBooks'
+import { parseReaderFile } from './services/importBook'
 import { createOnlineBook, normalizeSources, searchSource } from './services/sourceEngine'
 import { listBooks, loadSources, saveBook, saveSources } from './services/storage'
-import { parseTxtFile } from './services/txt'
 import { guideBook } from './data/guide'
 import { sourceTemplate } from './data/sourceTemplate'
 import bundledSoNovelSources from './data/soNovelSources.json'
@@ -116,6 +117,7 @@ import bundledSoNovelSources from './data/soNovelSources.json'
 type View = 'shelf' | 'search' | 'sources'
 const view = ref<View>('shelf')
 const books = ref<LibraryBook[]>([])
+const loadingShelf = ref(true)
 const sources = ref<BookSource[]>(loadSources())
 const fileInput = ref<HTMLInputElement>()
 const txtEncoding = ref('auto')
@@ -133,10 +135,16 @@ const bundledSourceCount = bundledSoNovelSources.length
 const enabledSourceCount = computed(() => sources.value.filter((source) => source.enabled && source.search).length)
 
 onMounted(async () => {
-  books.value = await listBooks()
-  if (!books.value.some((book) => book.id === guideBook.id)) {
-    await saveBook(structuredClone(guideBook))
+  try {
     books.value = await listBooks()
+    if (!books.value.some((book) => book.id === guideBook.id)) await saveBook(structuredClone(guideBook))
+    const failures = await syncDefaultBooks(books.value)
+    books.value = await listBooks()
+    if (failures.length) setNotice(`以下默认书籍暂时无法加载：${failures.join('、')}。刷新页面可以重试。`, true)
+  } catch (cause) {
+    setNotice(cause instanceof Error ? cause.message : '书架读取失败，请刷新页面重试。', true)
+  } finally {
+    loadingShelf.value = false
   }
 })
 
@@ -152,8 +160,7 @@ async function importFiles(event: Event) {
   let imported = 0
   for (const file of files) {
     try {
-      if (file.size > 80 * 1024 * 1024) throw new Error(`${file.name} 超过 80 MB。`)
-      const book = file.name.toLowerCase().endsWith('.epub') ? await parseEpubFile(file) : await parseTxtFile(file, txtEncoding.value)
+      const book = await parseReaderFile(file, txtEncoding.value)
       await saveBook(book)
       imported += 1
     } catch (cause) {
@@ -244,7 +251,7 @@ function removeSource(id: string) {
   saveSources(sources.value)
 }
 
-function formatLabel(format: LibraryBook['format']) { return ({ txt: 'TXT', epub: 'EPUB', online: 'ONLINE', guide: 'GUIDE' })[format] }
+function formatLabel(format: LibraryBook['format']) { return ({ txt: 'TXT', md: 'MD', epub: 'EPUB', online: 'ONLINE', guide: 'GUIDE' })[format] }
 function bookProgress(book: LibraryBook) { return book.chapters.length ? Math.max(3, Math.round(((book.currentChapter + 1) / book.chapters.length) * 100)) : 0 }
 function coverStyle(book: LibraryBook, index: number) {
   if (book.cover) return {}
@@ -257,4 +264,12 @@ function coverText(title: string) {
   return title.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase()
 }
 </script>
+
+<style scoped>
+.reader-loading {
+  margin-bottom: 22px;
+  color: #627789;
+  font-size: 13px;
+}
+</style>
 

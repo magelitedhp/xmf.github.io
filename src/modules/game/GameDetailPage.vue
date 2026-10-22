@@ -21,12 +21,7 @@
       </div>
       <div>
         <div class="game-note-heading"><span>02</span><h2>关于这场小小的冒险</h2></div>
-        <div class="game-about-copy"><p v-if="game.credit">
-          {{ game.credit.prefix }}
-          <a :href="game.credit.href" target="_blank" rel="noopener noreferrer">{{ game.credit.label }}</a>
-          {{ game.credit.suffix }}
-        </p>
-        <p v-for="note in game.notes" :key="note">{{ note }}</p>
+        <div class="game-about-copy"><p v-for="note in game.notes" :key="note">{{ note }}</p>
         </div>
       </div>
     </section>

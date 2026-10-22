@@ -5,13 +5,6 @@ export interface GameControl {
   label: string
 }
 
-export interface GameCredit {
-  prefix: string
-  label: string
-  href: string
-  suffix: string
-}
-
 export interface GameEntry {
   slug: string
   name: string
@@ -27,12 +20,36 @@ export interface GameEntry {
   released: string
   controls: GameControl[]
   notes: string[]
-  credit?: GameCredit
   /** Lazily loaded game component; each game ships as its own chunk. */
   load: AsyncComponentLoader
 }
 
 export const games: GameEntry[] = [
+  {
+    slug: 'minesweeper',
+    name: '星穹扫雷',
+    enName: 'Nebula · A Field of Possibilities',
+    genre: '星际扫雷 · 逻辑勘探',
+    summary: '在未知里，点亮一片星空。三档星区、每日星图与扫描脉冲，把每次小心翼翼变成一场宇宙探索。',
+    description: '一台藏在浏览器里的深空勘探仪。沿数字线索避开引力地雷，用旗帜标记异常，点亮所有安全区域。星云流动、流星掠过，空白区域如星潮般展开；首次点击及周围八格安全，还可以发射三次辅助扫描。',
+    cover: 'games/minesweeper/cover.svg',
+    tags: ['益智', '逻辑', '扫雷', '星空'],
+    released: '2026-10-22',
+    controls: [
+      { keys: ['鼠标', '触屏'], label: '点击探索星区；数字代表周围八格中的地雷数量' },
+      { keys: ['右键', '长按'], label: '循环切换旗帜、问号与清空；也可使用下方标记模式' },
+      { keys: ['点击数字'], label: '周围旗帜数量吻合后连锁开格；错误标记仍可能触雷' },
+      { keys: ['方向键'], label: '在星图中移动焦点，空格或回车探索，F 标记' },
+      { keys: ['H'], label: '安全扫描，每局三次；使用后计为辅助通关' },
+      { keys: ['P', 'Esc'], label: '暂停 / 继续；R 重新起航，? 查看玩法' },
+    ],
+    notes: [
+      '近地轨道 9×9 / 10 雷、星云深处 12×12 / 26 雷、事件视界 16×16 / 52 雷。每日星图从中央安全区起航，相同日期和难度使用同一张地图。',
+      '三种光谱、动态星云、流星、开格光波、扫描雷达、胜负粒子与 WebAudio 合成音效。支持减少动态效果设置、键盘、触屏和全屏；窄屏上的大型星图可横向滚动。',
+      '星图与航行计时自动保存在当前浏览器；离开页面后可续玩。最佳航线仅记录没有使用扫描的通关，胜场和连胜也会保留。',
+    ],
+    load: () => import('../games/minesweeper/Minesweeper.vue'),
+  },
   {
     slug: 'sudoku',
     name: '数独',
@@ -59,12 +76,6 @@ export const games: GameEntry[] = [
       '支持同行、同列、同宫及相同数字高亮，正确填写会自动清理相关候选笔记。游戏进度每五秒及每次操作后保存在本地，切换页面后也可继续。',
       '桌面端支持完整键盘操作，手机端提供紧凑数字键盘与工具栏；棋盘包含可访问性标签，并适配全屏游玩。',
     ],
-    credit: {
-      prefix: '玩法与交互参考',
-      label: 'TheSudoku.com',
-      href: 'https://thesudoku.com/zh-CN/easy-sudoku',
-      suffix: '的在线数独体验；本站版本的生成算法、界面、交互与视觉均为独立实现。',
-    },
     load: () => import('../games/sudoku/Sudoku.vue'),
   },
   {
@@ -90,10 +101,6 @@ export const games: GameEntry[] = [
       '画面由 Canvas 与手绘像素矩阵生成，音乐与音效由 WebAudio 合成；整款游戏编译为一个可离线打开的 HTML，源码、调试文件和压缩中间产物全部保留。',
       '手机提供独立于画面的多点触控按钮。已解锁世界、通关星章与最高得分保存在本地浏览器。',
     ],
-    credit: {
-      prefix: '致敬', label: 'Nintendo《超级马力欧兄弟》', href: 'https://mario.nintendo.com/',
-      suffix: '的经典平台玩法；本作为非官方同人作品，代码、关卡、像素画面与合成音乐独立实现。',
-    },
     load: () => import('../games/super-mario/SuperMario.vue'),
   },
   {
@@ -116,12 +123,6 @@ export const games: GameEntry[] = [
       { keys: ['Esc'], label: '暂停' },
     ],
     notes: ['全部画面由 Canvas 实时绘制，音效由 WebAudio 合成，无外部素材。', '最佳纪录保存在本地浏览器。手机端会显示触屏按键。'],
-    credit: {
-      prefix: '玩法风格致敬',
-      label: '熵刃 · ENTROPY BLADE',
-      href: 'https://game.inc.re/entropy-blade/',
-      suffix: '的像素横版肉鸽手感；本作代码、美术与关卡均为原创实现。',
-    },
     load: () => import('../games/ember-lantern/EmberLantern.vue'),
   },
   {
@@ -146,12 +147,6 @@ export const games: GameEntry[] = [
       '整款游戏编译为一个约 120 KB 的独立 HTML：画面全部由 Canvas 矢量实时绘制，音乐与音效由 WebAudio 合成，无任何外部素材。',
       '进度、植物收集与小游戏纪录保存在本地浏览器；设置中可一键解锁全部内容。',
     ],
-    credit: {
-      prefix: '玩法致敬',
-      label: 'PopCap《植物大战僵尸》',
-      href: 'https://www.ea.com/ea-studios/popcap/plants-vs-zombies',
-      suffix: '；本作为非官方同人作品，美术、代码与音乐均为原创。',
-    },
     load: () => import('../games/garden-guard/GardenGuard.vue'),
   },
   {
@@ -176,12 +171,6 @@ export const games: GameEntry[] = [
       '三种材质拥有不同的重力、弹性、黏性与变形幅度；24 点弹性轮廓模拟局部受压，保持面积近似不变。融合会恢复能量。',
       '全部画面由 Canvas 实时绘制，声音由 WebAudio 合成，最佳分数保存在本地浏览器。',
     ],
-    credit: {
-      prefix: '概念与交互参考',
-      label: '瓜体实验室 · 半流体西瓜游戏',
-      href: 'https://melon-game.jack-514.chatgpt.site/',
-      suffix: '；本站版本为独立原创实现，代码与视觉素材均未复制。',
-    },
     load: () => import('../games/melon-fluid/MelonFluid.vue'),
   },
 ]

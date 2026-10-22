@@ -1,0 +1,163 @@
+/**
+ * Leaderboards and song lists for Yumo Music.
+ *
+ * The public web API used here exposes search only, so every board
+ * and song list is expressed as a curated query against a source — same shape, same
+ * navigation, and it actually returns playable tracks.
+ */
+
+export interface LeaderboardBoard {
+  id: string
+  name: string
+  source: string
+  bangid: string
+  query: string
+  /** Accent used by the board grid. */
+  tint: string
+  description: string
+}
+
+export interface LeaderboardGroup {
+  source: string
+  name: string
+  boards: LeaderboardBoard[]
+}
+
+export const leaderboardGroups: LeaderboardGroup[] = [
+  {
+    source: 'netease',
+    name: '网易云音乐',
+    boards: [
+      { id: 'wy_rise', name: '飙升榜', source: 'netease', bangid: '19723756', query: '飙升', tint: '#e2503f', description: '此刻涨得最快的歌' },
+      { id: 'wy_new', name: '新歌榜', source: 'netease', bangid: '3779629', query: '新歌', tint: '#3f7ee2', description: '刚刚上架的作品' },
+      { id: 'wy_hot', name: '热歌榜', source: 'netease', bangid: '3778678', query: '热歌', tint: '#e2723f', description: '大家都在循环' },
+      { id: 'wy_origin', name: '原创榜', source: 'netease', bangid: '2884035', query: '原创', tint: '#7b5be2', description: '独立音乐人的声音' },
+      { id: 'wy_rap', name: '说唱榜', source: 'netease', bangid: '991319590', query: '说唱', tint: '#2f9e8f', description: '中文说唱的现场' },
+      { id: 'wy_elec', name: '电音榜', source: 'netease', bangid: '1978921795', query: '电子音乐', tint: '#2f6f9e', description: '合成器的夜晚' },
+    ],
+  },
+  {
+    source: 'tencent',
+    name: 'QQ 音乐',
+    boards: [
+      { id: 'tx_hot', name: '热歌榜', source: 'tencent', bangid: '26', query: '热歌', tint: '#31a05f', description: '全站热度最高' },
+      { id: 'tx_new', name: '新歌榜', source: 'tencent', bangid: '27', query: '新歌', tint: '#3f8ee2', description: '每日更新' },
+      { id: 'tx_rise', name: '飙升榜', source: 'tencent', bangid: '62', query: '飙升', tint: '#e2503f', description: '上升最快' },
+      { id: 'tx_origin', name: '原创榜', source: 'tencent', bangid: '28', query: '原创音乐', tint: '#8b5be2', description: '原创力量' },
+      { id: 'tx_west', name: '欧美榜', source: 'tencent', bangid: '58', query: '欧美流行', tint: '#2f7f9e', description: 'Billboard 风向' },
+      { id: 'tx_korea', name: '韩国榜', source: 'tencent', bangid: '60', query: '韩国流行', tint: '#d24f8b', description: 'K-POP 热度' },
+    ],
+  },
+  {
+    source: 'kuwo',
+    name: '酷我音乐',
+    boards: [
+      { id: 'kw_hot', name: '热歌榜', source: 'kuwo', bangid: '16', query: '热歌', tint: '#e2723f', description: '热门单曲' },
+      { id: 'kw_new', name: '新歌榜', source: 'kuwo', bangid: '17', query: '新歌', tint: '#3f8ee2', description: '新歌速递' },
+      { id: 'kw_rise', name: '飙升榜', source: 'kuwo', bangid: '93', query: '飙升', tint: '#e2503f', description: '涨势最猛' },
+      { id: 'kw_rock', name: '摇滚榜', source: 'kuwo', bangid: '22', query: '摇滚', tint: '#5a5a5a', description: '失真与鼓点' },
+      { id: 'kw_folk', name: '民谣榜', source: 'kuwo', bangid: '23', query: '民谣', tint: '#a07a3f', description: '一把吉他的距离' },
+      { id: 'kw_ancient', name: '古风榜', source: 'kuwo', bangid: '24', query: '古风', tint: '#7b5be2', description: '词曲里的江湖' },
+    ],
+  },
+]
+
+export interface SongListTag {
+  id: string
+  name: string
+  query: string
+}
+
+export const songListTags: SongListTag[] = [
+  { id: 'all', name: '全部', query: '' },
+  { id: 'pop', name: '流行', query: '流行' },
+  { id: 'rock', name: '摇滚', query: '摇滚' },
+  { id: 'folk', name: '民谣', query: '民谣' },
+  { id: 'electronic', name: '电子', query: '电子' },
+  { id: 'rap', name: '说唱', query: '说唱' },
+  { id: 'ancient', name: '古风', query: '古风' },
+  { id: 'jazz', name: '爵士', query: '爵士' },
+  { id: 'classical', name: '古典', query: '古典' },
+  { id: 'light', name: '轻音乐', query: '轻音乐' },
+  { id: 'acg', name: 'ACG', query: '动漫' },
+  { id: 'western', name: '欧美', query: '欧美' },
+]
+
+export interface SongListItem {
+  id: string
+  name: string
+  author: string
+  source: string
+  query: string
+  tag: string
+  playCount: string
+  description: string
+  tint: string
+  cover: string
+}
+
+type SongListSeed = Omit<SongListItem, 'id' | 'source' | 'cover'>
+
+const seeds: SongListSeed[] = [
+  { name: '深夜驾驶', author: '夜行电台', query: '深夜 电子', tag: 'electronic', playCount: '128.4万', description: '路灯连成一条线，合成器在耳边铺开。', tint: '#2f6f9e' },
+  { name: '午后咖啡与爵士', author: 'Slow Bar', query: '爵士 钢琴', tag: 'jazz', playCount: '96.2万', description: '一杯手冲的时间，刚好听完三首。', tint: '#8a6a3f' },
+  { name: '写代码的时候听什么', author: 'Focus Lab', query: '轻音乐 专注', tag: 'light', playCount: '233.7万', description: '没有人声，只有稳定的节拍。', tint: '#3f7ee2' },
+  { name: '华语情歌二十年', author: '旧唱片行', query: '华语 情歌', tag: 'pop', playCount: '451.9万', description: '副歌一响，就回到某个夏天。', tint: '#d24f6b' },
+  { name: '失真与鼓点', author: 'Amp Room', query: '摇滚 乐队', tag: 'rock', playCount: '77.5万', description: '把音量旋钮再拧大一点。', tint: '#5a5a5a' },
+  { name: '山野与旧吉他', author: '背包客', query: '民谣 吉他', tag: 'folk', playCount: '112.3万', description: '适合在长途车上循环。', tint: '#a07a3f' },
+  { name: '古风词话', author: '墨色', query: '古风 国风', tag: 'ancient', playCount: '188.6万', description: '一曲一世界，一词一江湖。', tint: '#7b5be2' },
+  { name: '中文说唱现场', author: 'Mic Check', query: '说唱 中文', tag: 'rap', playCount: '143.1万', description: '押韵是唯一的规则。', tint: '#2f9e8f' },
+  { name: '交响与独奏', author: 'Concert Hall', query: '古典 交响', tag: 'classical', playCount: '62.8万', description: '让时间慢下来的方式。', tint: '#6a6a8a' },
+  { name: '动漫神曲合集', author: '次元口袋', query: '动漫 主题曲', tag: 'acg', playCount: '302.5万', description: '前奏一响，热血就回来了。', tint: '#d24f8b' },
+  { name: '欧美流行精选', author: 'Billboard Watch', query: '欧美 流行', tag: 'western', playCount: '276.9万', description: '榜单上正在发生的事情。', tint: '#2f7f9e' },
+  { name: '雨天与钢琴', author: '窗边', query: '钢琴 纯音乐', tag: 'light', playCount: '88.4万', description: '雨声之外，还有琴键。', tint: '#4f7f9e' },
+  { name: '健身房节拍', author: 'Pulse', query: '电子 舞曲', tag: 'electronic', playCount: '159.2万', description: '心率跟着 BPM 走。', tint: '#e2503f' },
+  { name: '老歌新唱', author: '翻唱工厂', query: '翻唱 经典', tag: 'pop', playCount: '121.7万', description: '熟悉旋律的另一种打开方式。', tint: '#c07a3f' },
+  { name: '睡前低音量', author: '晚安', query: '轻音乐 助眠', tag: 'light', playCount: '205.3万', description: '把音量调到刚好听见。', tint: '#3f5f9e' },
+  { name: '港乐黄金年代', author: '红磡', query: '粤语 经典', tag: 'pop', playCount: '334.6万', description: '那些年，卡带正反面都听烂了。', tint: '#a04f5f' },
+]
+
+export const songLists: SongListItem[] = seeds.map((seed, index) => ({
+  id: `songlist_${index + 1}`,
+  source: 'netease',
+  cover: `${(import.meta.env.BASE_URL || './').replace(/\/?$/, '/')}music/covers/${coverOfTag(seed.tag)}.svg`,
+  ...seed,
+}))
+
+function coverOfTag(tag: string) {
+  const covers: Record<string, string> = {
+    electronic: 'pulse',
+    jazz: 'jazz',
+    light: 'focus',
+    pop: 'city',
+    rock: 'live',
+    folk: 'folk',
+    ancient: 'classic',
+    rap: 'live',
+    classical: 'classic',
+    acg: 'city',
+    western: 'city',
+  }
+  return covers[tag] ?? 'city'
+}
+
+export function filterSongLists(tag: string): SongListItem[] {
+  if (!tag || tag === 'all') return songLists
+  return songLists.filter((item) => item.tag === tag)
+}
+
+/** Hot-search words shown on the blank search page. */
+export const hotSearchKeywords = [
+  '周杰伦',
+  '林俊杰',
+  '五月天',
+  '陈奕迅',
+  '薛之谦',
+  '邓紫棋',
+  '毛不易',
+  '李荣浩',
+  'Taylor Swift',
+  'Coldplay',
+  '久石让',
+  '纯音乐',
+]

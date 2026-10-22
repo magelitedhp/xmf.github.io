@@ -104,7 +104,7 @@
       "format": "esm"
     },
     "games-src/super-mario/src/main.ts": {
-      "bytes": 8900,
+      "bytes": 8824,
       "imports": [
         {
           "path": "games-src/super-mario/src/style.css",
@@ -173,10 +173,10 @@
           "bytesInOutput": 4408
         },
         "games-src/super-mario/src/main.ts": {
-          "bytesInOutput": 8835
+          "bytesInOutput": 8696
         }
       },
-      "bytes": 50567
+      "bytes": 50428
     },
     "games-src/super-mario/.build/min/main.css": {
       "imports": [],

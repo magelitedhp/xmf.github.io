@@ -87,5 +87,5 @@ async function copyOutput() {
 </script>
 
 <style scoped>
-.text-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}.text-stats span{display:grid;gap:3px;padding:12px;border:1px solid #d9e2eb;border-radius:10px;color:#8190a0;font-size:8px;text-align:center;background:#f8fafc}.text-stats b{color:#3155e7;font:17px var(--font-mono)}.text-operations{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.text-operations button{padding:9px 13px;border:1px solid #d1dce6;border-radius:100px;background:#f7fafc;color:#526a7f;font-size:10px}.text-operations button:hover{border-color:#3155e7;color:#3155e7}@media(max-width:620px){.text-stats{grid-template-columns:repeat(3,1fr)}}
+.text-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}.text-stats span{display:grid;gap:3px;padding:12px;border:1px solid #d9e2eb;border-radius:10px;color:#718397;font-size:11px;text-align:center;background:#f8fafc}.text-stats b{color:#3155e7;font:18px var(--font-mono)}.text-operations{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.text-operations button{padding:9px 13px;border:1px solid #d1dce6;border-radius:100px;background:#f7fafc;color:#526a7f;font-size:12px}.text-operations button:hover{border-color:#3155e7;color:#3155e7}@media(max-width:620px){.text-stats{grid-template-columns:repeat(3,1fr)}}
 </style>

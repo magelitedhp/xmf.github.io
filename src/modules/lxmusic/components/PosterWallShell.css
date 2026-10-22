@@ -1,0 +1,1382 @@
+/*
+ * Poster wall surface.
+ *
+ * Source: components/wall/wall.css + components/app/lattice/Lattice.css.
+ * The wall is a square-card field: no card radius, no card grid gaps, and a
+ * fixed camera transform on the world layer.
+ */
+
+.lx-poster-wall {
+  --lx-wall-bg: #09090b;
+  --lx-wall-accent: #f4f4f5;
+  --lx-wall-secondary: #71717a;
+  --lx-wall-ink: #f4f4f5;
+  --lattice-poster-tint-color: #161419;
+  --lattice-poster-tint-intensity: 0.5;
+  --lx-poster-tint-effective-opacity: var(--lattice-poster-tint-intensity);
+  --lx-shade-rgb: 0 0 0;
+  --lx-expanded-shadow: rgb(0 0 0 / 74%);
+  --lx-focus-lift: 0 12px 32px rgb(0 0 0 / 45%);
+  --lx-poster-background: color-mix(in srgb, var(--lx-wall-bg) 88%, var(--lx-wall-ink));
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  color: var(--lx-wall-ink);
+  font-family: "Inter", "Noto Sans CJK SC", "Noto Sans JP", "Source Han Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  background:
+    radial-gradient(circle at 14% 12%, color-mix(in srgb, var(--lx-wall-accent) 16%, transparent), transparent 29%),
+    radial-gradient(circle at 86% 82%, color-mix(in srgb, var(--lx-wall-secondary) 20%, transparent), transparent 32%),
+    var(--lx-wall-bg);
+}
+
+.lx-poster-wall.is-daylight {
+  --lx-shade-rgb: 255 255 255;
+  --lx-expanded-shadow: rgb(0 0 0 / 25%);
+  --lx-focus-lift: 0 12px 32px rgb(0 0 0 / 25%);
+  --lx-poster-background: color-mix(in srgb, var(--lx-wall-bg) 94%, var(--lx-wall-ink));
+  /* Reference derives the daylight tint from the base intensity * 0.72. */
+  --lx-poster-tint-effective-opacity: calc(var(--lattice-poster-tint-intensity) * 0.72);
+  --lattice-chrome-shadow: rgb(255 255 255 / 55%);
+}
+
+.lx-poster-wall::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.13;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.lx-poster-wall.is-daylight::after {
+  opacity: 0.07;
+}
+
+.lx-poster-wall.has-vignette::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 78%, rgba(0, 0, 0, 0.52) 100%);
+}
+
+.lx-poster-wall.is-daylight.has-vignette::before {
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 78%, rgba(0, 0, 0, 0.16) 100%);
+}
+
+.lx-wall-field {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  outline: none;
+  cursor: grab;
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+.lx-wall-field:active {
+  cursor: grabbing;
+}
+
+.lx-poster-wall.is-leaving .lx-wall-field {
+  pointer-events: none;
+}
+
+/* The wall layer fades under the card wave (wallLayer.ts, 0.62s ease-in). */
+.lx-poster-wall.is-leaving {
+  animation: lx-wall-leaving 620ms ease-in both;
+}
+
+@keyframes lx-wall-leaving {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Left for a collection's page, the wall is out of the way in a moment and no card waves: the
+ * page comes up under it (wallLayer.ts, WALL_FADE_FOR_PAGE_SECONDS = 0.18s ease-out). */
+.lx-poster-wall.is-leaving.is-leaving-page {
+  animation: lx-wall-leaving-page 180ms ease-out both;
+}
+
+@keyframes lx-wall-leaving-page {
+  to {
+    opacity: 0;
+  }
+}
+
+/* The leaving variant targets `scaleX / scaleY: 1`; drop the hover pop with it. */
+.lx-poster-wall.is-leaving .lx-poster {
+  --lx-poster-scale-x: 1;
+  --lx-poster-scale-y: 1;
+}
+
+.lx-poster-wall.is-leaving.is-leaving-page .lx-poster {
+  animation: none;
+  scale: 1;
+}
+
+.lx-poster-wall.is-returning {
+  animation: lx-wall-returning 200ms ease-out both;
+}
+
+@keyframes lx-wall-returning {
+  from {
+    opacity: 0;
+  }
+}
+
+.lx-poster.is-awaiting-flight {
+  opacity: 0 !important;
+}
+
+.lx-wall-world {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+}
+
+.lx-poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background-color: var(--lx-poster-background);
+  background-position: center;
+  background-size: cover;
+  box-shadow:
+    0 0 0 1px transparent,
+    0 0 0 4px transparent,
+    0 0 0 5px transparent,
+    var(--lx-poster-elevation, 0 12px 32px transparent);
+  color: var(--lx-wall-ink);
+  text-align: left;
+  cursor: pointer;
+  contain: layout paint;
+  outline: none;
+  scale: var(--lx-poster-scale-x, 1) var(--lx-poster-scale-y, 1);
+  transition: box-shadow 600ms ease, filter 600ms ease;
+}
+
+.lx-poster::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(255 255 255 / 10%), transparent 60%);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.lx-poster.is-focused::after {
+  opacity: 1;
+}
+
+.lx-poster-cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/*
+ * An album: the edge of a dark record inside the tile's right edge.
+ * Source: Lattice.css.
+ */
+.lx-poster.is-kind-album:not(.is-expanded)::before {
+  content: '';
+  position: absolute;
+  top: 7%;
+  right: 0;
+  height: 86%;
+  aspect-ratio: 1;
+  max-width: 86%;
+  translate: 79% 0;
+  pointer-events: none;
+  background: radial-gradient(circle closest-side,
+    #0b0b0c 0 58%, #252527 59% 60%, #0f0f10 61% 71%, #252527 72% 73%, #0f0f10 74% 84%, #252527 85% 86%,
+    #0d0d0e 87% 95.5%, rgb(255 255 255 / 34%) 96% 97%, rgb(0 0 0 / 38%) 97.5%, transparent 100%);
+}
+
+/*
+ * A playlist or a mix: two thin strips over the cover's top edge, each shorter
+ * than the one beneath, like sheets behind the cover. Source: Lattice.css.
+ */
+.lx-poster:is(.is-kind-playlist, .is-kind-mix):not(.is-expanded) {
+  box-sizing: border-box;
+  padding-top: 16px;
+  background-clip: content-box;
+  background-origin: content-box;
+}
+
+.lx-poster:is(.is-kind-playlist, .is-kind-mix):not(.is-expanded)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 16px;
+  pointer-events: none;
+  background:
+    linear-gradient(color-mix(in srgb, var(--lx-wall-ink) 34%, var(--lx-poster-background)) 0 0) 50% 0 / 76% 5px no-repeat,
+    linear-gradient(color-mix(in srgb, var(--lx-wall-ink) 58%, var(--lx-poster-background)) 0 0) 50% 8px / 88% 5px no-repeat;
+  transition: opacity 260ms ease;
+}
+
+.lx-poster:is(.is-kind-playlist, .is-kind-mix):not(.is-expanded) :is(.lx-poster-shade, .lx-poster-lights-out, .lx-poster-tint),
+.lx-poster:is(.is-kind-playlist, .is-kind-mix):not(.is-expanded)::after {
+  top: 16px;
+}
+
+.lx-poster:is(.is-kind-playlist, .is-kind-mix):not(.is-expanded) .lx-poster-cover {
+  top: 16px;
+  height: calc(100% - 16px);
+}
+
+.lx-poster-wall.has-poster-tint
+  .lx-poster:is(.is-kind-playlist, .is-kind-mix):not(.is-expanded, .is-focused, :hover, :focus-visible)::before {
+  opacity: calc(1 - var(--lx-poster-tint-effective-opacity));
+}
+
+.lx-poster-wall.is-lights-out .lx-poster:is(.is-kind-playlist, .is-kind-mix):not(.is-expanded)::before {
+  opacity: 0.18;
+}
+
+/*
+ * An artist: the picture drawn round on the plain ground of the tile.
+ * Source: Lattice.css.
+ */
+.lx-poster.is-kind-artist:not(.is-expanded) {
+  background-repeat: no-repeat;
+  background-size: 0 0;
+}
+
+.lx-poster.is-kind-artist:not(.is-expanded)::before {
+  content: '';
+  position: absolute;
+  top: 9%;
+  left: 50%;
+  height: 62%;
+  aspect-ratio: 1;
+  max-width: 84%;
+  translate: -50% 0;
+  pointer-events: none;
+  background-image: inherit;
+  background-position: center;
+  background-size: cover;
+  clip-path: circle(closest-side);
+}
+
+.lx-poster:hover {
+  z-index: 3;
+  filter: saturate(1.08) brightness(1.05);
+}
+
+.lx-poster.is-hovered:not(.is-expanded),
+.lx-poster.is-focused:not(.is-expanded) {
+  --lx-poster-scale-x: var(--lx-pop-x, 1);
+  --lx-poster-scale-y: var(--lx-pop-y, 1);
+  transition: box-shadow 600ms ease, filter 600ms ease, scale 300ms ease-out;
+}
+
+.lx-poster.is-expanded {
+  --lx-poster-elevation: 0 42px 110px var(--lx-expanded-shadow);
+  z-index: 20;
+  filter: none;
+  --lx-poster-scale-x: 1;
+  --lx-poster-scale-y: 1;
+}
+
+.lx-poster.is-focused:not(.is-expanded, .is-current),
+.lx-poster:focus-visible:not(.is-expanded, .is-current) {
+  z-index: 4;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.62),
+    0 0 0 4px var(--lx-wall-ink),
+    0 0 0 5px rgba(0, 0, 0, 0.38),
+    var(--lx-poster-elevation, var(--lx-focus-lift));
+}
+
+.lx-poster-wall.is-daylight .lx-poster.is-focused:not(.is-expanded, .is-current),
+.lx-poster-wall.is-daylight .lx-poster:focus-visible:not(.is-expanded, .is-current) {
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 78%),
+    0 0 0 4px var(--lx-wall-ink),
+    0 0 0 5px rgb(255 255 255 / 45%),
+    var(--lx-poster-elevation, var(--lx-focus-lift));
+}
+
+.lx-poster.is-focused:not(.is-expanded),
+.lx-poster:focus-visible:not(.is-expanded) {
+  z-index: 4;
+}
+
+.lx-poster.is-current::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  border: 2px solid var(--lx-primary, #fff);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.52),
+    inset 0 0 0 3px transparent,
+    inset 0 0 15px -7px color-mix(in srgb, var(--lx-primary, #fff) 46%, transparent);
+  transition: box-shadow 300ms ease;
+}
+
+.lx-poster.is-focused.is-current::before,
+.lx-poster.is-current:focus-visible::before {
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.62),
+    inset 0 0 0 3px transparent,
+    inset 0 0 26px -6px color-mix(in srgb, var(--lx-primary, #fff) 62%, transparent);
+}
+
+.lx-poster-generated {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.22);
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+}
+
+.lx-poster.is-generated .lx-poster-shade {
+  background:
+    radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.12), transparent 42%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.04) 34%, rgba(0, 0, 0, 0.24) 56%, rgba(0, 0, 0, 0.9) 100%);
+}
+
+.lx-poster-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(var(--lx-shade-rgb) / 5%) 34%,
+    rgb(var(--lx-shade-rgb) / 24%) 56%,
+    rgb(var(--lx-shade-rgb) / 92%) 100%
+  );
+  pointer-events: none;
+}
+
+.lx-poster.is-expanded .lx-poster-shade {
+  background:
+    linear-gradient(0deg, rgb(var(--lx-shade-rgb) / 86%) 0%, rgb(var(--lx-shade-rgb) / 62%) 14%, rgb(var(--lx-shade-rgb) / 26%) 30%, rgb(var(--lx-shade-rgb) / 0%) 46%),
+    linear-gradient(90deg, rgb(var(--lx-shade-rgb) / 88%), rgb(var(--lx-shade-rgb) / 50%) 52%, rgb(var(--lx-shade-rgb) / 8%));
+}
+
+.lx-poster-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--lx-wall-bg) 78%, var(--lx-wall-accent)),
+    color-mix(in srgb, var(--lx-wall-bg) 84%, var(--lx-wall-secondary))
+  );
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+.lx-poster-wall.has-poster-tint .lx-poster-tint {
+  opacity: var(--lx-poster-tint-effective-opacity);
+}
+
+.lx-poster-wall.uses-custom-poster-tint .lx-poster-tint {
+  background: var(--lattice-poster-tint-color);
+}
+
+.lx-poster:hover .lx-poster-tint,
+.lx-poster.is-focused .lx-poster-tint,
+.lx-poster:focus-visible .lx-poster-tint,
+.lx-poster.is-current .lx-poster-tint {
+  opacity: 0;
+}
+
+.lx-poster-lights-out {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+
+.lx-poster-wall.is-lights-out .lx-poster:not(.is-current) .lx-poster-lights-out {
+  opacity: 0.82;
+}
+
+.lx-poster-wall.is-daylight.is-lights-out .lx-poster:not(.is-current) .lx-poster-lights-out {
+  background: #fff;
+}
+
+.lx-poster-wall.is-lights-out .lx-poster:not(.is-current) .lx-poster-tint {
+  opacity: 0;
+}
+
+.lx-poster-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+  padding: 5px 8px;
+  border: 0;
+  background: rgb(var(--lx-shade-rgb) / 62%);
+  color: var(--lx-wall-ink);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+}
+
+.lx-poster-badge.is-current {
+  color: var(--lx-primary, #fff);
+  background: rgb(var(--lx-shade-rgb) / 78%);
+}
+
+/*
+ * The explore wall by section: a section's heading drawn as a tile of the wall
+ * (LatticeHeading), in the posters' ground and with no picture.
+ * Source: LatticeSections.css.
+ */
+.lx-heading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  color: var(--lx-wall-ink);
+  background-color: var(--lx-poster-background);
+  contain: layout paint;
+}
+
+.lx-heading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: #000;
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+.lx-poster-wall.is-lights-out .lx-heading::after {
+  opacity: 0.82;
+}
+
+.lx-poster-wall.is-daylight.is-lights-out .lx-heading::after {
+  background: #fff;
+}
+
+.lx-poster-badge.lx-heading-part {
+  right: 14px;
+  left: auto;
+}
+
+.lx-heading-copy {
+  position: absolute;
+  right: 17px;
+  bottom: 17px;
+  left: 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lx-heading-copy strong {
+  overflow: hidden;
+  margin-block: -0.14em;
+  padding-block: 0.14em;
+  font-size: clamp(44px, 4vw, 72px);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.lx-heading-copy strong[data-title-settled] {
+  display: block;
+  -webkit-line-clamp: unset;
+}
+
+.lx-heading-copy small {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 650;
+  opacity: 0.78;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lx-heading.is-untitled .lx-poster-badge:not(.lx-heading-part) {
+  padding: 8px 12px;
+  font-size: 22px;
+}
+
+.lx-heading.is-untitled .lx-heading-copy small {
+  font-size: clamp(22px, 2vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  opacity: 0.9;
+  white-space: normal;
+}
+
+.lx-poster-copy {
+  position: absolute;
+  right: 17px;
+  bottom: 17px;
+  left: 17px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  pointer-events: none;
+}
+
+.lx-poster-copy strong {
+  display: -webkit-box;
+  overflow: hidden;
+  margin-block: -0.14em;
+  padding-block: 0.14em;
+  font-size: clamp(22px, 2vw, 36px);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.lx-poster-copy strong[data-title-settled] {
+  display: block;
+  -webkit-line-clamp: unset;
+}
+
+.lx-poster-copy small {
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 650;
+  opacity: 0.78;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lx-poster.is-expanded .lx-poster-copy {
+  right: 32px;
+  bottom: 152px;
+  left: 32px;
+}
+
+.lx-poster.is-collection.is-expanded .lx-poster-copy {
+  bottom: 100px;
+}
+
+.lx-poster.is-expanded .lx-poster-copy strong {
+  max-width: 76%;
+  font-size: clamp(48px, 6vw, 82px);
+  line-height: 0.95;
+}
+
+.lx-poster.is-expanded .lx-poster-copy small {
+  margin-top: 7px;
+  font-size: 17px;
+}
+
+.lx-poster-expanded {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.lx-poster-controls {
+  position: absolute;
+  right: 24px;
+  bottom: 28px;
+  left: 32px;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: lx-poster-controls-in 240ms ease-out 140ms both;
+  pointer-events: auto;
+}
+
+@keyframes lx-poster-controls-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lattice-chrome {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(100%, 480px);
+  margin-inline: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  filter: drop-shadow(0 1px 3px var(--lattice-chrome-shadow));
+}
+
+.lattice-chrome-transport {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.lattice-chrome-details {
+  display: grid;
+  grid-template-columns: 0fr;
+  opacity: 0;
+  transition: grid-template-columns 180ms ease, opacity 150ms ease;
+}
+
+.lattice-chrome.is-revealed .lattice-chrome-details {
+  grid-template-columns: 1fr;
+  opacity: 1;
+}
+
+.lattice-chrome-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.lattice-chrome button {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.lattice-chrome button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.lattice-secondary-action,
+.lattice-chrome-actions button {
+  opacity: 0.65;
+}
+
+.lattice-chrome button:hover {
+  border-color: color-mix(in srgb, currentColor 26%, transparent);
+  background: color-mix(in srgb, currentColor 16%, transparent);
+  opacity: 1;
+}
+
+.lattice-chrome button.is-active {
+  background: color-mix(in srgb, currentColor 16%, transparent);
+  opacity: 1;
+}
+
+.lattice-chrome button:disabled {
+  border-color: transparent;
+  background: transparent;
+  opacity: 0.25;
+  cursor: default;
+}
+
+.lattice-chrome button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+}
+
+.lattice-chrome-time {
+  margin-left: auto;
+  padding-left: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.lattice-chrome.is-revealed .lattice-chrome-time {
+  opacity: 0.6;
+}
+
+.lattice-progress {
+  min-width: 0;
+  margin-right: 12px;
+}
+
+.lattice-progress-root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.lattice-progress-track {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background: color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.lattice-progress-fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background: currentColor;
+  pointer-events: none;
+}
+
+.lattice-progress-thumb-carrier {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.lattice-progress-thumb {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+
+.lattice-progress input[type='range'] {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 36px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.lattice-progress input[type='range']:disabled {
+  cursor: not-allowed;
+}
+
+.lattice-chrome button.lattice-open-collection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  padding: 0 16px 0 12px;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.lx-poster-lyric {
+  position: absolute;
+  inset: 15% 9% auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.03em 0.16em;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: clamp(26px, 3vw, 50px);
+  font-weight: 750;
+  line-height: 1.2;
+  text-align: center;
+  text-wrap: balance;
+  transition: color 0.25s ease, text-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.lx-poster-lyric span {
+  transition: color 0.24s ease, text-shadow 0.24s ease, opacity 0.24s ease;
+}
+
+.lx-poster-lyric span.is-active {
+  color: #fff;
+  text-shadow: 0 0 18px var(--lx-primary, #fff), 0 0 44px var(--lx-primary, #fff);
+}
+
+.lx-poster-lyric span.is-passed {
+  color: rgba(255, 255, 255, 0.76);
+  text-shadow: 0 0 16px color-mix(in srgb, var(--lx-primary, #fff) 44%, transparent);
+}
+
+.lx-poster-lyrics {
+  position: absolute;
+  inset: 128px 24px 110px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.lx-poster-lyrics.is-ready {
+  opacity: 1;
+}
+
+.lx-poster-lyrics-canvas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.lx-poster-lyrics-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.lx-poster.is-expanded .lx-poster-copy.lx-lyric-metadata {
+  top: 74px;
+  right: 100px;
+  bottom: auto;
+  left: 32px;
+  z-index: 2;
+  gap: 2px;
+}
+
+.lx-lyric-title-enter-active,
+.lx-lyric-title-leave-active {
+  transition: opacity 240ms ease-in-out;
+}
+
+.lx-lyric-title-enter-from,
+.lx-lyric-title-leave-to {
+  opacity: 0;
+}
+
+.lx-poster.is-expanded .lx-poster-copy.lx-lyric-metadata strong {
+  display: -webkit-box;
+  max-width: 100%;
+  font-size: 22px;
+  line-height: 1.2;
+  -webkit-line-clamp: 1;
+}
+
+.lx-poster.is-expanded .lx-poster-copy.lx-lyric-metadata small {
+  margin-top: 2px;
+  font-size: 13px;
+}
+
+.lx-lyric-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lx-wall-chrome {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.lx-wall-back {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  /* WallBackButton.css: the round chrome takes no border. */
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(8px);
+  pointer-events: auto;
+  transition: transform 200ms ease, background-color 200ms ease;
+}
+
+.lx-wall-refresh {
+  left: 72px;
+}
+
+.lx-wall-refresh.is-refreshing {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.lx-wall-refresh.is-refreshing svg {
+  animation: lx-wall-refresh-spin 700ms linear infinite;
+}
+
+@keyframes lx-wall-refresh-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.lx-wall-back:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.lx-wall-back:active {
+  transform: scale(0.95);
+}
+
+.lx-poster-wall.is-daylight .lx-wall-back {
+  background: rgb(0 0 0 / 5%);
+}
+
+.lx-poster-wall.is-daylight .lx-wall-back:hover {
+  background: rgb(0 0 0 / 9%);
+}
+
+.lx-wall-back svg {
+  /* WallBackButton.tsx renders lucide `ChevronLeft size={20}`. */
+  width: 20px;
+  height: 20px;
+}
+
+.lx-wall-heading {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: min(52vw, 680px);
+  padding-top: 3px;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+}
+
+.lx-wall-chrome.has-back .lx-wall-heading {
+  left: 76px;
+}
+
+.lx-poster-wall.is-daylight .lx-wall-heading {
+  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.55);
+}
+
+.lx-wall-heading strong {
+  overflow: hidden;
+  font-size: 20px;
+  font-weight: 720;
+  letter-spacing: 0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lx-wall-heading span {
+  overflow: hidden;
+  color: color-mix(in srgb, var(--lx-wall-ink) 58%, transparent);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lx-sections {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.lx-sections-pill,
+.lx-sections-list {
+  pointer-events: auto;
+}
+
+.lx-sections-pill {
+  position: absolute;
+  top: 20px;
+  /* .lx-wall-back (24 + 40) + the reference's 8px gap. */
+  left: 76px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  max-width: min(46vw, 420px);
+  height: 40px;
+  padding: 0 12px 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+  font-size: 13px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: transform 200ms ease, background-color 200ms ease;
+}
+
+.lx-sections.has-refresh .lx-sections-pill,
+.lx-sections.has-refresh .lx-sections-list {
+  left: 120px;
+}
+
+.lx-sections-pill:hover {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.lx-sections-pill:active {
+  transform: scale(0.98);
+}
+
+.lx-poster-wall.is-daylight .lx-sections-pill {
+  background: rgb(0 0 0 / 5%);
+}
+
+.lx-poster-wall.is-daylight .lx-sections-pill:hover {
+  background: rgb(0 0 0 / 9%);
+}
+
+.lx-sections-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lx-sections-pill svg {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  transition: rotate 200ms ease;
+}
+
+.lx-sections-pill[aria-expanded='true'] svg {
+  rotate: 180deg;
+}
+
+.lx-sections-list {
+  position: absolute;
+  top: 68px;
+  left: 120px;
+  display: flex;
+  flex-direction: column;
+  width: min(340px, calc(100vw - 144px));
+  max-height: min(62vh, 520px);
+  overflow-y: auto;
+  padding: 6px 0;
+  color: var(--lx-wall-ink);
+  background: color-mix(in srgb, var(--lx-poster-background) 92%, transparent);
+  box-shadow: 0 18px 48px rgb(0 0 0 / 36%);
+  backdrop-filter: blur(14px);
+}
+
+.lx-sections-list button {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 9px 16px;
+  border: 0;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  background: none;
+  cursor: pointer;
+}
+
+.lx-sections-list button span:first-child {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+  opacity: 0.55;
+}
+
+.lx-sections-list button span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lx-sections-list button:hover,
+.lx-sections-list button:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--lx-wall-ink) 10%, transparent);
+}
+
+.lx-sections-list button.is-current {
+  color: var(--lx-primary, var(--lx-wall-ink));
+}
+
+.lx-wall-tools {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  pointer-events: auto;
+}
+
+.lx-wall-tools-dock {
+  z-index: 31;
+}
+
+.lx-wall-tools button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.34);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  backdrop-filter: blur(8px);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.lx-wall-tools button:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.lx-poster-wall.is-daylight .lx-wall-tools button {
+  border-color: rgb(0 0 0 / 7%);
+  background: rgb(255 255 255 / 62%);
+  color: rgb(28 25 23 / 82%);
+  box-shadow: 0 10px 30px rgb(42 35 27 / 18%);
+}
+
+.lx-poster-wall.is-daylight .lx-wall-tools button:hover {
+  border-color: rgb(0 0 0 / 12%);
+  background: rgb(255 255 255 / 82%);
+  color: #1c1917;
+}
+
+.lx-wall-tools button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.lx-wall-tools {
+  gap: 8px;
+}
+
+.lx-wall-empty {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.lx-wall-empty strong {
+  font-size: 16px;
+  letter-spacing: 0.12em;
+}
+
+.lx-wall-empty span {
+  color: color-mix(in srgb, var(--lx-wall-ink) 50%, transparent);
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .lx-wall-back {
+    top: 14px;
+    left: 16px;
+  }
+
+  .lx-wall-refresh {
+    left: 64px;
+  }
+
+  .lx-wall-heading {
+    top: 15px;
+    left: 16px;
+  }
+
+  .lx-sections {
+    inset: 0;
+  }
+
+  .lx-sections-pill {
+    top: 14px;
+    left: 64px;
+    max-width: calc(100vw - 128px);
+  }
+
+  .lx-sections.has-refresh .lx-sections-pill,
+  .lx-sections.has-refresh .lx-sections-list {
+    left: 112px;
+    max-width: calc(100vw - 176px);
+  }
+
+  .lx-sections-list {
+    top: 62px;
+    left: 16px;
+    width: calc(100vw - 32px);
+  }
+
+  .lx-sections.has-refresh .lx-sections-list {
+    left: 16px;
+    width: calc(100vw - 32px);
+  }
+
+  .lx-wall-chrome.has-back .lx-wall-heading {
+    left: 66px;
+  }
+
+  .lx-wall-heading strong {
+    font-size: 16px;
+  }
+
+  .lx-wall-heading span {
+    display: none;
+  }
+
+  .lx-poster.is-expanded .lx-poster-copy {
+    bottom: 220px;
+  }
+
+  .lx-poster.is-collection.is-expanded .lx-poster-copy {
+    bottom: 142px;
+  }
+
+  .lx-poster.is-expanded .lx-poster-copy strong {
+    font-size: 44px;
+  }
+
+  .lx-poster-lyrics-canvas {
+    inset: 0;
+  }
+
+  .lx-poster-lyrics {
+    top: 160px;
+    bottom: 164px;
+  }
+
+  .lx-poster.is-expanded .lx-poster-copy.lx-lyric-metadata {
+    top: 112px;
+    right: 32px;
+    bottom: auto;
+  }
+
+  .lx-poster.is-expanded .lx-poster-copy.lx-lyric-metadata strong {
+    font-size: 22px;
+  }
+
+  .lattice-chrome {
+    width: min(100%, 640px);
+    gap: 16px;
+  }
+
+  .lattice-chrome-transport {
+    min-height: 86px;
+    gap: 4px;
+  }
+
+  .lattice-chrome-actions {
+    gap: 4px;
+  }
+
+  .lattice-chrome button {
+    width: 86px;
+    height: 86px;
+    border-radius: 20px;
+  }
+
+  .lattice-chrome button svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .lattice-progress {
+    margin-right: 28px;
+  }
+
+  .lattice-progress input[type='range'] {
+    height: 86px;
+  }
+
+  .lattice-chrome-time {
+    font-size: 20px;
+  }
+
+  .lattice-chrome button.lattice-open-collection {
+    padding: 0 28px 0 22px;
+    font-size: 22px;
+  }
+
+  .lx-wall-tools {
+    top: 62px;
+    right: 12px;
+    gap: 3px;
+  }
+
+  .lx-wall-tools-dock {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .lx-wall-tools button {
+    height: 34px;
+    padding: 0 9px;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lx-poster-controls {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .lattice-chrome-details,
+  .lattice-chrome-time {
+    transition: none;
+  }
+}

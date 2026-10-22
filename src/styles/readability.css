@@ -1,0 +1,457 @@
+/*
+ * Readability pass: interface copy should stay legible at normal viewing
+ * distance. Decorative marks may remain small, but labels, metadata and
+ * controls no longer drop into single-digit font sizes.
+ */
+
+.site-shell {
+  --site-meta-size: 12px;
+  --site-control-size: 13px;
+}
+
+.site-brand-copy small {
+  font-size: 11px;
+  letter-spacing: 1.6px;
+}
+
+.site-brand-copy strong span {
+  font-size: 11px;
+}
+
+.site-nav-link {
+  font-size: 13px;
+}
+
+.site-nav-link sup,
+.site-nav-caret {
+  font-size: 10px;
+}
+
+.nav-play {
+  font-size: 12px;
+}
+
+.effects-kicker,
+.home-hero-copy .effects-kicker {
+  font-size: 11px;
+  letter-spacing: 1.25px;
+}
+
+.home-lead,
+.home-about-copy {
+  font-size: 14px;
+}
+
+.section-aside {
+  font-size: 12px;
+}
+
+.hero-baseline {
+  font-size: 10px;
+}
+
+.portal-topline {
+  font-size: 11px;
+}
+
+.portal-copy p {
+  font-size: 12px;
+  opacity: .82;
+}
+
+.post-card-meta,
+.post-card-meta time,
+.post-card-meta span {
+  font-size: 11px;
+}
+
+.post-card > p {
+  font-size: 14px;
+}
+
+.post-tags span {
+  padding: 5px 9px;
+  font-size: 11px;
+}
+
+.post-link,
+.text-link,
+.section-link,
+.post-back {
+  font-size: 12px;
+}
+
+.post-byline {
+  font-size: 12px;
+}
+
+.footer-top {
+  font-size: 12px;
+}
+
+.footer-bottom {
+  font-size: 10px;
+  letter-spacing: .7px;
+}
+
+.blog-filter {
+  font-size: 12px;
+}
+
+.site-nav-menu-tag,
+.portal-variant-tag {
+  font-size: 10px;
+}
+
+.site-nav-menu-copy strong,
+.portal-variant-copy strong {
+  font-size: 13px;
+}
+
+.site-nav-menu-copy small,
+.portal-variant-copy small,
+.portal-variants-label {
+  font-size: 11px;
+}
+
+.arcade-filterbar {
+  font-size: 11px;
+}
+
+.arcade-filters button {
+  font-size: 12px;
+}
+
+.arcade-note {
+  font-size: 12px;
+}
+
+.game-card-genre {
+  font-size: 11px;
+}
+
+.game-card h3 small {
+  font-size: 11px;
+}
+
+.game-card-summary {
+  font-size: 13px;
+}
+
+.game-card-footer > span {
+  font-size: 11px;
+}
+
+.site-shell .game-toolbar .glass-button {
+  min-height: 38px;
+  font-size: 12px;
+}
+
+.game-toolbar-note {
+  font-size: 12px;
+}
+
+.cabinet-label {
+  font-size: 10px;
+}
+
+.cabinet-title {
+  font-size: 13px;
+}
+
+.game-notes h2 {
+  font-size: 12px;
+}
+
+.game-notes li,
+.game-notes p {
+  font-size: 13px;
+}
+
+.game-notes kbd {
+  font-size: 11px;
+}
+
+/* Legacy music views share the same compact chrome. */
+.music-shell .status-line,
+.music-shell .fm-page-heading > span,
+.music-shell .section-heading p:not(.volume-label),
+.music-shell .playlist-card p,
+.music-shell .album-card p,
+.music-shell .album-row span,
+.music-shell .track-copy small,
+.music-shell .collection-card p,
+.music-shell .fm-signoff p,
+.music-shell .stats,
+.music-shell .music-notice,
+.music-shell .album-empty p,
+.music-shell .track-skeleton span,
+.music-shell .now-copy small,
+.music-shell .song-summary p {
+  font-size: 12px;
+}
+
+.music-shell .account-card strong,
+.music-shell .table-head {
+  font-size: 12px;
+}
+
+.music-shell .table-row {
+  font-size: 13px;
+}
+
+.music-shell .champagne-button,
+.music-shell .glass-button,
+.music-shell .text-button {
+  font-size: 12px;
+}
+
+.music-shell .brand span,
+.music-shell .sidebar-caption,
+.music-shell .sidebar-message small,
+.music-shell .account-card span,
+.music-shell .volume-label,
+.music-shell .hero-copy .volume-label,
+.music-shell .fm-hero-footer,
+.music-shell .playlist-card h3,
+.music-shell .album-card h3,
+.music-shell .album-row strong,
+.music-shell .track-copy strong,
+.music-shell .now-copy strong,
+.music-shell .pager-status,
+.music-shell .timeline,
+.music-shell .focus-progress,
+.music-shell .track-index,
+.music-shell .track-duration,
+.music-shell .listening-caption,
+.music-shell .empty-copy,
+.music-shell .music-empty p,
+.music-shell .lyrics-empty p {
+  font-size: 12px;
+}
+
+.music-shell .search-box input {
+  font-size: 14px;
+}
+
+@media (max-width: 820px) {
+  .music-shell .nav-item,
+  .music-shell .timeline span,
+  .music-shell .status-line {
+    font-size: 11px;
+  }
+}
+
+/* Reading room: controls and metadata stay comfortable without touching body text. */
+.reader-kicker,
+.reader-section-title span,
+.reader-source-report span,
+.reader-source-chip,
+.reader-book-copy footer,
+.reader-detail-stats span,
+.reading-book-meta,
+.reading-toc a span,
+.reader-source-bundle span {
+  font-size: 11px;
+}
+
+.reader-desk-head nav button {
+  font-size: 13px;
+}
+
+.reader-desk-head nav small,
+.reader-encoding,
+.reader-encoding select,
+.reader-section-title > p,
+.reader-book-copy > p,
+.reader-empty p,
+.reader-result-card p,
+.reader-result-card small,
+.reader-source-item p,
+.reader-source-item small,
+.reader-source-editor > label,
+.reader-source-editor > label button,
+.reader-source-help,
+.reader-back,
+.reader-detail-description,
+.reader-directory > header label,
+.reader-directory > header input,
+.reader-volume > h3 span,
+.reader-chapter-grid a span,
+.reading-toolbar a,
+.reading-toolbar button,
+.reading-toc a,
+.reading-settings label,
+.reading-themes button,
+.reading-navigation,
+.reader-source-bundle p,
+.reader-source-url input {
+  font-size: 12px;
+}
+
+.reader-primary,
+.reader-secondary,
+.reader-notice {
+  font-size: 12px;
+}
+
+.reader-result-index {
+  font-size: 11px;
+}
+
+.reader-result-card h3,
+.reader-source-item h3 {
+  font-size: 14px;
+}
+
+.reader-remove {
+  font-size: 11px;
+}
+
+.reader-source-editor textarea {
+  font-size: 12px;
+}
+
+.reader-detail-description {
+  font-size: 13px;
+}
+
+.reader-volume > h3 {
+  font-size: 13px;
+}
+
+.reader-chapter-grid a {
+  font-size: 13px;
+}
+
+.reader-cover small,
+.reader-detail-cover small,
+.reader-encoding,
+.reader-encoding select {
+  font-size: 10px;
+}
+
+/* Workbench controls and labels. */
+.workbench-top {
+  font-size: 12px;
+}
+
+.workbench-top span:last-child {
+  font-size: 11px;
+}
+
+.workbench-tabs button b {
+  font-size: 13px;
+}
+
+.workbench-tabs button small {
+  font-size: 10px;
+}
+
+.workbench-tabs button i {
+  font-size: 12px;
+}
+
+.editor-label {
+  font-size: 11px;
+}
+
+.workbench textarea {
+  font-size: 14px;
+}
+
+.workbench-actions .tool-result,
+.tool-result,
+.tool-footnote,
+.workbench-hint {
+  font-size: 12px;
+}
+
+.palette-strips button {
+  font-size: 12px;
+}
+
+.tool-stage-header p {
+  font-size: 10px;
+}
+
+.tool-stage-header span {
+  font-size: 13px;
+}
+
+.utility-field > span {
+  font-size: 11px;
+  letter-spacing: .35px;
+}
+
+.utility-field textarea,
+.utility-field input[type=text],
+.utility-field input[type=number],
+.utility-field select {
+  font-size: 14px;
+}
+
+.utility-actions .champagne-button,
+.utility-actions .glass-button,
+.utility-actions button {
+  font-size: 12px;
+}
+
+.utility-status,
+.utility-empty {
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .home-lead,
+  .home-about-copy {
+    font-size: 13px;
+  }
+
+  .site-brand-copy small {
+    font-size: 10px;
+  }
+
+  .site-nav-link {
+    font-size: 12px;
+  }
+
+  .home-section-heading .section-link,
+  .home-actions .text-link,
+  .home-actions .champagne-button {
+    font-size: 12px;
+  }
+
+  .portal-copy p {
+    font-size: 12px;
+  }
+
+  .footer-bottom {
+    font-size: 10px;
+  }
+
+  .workbench-top,
+  .workbench-top span:last-child {
+    font-size: 11px;
+  }
+
+  .workbench-tabs button b {
+    font-size: 12px;
+  }
+
+  .workbench-tabs button i {
+    font-size: 11px;
+  }
+
+  .workbench textarea {
+    font-size: 13px;
+  }
+
+  .tool-stage-header p {
+    font-size: 10px;
+  }
+
+  .utility-field > span {
+    font-size: 11px;
+  }
+}
