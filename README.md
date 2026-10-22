@@ -79,7 +79,7 @@ npm run game:mario         # 类型检查并生成超级玛丽单 HTML 与 SVG �
 npm run game:mario:watch   # 监听超级玛丽源码自动重编
 ```
 
-本地打开 `http://localhost:5173/`（Hash 路由，例如 `/#/games/ember-lantern`）。`npm run build` 输出到 `dist/`；发版时再同步到 `docs/`，保留其中的 `CNAME` 域名配置与 `music-api.md` 文档，提交并推送以触发 GitHub Pages 更新。
+本地打开 `http://localhost:5173/`（Hash 路由，例如 `/#/games/ember-lantern`）。`npm run build` 输出到 `dist/`；发版时再同步到 `docs/`，保留其中的 `CNAME` 域名配置、`.nojekyll`（关闭 Jekyll，避免下划线开头的构建分块被过滤）与 `music-api.md` 文档，提交并推送以触发 GitHub Pages 更新。
 
 ## 继续开发约定
 
