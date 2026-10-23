@@ -75,6 +75,7 @@ docs/                            # GitHub Pages 发布目录
 npm install
 npm run dev
 npm run build
+npm run build:pages        # 生成游戏加载器、构建并同步 docs，保留域名与说明文档
 node --test tests/*.test.mjs # 扫雷规则、播放 / 路由分包恢复与默认阅读回归测试
 npm run game:mario         # 类型检查并生成超级玛丽单 HTML 与 SVG 封面
 npm run game:mario:watch   # 监听超级玛丽源码自动重编

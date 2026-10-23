@@ -1,6 +1,7 @@
 import {adaptResources} from './native-compat.mjs';
 const $=id=>document.getElementById(id);
 let started=false,savesMounted=false,syncing=null,queued=false;
+let runtimeReady=null;
 const errors=[],warnings=[];
 const status=text=>{$('load-status').textContent=text;};
 function fail(error){const message=String(error?.message||error);errors.push(message);$('loader').hidden=false;$('error').hidden=false;$('error').textContent=message;status('游戏加载未完成');}
@@ -8,15 +9,24 @@ function notifyHeight(){if(parent!==window)requestAnimationFrame(()=>parent.post
 function validResourcePath(path){return typeof path==='string'&&!path.startsWith('/')&&!path.includes('\\')&&!path.includes('\0')&&path.split('/').every(p=>p&&p!=='.'&&p!=='..');}
 function writeFile(path,bytes){if(!validResourcePath(path))throw new Error('资源路径不正确');const parts=path.split('/');parts.pop();if(parts.length)Module.FS.mkdirTree('/'+parts.join('/'));if(/\.(txt|xml)$/i.test(path)&&!(bytes[0]===255&&bytes[1]===254)&&!(bytes[0]===254&&bytes[1]===255)){try{new TextDecoder('utf-8',{fatal:true}).decode(bytes)}catch{try{bytes=new TextEncoder().encode('\ufeff'+new TextDecoder('gb18030',{fatal:true}).decode(bytes))}catch{/* Some legacy bitmap font data is binary, not encoded text. */}}}Module.FS.writeFile('/'+path,bytes);}
 async function checkedFetch(url){const response=await fetch(url);if(!response.ok)throw new Error(`${url}：HTTP ${response.status}`);return response;}
-const runtimeReady=new Promise((resolve,reject)=>{
+function ensureRuntime(){return runtimeReady??=new Promise((resolve,reject)=>{
   window.Module={canvas:$('canvas'),noInitialRun:true,locateFile:file=>new URL('native/'+file,location.href).href,onRuntimeInitialized:resolve,onAbort:what=>{const error=new Error(String(what));reject(error);fail(error)},print:text=>{window.pvzNative.lastLog=String(text);console.log(text)},printErr:text=>{const line=String(text);if(warnings.length>=300)warnings.shift();warnings.push(line);if(line.includes('FATAL ERROR'))window.pvzNative.nativeFailure=true;console.warn(text)}};
   const script=document.createElement('script');script.src='native/pvz-portable.js';script.onerror=()=>reject(new Error('WebAssembly 引擎加载失败'));document.body.append(script);
-});
+});}
 async function loadResources(){
+  const availability=await(await checkedFetch('native/availability.json')).json();
+  if(availability.resourcesReady!==true){
+    window.pvzNative.pendingRelease=true;
+    status('移植预览 · 游戏资源尚未发布');
+    $('runtime-status').textContent='当前为移植预览，暂不可在线游玩';
+    $('progress').hidden=true;
+    $('release-note').hidden=false;
+    return false;
+  }
   const manifest=await(await checkedFetch('native/resources.json')).json();
   if(manifest.format!==1||!Array.isArray(manifest.parts)||manifest.parts.length>64)throw new Error('资源清单格式不正确');
   const total=manifest.parts.reduce((n,p)=>n+p.bytes,0);let loaded=0,count=0;
-  await runtimeReady;
+  await ensureRuntime();
   for(let i=0;i<manifest.parts.length;i++){
     const part=manifest.parts[i];if(!/^resources-\d{2}\.zip$/.test(part.file)||typeof part.sha256!=='string')throw new Error('资源清单路径不正确');
     status(`正在加载幼儿园版原始资源 ${Math.floor(loaded/total*100)}%`);
@@ -30,14 +40,15 @@ async function loadResources(){
   }
   const properties=Module.FS.readdir('/').find(n=>n.toLowerCase()==='properties');if(!properties)throw new Error('资源包中缺少 properties');
   await adaptResources(properties);window.pvzNative.resourceReady=true;window.pvzNative.fileCount=count;
+  return true;
 }
 async function prepareSaves(){if(savesMounted)return;Module.FS.mkdirTree('/saves');Module.FS.mount(Module.FS.filesystems.IDBFS,{},'/saves');savesMounted=true;await new Promise(resolve=>Module.FS.syncfs(true,error=>{if(error)warnings.push(String(error));resolve()}));}
 function syncSaves(){if(!savesMounted)return Promise.resolve();if(syncing){queued=true;return syncing}syncing=new Promise(resolve=>Module.FS.syncfs(false,error=>{if(error)warnings.push(String(error));resolve()})).finally(()=>{syncing=null;if(queued){queued=false;void syncSaves()}});return syncing;}
 function allSaves(dir='/saves'){const result=[];for(const name of Module.FS.readdir(dir)){if(name==='.'||name==='..')continue;const path=dir+'/'+name;const stat=Module.FS.stat(path);if(Module.FS.isDir(stat.mode))result.push(...allSaves(path));else result.push(path)}return result;}
-async function exportSaves(){try{await runtimeReady;await prepareSaves();await syncSaves();const zip=new JSZip();for(const path of allSaves())zip.file(path.slice(7),Module.FS.readFile(path));const url=URL.createObjectURL(await zip.generateAsync({type:'blob'}));const link=document.createElement('a');link.href=url;link.download='pvz-kindergarten-saves.zip';link.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}catch(error){fail(error)}}
-async function importSaves(file){if(!file||file.size>32*1024*1024)return;try{await runtimeReady;await prepareSaves();const zip=await JSZip.loadAsync(file);const entries=Object.values(zip.files).filter(e=>!e.dir);if(entries.length>1000)throw new Error('存档数量过多');for(const entry of entries){if(!validResourcePath(entry.name)||entry._data.uncompressedSize>16*1024*1024)throw new Error('无效的存档文件');const bytes=await entry.async('uint8array');const path='/saves/'+entry.name;Module.FS.mkdirTree(path.slice(0,path.lastIndexOf('/')));Module.FS.writeFile(path,bytes)}await syncSaves();$('runtime-status').textContent='存档已恢复，重新打开游戏后生效';}catch(error){fail(error)}}
+async function exportSaves(){if(!started)return;try{await ensureRuntime();await prepareSaves();await syncSaves();const zip=new JSZip();for(const path of allSaves())zip.file(path.slice(7),Module.FS.readFile(path));const url=URL.createObjectURL(await zip.generateAsync({type:'blob'}));const link=document.createElement('a');link.href=url;link.download='pvz-kindergarten-saves.zip';link.click();setTimeout(()=>URL.revokeObjectURL(url),2000)}catch(error){fail(error)}}
+async function importSaves(file){if(!started||!file||file.size>32*1024*1024)return;try{await ensureRuntime();await prepareSaves();const zip=await JSZip.loadAsync(file);const entries=Object.values(zip.files).filter(e=>!e.dir);if(entries.length>1000)throw new Error('存档数量过多');for(const entry of entries){if(!validResourcePath(entry.name)||entry._data.uncompressedSize>16*1024*1024)throw new Error('无效的存档文件');const bytes=await entry.async('uint8array');const path='/saves/'+entry.name;Module.FS.mkdirTree(path.slice(0,path.lastIndexOf('/')));Module.FS.writeFile(path,bytes)}await syncSaves();$('runtime-status').textContent='存档已恢复，重新打开游戏后生效';}catch(error){fail(error)}}
 window.pvzNative={resourceReady:false,started:false,fileCount:0,errors,warnings,syncSaves,exportSaves};
-async function boot(){try{await loadResources();status('正在启动原版游戏…');await prepareSaves();started=true;window.pvzNative.started=true;$('loader').hidden=true;$('canvas').focus({preventScroll:true});Module.callMain([]);notifyHeight()}catch(error){fail(error)}}
+async function boot(){try{if(!await loadResources()){notifyHeight();return}status('正在启动原版游戏…');await prepareSaves();started=true;window.pvzNative.started=true;for(const id of ['save-export','save-import','keyboard'])$(id).disabled=false;$('loader').hidden=true;$('canvas').focus({preventScroll:true});Module.callMain([]);notifyHeight()}catch(error){fail(error)}}
 $('save-export').onclick=()=>void exportSaves();$('save-import').onclick=()=>$('import-save').click();$('import-save').onchange=e=>void importSaves(e.target.files[0]);$('keyboard').onclick=()=>$('pvz-soft-keyboard').focus();
 $('canvas').addEventListener('contextmenu',e=>e.preventDefault());window.onGameExit=()=>{void syncSaves();window.pvzNative.exited=true;};
 document.addEventListener('visibilitychange',()=>{if(document.hidden)void syncSaves()});window.addEventListener('pagehide',()=>void syncSaves());setInterval(()=>{if(started&&!window.pvzNative.exited)void syncSaves()},5000);

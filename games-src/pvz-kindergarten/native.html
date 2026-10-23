@@ -6,8 +6,8 @@
 [hidden]{display:none!important}#error:not([hidden]){display:block}
 </style></head>
 <body>
-<div id="canvas-container"><canvas id="canvas" width="800" height="600" tabindex="0" aria-label="植物大战僵尸幼儿园版原版游戏画面"></canvas><div id="loader"><div class="loading-box"><p id="load-status">正在加载幼儿园版原始资源…</p><progress id="progress" max="1" value="0"></progress><pre id="error" hidden></pre></div></div></div>
-<div class="native-tools"><span class="status" id="runtime-status">幼儿园版 V0.9.5 · 原始资源 / 完整规则引擎</span><button id="save-export">备份存档</button><button id="save-import">恢复存档</button><button id="keyboard">键盘输入</button><a href="native/THIRD-PARTY-NOTICES.md" target="_blank" rel="noopener">引擎说明</a></div>
+<div id="canvas-container"><canvas id="canvas" width="800" height="600" tabindex="0" aria-label="植物大战僵尸幼儿园版原版游戏画面"></canvas><div id="loader"><div class="loading-box"><p id="load-status" role="status">正在检查游戏资源…</p><p id="release-note" hidden>完整游戏资源包尚未发布，当前页面暂不可游玩。</p><progress id="progress" max="1" value="0"></progress><pre id="error" hidden></pre></div></div></div>
+<div class="native-tools"><span class="status" id="runtime-status">幼儿园版 V0.9.5 · 移植预览</span><button id="save-export" disabled>备份存档</button><button id="save-import" disabled>恢复存档</button><button id="keyboard" disabled>键盘输入</button><a href="native/THIRD-PARTY-NOTICES.md" target="_blank" rel="noopener">引擎说明</a></div>
 <input type="file" id="import-save" accept=".zip,application/zip"><textarea id="pvz-soft-keyboard" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="done" aria-label="游戏键盘输入"></textarea>
 <script src="native/jszip.min.js"></script><script>/* GAME_SCRIPT */</script>
 </body></html>

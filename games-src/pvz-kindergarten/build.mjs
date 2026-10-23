@@ -1,6 +1,7 @@
 import { build } from 'esbuild';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 const root=path.dirname(fileURLToPath(import.meta.url));
 const out=path.resolve(root,'../../public/games/pvz-kindergarten');
@@ -8,4 +9,5 @@ await mkdir(out,{recursive:true});
 const result=await build({entryPoints:[path.join(root,'native-loader.mjs')],bundle:true,format:'iife',target:'es2020',minify:true,write:false});
 const html=(await readFile(path.join(root,'native.html'),'utf8')).replace('/* GAME_SCRIPT */',()=>result.outputFiles[0].text.replace(/<\/script/gi,'<\\/script'));
 await writeFile(path.join(out,'index.html'),html);
+await writeFile(path.join(out,'native/availability.json'),JSON.stringify({resourcesReady:existsSync(path.join(out,'native/resources.json'))})+'\n');
 console.log(`PVZ Kindergarten native: ${Math.round(Buffer.byteLength(html)/1024)} KB loader + original-rule WASM engine.`);

@@ -7,11 +7,17 @@ export function pvzLocalResources(): Plugin {
   const resourceDirectory = path.resolve('.tmp-pvz-portable/local-resources')
   const middleware: Connect.NextHandleFunction = (request, response, next) => {
     const pathname = (request.url || '').split('?')[0] || ''
-    const match = /^\/games\/pvz-kindergarten\/native\/(resources\.json|resources-\d{2}\.zip)$/.exec(pathname)
+    const match = /^\/games\/pvz-kindergarten\/native\/(availability\.json|resources\.json|resources-\d{2}\.zip)$/.exec(pathname)
     if (!match) return next()
     if (!['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(request.socket.remoteAddress || '')) {
       response.statusCode = 403
       response.end('Local game resources are available on this computer only.')
+      return
+    }
+    if (match[1] === 'availability.json') {
+      response.setHeader('Content-Type', 'application/json')
+      response.setHeader('Cache-Control', 'no-store')
+      response.end(JSON.stringify({ resourcesReady: existsSync(path.join(resourceDirectory, 'resources.json')) }))
       return
     }
     const filename = path.join(resourceDirectory, match[1]!)

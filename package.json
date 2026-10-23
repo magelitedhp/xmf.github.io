@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "build:pages": "npm run game:pvz && npm run build && node scripts/sync-pages.mjs",
     "preview": "vite preview",
     "game:pvz": "node games-src/pvz-kindergarten/build.mjs",
     "game:mario": "tsc -p games-src/super-mario && node games-src/super-mario/build.mjs",

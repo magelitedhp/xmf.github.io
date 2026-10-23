@@ -1,0 +1,1041 @@
+{
+  "groups": {
+    "DelayLoad_Zombatar": [
+      {
+        "id": "IMAGE_ZOMBATAR_ACCEPT_BUTTON",
+        "path": "images/zombatar_accept_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCEPT_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_accept_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_1",
+        "path": "images/zombatar_accessory_1"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_10",
+        "path": "images/zombatar_accessory_10"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_11",
+        "path": "images/zombatar_accessory_11"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_12",
+        "path": "images/zombatar_accessory_12"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_13",
+        "path": "images/zombatar_accessory_13"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_14",
+        "path": "images/zombatar_accessory_14"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_15",
+        "path": "images/zombatar_accessory_15"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_16",
+        "path": "images/zombatar_accessory_16"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_2",
+        "path": "images/zombatar_accessory_2"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_3",
+        "path": "images/zombatar_accessory_3"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_4",
+        "path": "images/zombatar_accessory_4"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_5",
+        "path": "images/zombatar_accessory_5"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_6",
+        "path": "images/zombatar_accessory_6"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_7",
+        "path": "images/zombatar_accessory_7"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_8",
+        "path": "images/zombatar_accessory_8"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_9",
+        "path": "images/zombatar_accessory_9"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_BG",
+        "path": "images/zombatar_accessory_bg"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_BG_HIGHLIGHT",
+        "path": "images/zombatar_accessory_bg_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_BG_NONE",
+        "path": "images/zombatar_accessory_bg_none"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_BUTTON",
+        "path": "images/zombatar_accessory_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_accessory_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ACCESSORY_BUTTON_OVER",
+        "path": "images/zombatar_accessory_button_over"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BACKDROPS_BUTTON",
+        "path": "images/zombatar_backdrops_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BACKDROPS_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_backdrops_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BACKDROPS_BUTTON_OVER",
+        "path": "images/zombatar_backdrops_button_over"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BACKGROUND_BLANK",
+        "path": "images/zombatar_background_blank"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BACKGROUND_CRAZYDAVE",
+        "path": "images/zombatar_background_crazydave"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BACKGROUND_MENU",
+        "path": "images/zombatar_background_menu"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BACKGROUND_MENU_DOS",
+        "path": "images/zombatar_background_menu_dos"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BACKGROUND_ROOF",
+        "path": "images/zombatar_background_roof"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BACK_BUTTON",
+        "path": "images/zombatar_back_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BACK_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_back_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BEGIN_BUTTON",
+        "path": "images/zombatar_begin_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_BEGIN_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_begin_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_1",
+        "path": "images/zombatar_clothes_1"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_10",
+        "path": "images/zombatar_clothes_10"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_11",
+        "path": "images/zombatar_clothes_11"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_12",
+        "path": "images/zombatar_clothes_12"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_2",
+        "path": "images/zombatar_clothes_2"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_3",
+        "path": "images/zombatar_clothes_3"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_4",
+        "path": "images/zombatar_clothes_4"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_5",
+        "path": "images/zombatar_clothes_5"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_6",
+        "path": "images/zombatar_clothes_6"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_7",
+        "path": "images/zombatar_clothes_7"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_8",
+        "path": "images/zombatar_clothes_8"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_9",
+        "path": "images/zombatar_clothes_9"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_BUTTON",
+        "path": "images/zombatar_clothes_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_clothes_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_CLOTHES_BUTTON_OVER",
+        "path": "images/zombatar_clothes_button_over"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_COLORPICKER",
+        "path": "images/zombatar_colorpicker"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_COLORPICKER_HIGHLIGHT",
+        "path": "images/zombatar_colorpicker_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_COLORPICKER_NONE",
+        "path": "images/zombatar_colorpicker_none"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_COLORS_BG",
+        "path": "images/zombatar_colors_bg"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_COLORS_BG_SMALL",
+        "path": "images/zombatar_colors_bg_small"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_DISPLAY_WINDOW",
+        "path": "images/zombatar_display_window"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_1",
+        "path": "images/zombatar_eyewear_1"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_10",
+        "path": "images/zombatar_eyewear_10"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_10_MASK",
+        "path": "images/zombatar_eyewear_10_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_11",
+        "path": "images/zombatar_eyewear_11"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_11_MASK",
+        "path": "images/zombatar_eyewear_11_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_12",
+        "path": "images/zombatar_eyewear_12"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_12_MASK",
+        "path": "images/zombatar_eyewear_12_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_13",
+        "path": "images/zombatar_eyewear_13"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_14",
+        "path": "images/zombatar_eyewear_14"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_15",
+        "path": "images/zombatar_eyewear_15"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_16",
+        "path": "images/zombatar_eyewear_16"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_1_MASK",
+        "path": "images/zombatar_eyewear_1_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_2",
+        "path": "images/zombatar_eyewear_2"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_2_MASK",
+        "path": "images/zombatar_eyewear_2_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_3",
+        "path": "images/zombatar_eyewear_3"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_3_MASK",
+        "path": "images/zombatar_eyewear_3_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_4",
+        "path": "images/zombatar_eyewear_4"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_4_MASK",
+        "path": "images/zombatar_eyewear_4_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_5",
+        "path": "images/zombatar_eyewear_5"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_5_MASK",
+        "path": "images/zombatar_eyewear_5_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_6",
+        "path": "images/zombatar_eyewear_6"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_6_MASK",
+        "path": "images/zombatar_eyewear_6_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_7",
+        "path": "images/zombatar_eyewear_7"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_7_MASK",
+        "path": "images/zombatar_eyewear_7_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_8",
+        "path": "images/zombatar_eyewear_8"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_8_MASK",
+        "path": "images/zombatar_eyewear_8_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_9",
+        "path": "images/zombatar_eyewear_9"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_9_MASK",
+        "path": "images/zombatar_eyewear_9_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_BUTTON",
+        "path": "images/zombatar_eyewear_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_eyewear_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_EYEWEAR_BUTTON_OVER",
+        "path": "images/zombatar_eyewear_button_over"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_1",
+        "path": "images/zombatar_facialhair_1"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_10",
+        "path": "images/zombatar_facialhair_10"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_10_MASK",
+        "path": "images/zombatar_facialhair_10_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_11",
+        "path": "images/zombatar_facialhair_11"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_11_MASK",
+        "path": "images/zombatar_facialhair_11_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_12",
+        "path": "images/zombatar_facialhair_12"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_12_MASK",
+        "path": "images/zombatar_facialhair_12_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_13",
+        "path": "images/zombatar_facialhair_13"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_14",
+        "path": "images/zombatar_facialhair_14"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_14_MASK",
+        "path": "images/zombatar_facialhair_14_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_15",
+        "path": "images/zombatar_facialhair_15"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_15_MASK",
+        "path": "images/zombatar_facialhair_15_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_16",
+        "path": "images/zombatar_facialhair_16"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_16_MASK",
+        "path": "images/zombatar_facialhair_16_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_17",
+        "path": "images/zombatar_facialhair_17"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_18",
+        "path": "images/zombatar_facialhair_18"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_18_MASK",
+        "path": "images/zombatar_facialhair_18_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_19",
+        "path": "images/zombatar_facialhair_19"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_1_MASK",
+        "path": "images/zombatar_facialhair_1_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_2",
+        "path": "images/zombatar_facialhair_2"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_20",
+        "path": "images/zombatar_facialhair_20"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_21",
+        "path": "images/zombatar_facialhair_21"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_21_MASK",
+        "path": "images/zombatar_facialhair_21_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_22",
+        "path": "images/zombatar_facialhair_22"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_22_MASK",
+        "path": "images/zombatar_facialhair_22_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_23",
+        "path": "images/zombatar_facialhair_23"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_23_MASK",
+        "path": "images/zombatar_facialhair_23_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_24",
+        "path": "images/zombatar_facialhair_24"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_24_MASK",
+        "path": "images/zombatar_facialhair_24_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_3",
+        "path": "images/zombatar_facialhair_3"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_4",
+        "path": "images/zombatar_facialhair_4"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_4_MASK",
+        "path": "images/zombatar_facialhair_4_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_5",
+        "path": "images/zombatar_facialhair_5"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_6",
+        "path": "images/zombatar_facialhair_6"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_7",
+        "path": "images/zombatar_facialhair_7"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_8",
+        "path": "images/zombatar_facialhair_8"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_8_MASK",
+        "path": "images/zombatar_facialhair_8_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_9",
+        "path": "images/zombatar_facialhair_9"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIALHAIR_9_MASK",
+        "path": "images/zombatar_facialhair_9_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIAL_HAIR_BUTTON",
+        "path": "images/zombatar_fhair_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIAL_HAIR_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_fhair_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FACIAL_HAIR_BUTTON_OVER",
+        "path": "images/zombatar_fhair_button_over"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FINISHED_BUTTON",
+        "path": "images/zombatar_finished_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_FINISHED_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_finished_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_1",
+        "path": "images/zombatar_hair_1"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_10",
+        "path": "images/zombatar_hair_10"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_11",
+        "path": "images/zombatar_hair_11"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_11_MASK",
+        "path": "images/zombatar_hair_11_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_12",
+        "path": "images/zombatar_hair_12"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_12_MASK",
+        "path": "images/zombatar_hair_12_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_13",
+        "path": "images/zombatar_hair_13"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_13_MASK",
+        "path": "images/zombatar_hair_13_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_14",
+        "path": "images/zombatar_hair_14"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_14_MASK",
+        "path": "images/zombatar_hair_14_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_15",
+        "path": "images/zombatar_hair_15"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_15_MASK",
+        "path": "images/zombatar_hair_15_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_16",
+        "path": "images/zombatar_hair_16"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_1_MASK",
+        "path": "images/zombatar_hair_1_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_2",
+        "path": "images/zombatar_hair_2"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_2_MASK",
+        "path": "images/zombatar_hair_2_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_3",
+        "path": "images/zombatar_hair_3"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_4",
+        "path": "images/zombatar_hair_4"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_5",
+        "path": "images/zombatar_hair_5"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_6",
+        "path": "images/zombatar_hair_6"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_7",
+        "path": "images/zombatar_hair_7"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_8",
+        "path": "images/zombatar_hair_8"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_9",
+        "path": "images/zombatar_hair_9"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_BUTTON",
+        "path": "images/zombatar_hair_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_hair_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HAIR_BUTTON_OVER",
+        "path": "images/zombatar_hair_button_over"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_1",
+        "path": "images/zombatar_hats_1"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_10",
+        "path": "images/zombatar_hats_10"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_11",
+        "path": "images/zombatar_hats_11"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_11_MASK",
+        "path": "images/zombatar_hats_11_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_12",
+        "path": "images/zombatar_hats_12"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_13",
+        "path": "images/zombatar_hats_13"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_14",
+        "path": "images/zombatar_hats_14"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_1_MASK",
+        "path": "images/zombatar_hats_1_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_2",
+        "path": "images/zombatar_hats_2"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_3",
+        "path": "images/zombatar_hats_3"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_3_MASK",
+        "path": "images/zombatar_hats_3_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_4",
+        "path": "images/zombatar_hats_4"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_5",
+        "path": "images/zombatar_hats_5"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_6",
+        "path": "images/zombatar_hats_6"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_6_MASK",
+        "path": "images/zombatar_hats_6_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_7",
+        "path": "images/zombatar_hats_7"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_7_MASK",
+        "path": "images/zombatar_hats_7_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_8",
+        "path": "images/zombatar_hats_8"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_8_MASK",
+        "path": "images/zombatar_hats_8_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_9",
+        "path": "images/zombatar_hats_9"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_9_MASK",
+        "path": "images/zombatar_hats_9_mask"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_BUTTON",
+        "path": "images/zombatar_hats_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_hats_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_HATS_BUTTON_OVER",
+        "path": "images/zombatar_hats_button_over"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_LOGO",
+        "path": "images/zombatar_logo"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_MAINMENUBACK_HIGHLIGHT",
+        "path": "images/zombatar_mainmenuback_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_MAIN_BG",
+        "path": "images/zombatar_main_bg"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_NEWZOMBIE_BUTTON",
+        "path": "images/zombatar_newzombie_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_NEWZOMBIE_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_newzombie_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_NEXT_BUTTON",
+        "path": "images/zombatar_next_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_NEXT_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_next_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_PREV_BUTTON",
+        "path": "images/zombatar_prev_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_PREV_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_prev_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_SKIN_BUTTON",
+        "path": "images/zombatar_skin_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_SKIN_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_skin_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_1",
+        "path": "images/zombatar_tidbits_1"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_10",
+        "path": "images/zombatar_tidbits_10"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_11",
+        "path": "images/zombatar_tidbits_11"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_12",
+        "path": "images/zombatar_tidbits_12"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_13",
+        "path": "images/zombatar_tidbits_13"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_14",
+        "path": "images/zombatar_tidbits_14"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_2",
+        "path": "images/zombatar_tidbits_2"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_3",
+        "path": "images/zombatar_tidbits_3"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_4",
+        "path": "images/zombatar_tidbits_4"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_5",
+        "path": "images/zombatar_tidbits_5"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_6",
+        "path": "images/zombatar_tidbits_6"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_7",
+        "path": "images/zombatar_tidbits_7"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_8",
+        "path": "images/zombatar_tidbits_8"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_9",
+        "path": "images/zombatar_tidbits_9"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_BUTTON",
+        "path": "images/zombatar_tidbits_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_tidbits_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TIDBITS_BUTTON_OVER",
+        "path": "images/zombatar_tidbits_button_over"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TOS_ARROW",
+        "path": "images/zombatar_tos_arrow"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TOS_SLIDER",
+        "path": "images/zombatar_tos_slider"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TOS_SLIDER_THUMB",
+        "path": "images/zombatar_tos_slider_thumb"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_TRIPTYCH",
+        "path": "images/zombatar_triptych"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_VIEW_BUTTON",
+        "path": "images/zombatar_view_button"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_VIEW_BUTTON_HIGHLIGHT",
+        "path": "images/zombatar_view_button_highlight"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_WIDGET_BG",
+        "path": "images/zombatar_widget_bg"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_WIDGET_INNER_BG",
+        "path": "images/zombatar_widget_inner_bg"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ZOMBIE_BLANK",
+        "path": "images/zombatar_zombie_blank"
+      },
+      {
+        "id": "IMAGE_ZOMBATAR_ZOMBIE_BLANK_SKIN",
+        "path": "images/zombatar_zombie_blank_skin"
+      }
+    ],
+    "LoadingImages": [
+      {
+        "id": "IMAGE_ACHEESEMENTS_BACK_HIGHLIGHT",
+        "path": "images/acheesements_back_highlight"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_BEJEWELED",
+        "path": "images/acheesements_bejeweled"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_BOOKWORM",
+        "path": "images/acheesements_bookworm"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_CHINA",
+        "path": "images/acheesements_china"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_CHUZZLE",
+        "path": "images/acheesements_chuzzle"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_HOLE_TILE",
+        "path": "images/acheesements_hole_tile"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_ICONS",
+        "path": "images/acheesements_icons"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_MORE_BUTTON",
+        "path": "images/acheesements_more_button"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_MORE_BUTTON_HIGHLIGHT",
+        "path": "images/acheesements_more_button_highlight"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_MORE_ROCK",
+        "path": "images/acheesements_more_rock"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_PEGGLE",
+        "path": "images/acheesements_peggle"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_PIPE",
+        "path": "images/acheesements_pipe"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_TOP_BUTTON",
+        "path": "images/acheesements_top_button"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_TOP_BUTTON_HIGHLIGHT",
+        "path": "images/acheesements_top_button_highlight"
+      },
+      {
+        "id": "IMAGE_ACHEESEMENTS_ZUMA",
+        "path": "images/acheesements_zuma"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_BACK_BUTTON",
+        "path": "images/quickplay_back_button"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_BACK_BUTTON_HIGHLIGHT",
+        "path": "images/quickplay_back_button_highlight"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_MINIGAMES_BUTTON",
+        "path": "images/quickplay_minigames_button"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_MINIGAMES_BUTTON_HIGHLIGHT",
+        "path": "images/quickplay_minigames_button_highlight"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_MINIGAMES_CLOUD",
+        "path": "images/quickplay_minigames_cloud"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_PUZZLES_BUTTON",
+        "path": "images/quickplay_puzzles_button"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_PUZZLES_BUTTON_HIGHLIGHT",
+        "path": "images/quickplay_puzzles_button_highlight"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_PUZZLES_CLOUD",
+        "path": "images/quickplay_puzzles_cloud"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_SURVIVAL_BUTTON",
+        "path": "images/quickplay_survival_button"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_SURVIVAL_BUTTON_HIGHLIGHT",
+        "path": "images/quickplay_survival_button_highlight"
+      },
+      {
+        "id": "IMAGE_QUICKPLAY_SURVIVAL_CLOUD",
+        "path": "images/quickplay_survival_cloud"
+      },
+      {
+        "id": "IMAGE_REANIM_SELECTORSCREEN_WOODSIGN3_PRESS",
+        "path": "reanim/SelectorScreen_WoodSign3_press"
+      },
+      {
+        "id": "IMAGE_REANIM_ZOMBIE_BACKUP_INNERARM_HAND",
+        "path": "reanim/Zombie_backup_innerhand"
+      },
+      {
+        "id": "IMAGE_REANIM_ZOMBIE_BACKUP_OUTERARM_UPPER2",
+        "path": "reanim/Zombie_backup_outerarm_upper_bone"
+      },
+      {
+        "id": "IMAGE_REANIM_ZOMBIE_DISCO_OUTERARM_HAND",
+        "path": "reanim/Zombie_disco_outerhand"
+      },
+      {
+        "id": "IMAGE_REANIM_ZOMBIE_DISCO_OUTERARM_UPPER2",
+        "path": "reanim/Zombie_disco_outerarm_upper_bone"
+      },
+      {
+        "id": "IMAGE_SELECTORSCREEN_ACHIEVEMENTS_BG",
+        "path": "images/selectorscreen_achievements_bg"
+      },
+      {
+        "id": "IMAGE_SELECTORSCREEN_ACHIEVEMENTS_PEDESTAL",
+        "path": "images/Achievements_pedestal"
+      },
+      {
+        "id": "IMAGE_SELECTORSCREEN_ACHIEVEMENTS_PEDESTAL_PRESS",
+        "path": "images/Achievements_pedestal_press"
+      },
+      {
+        "id": "IMAGE_SELECTORSCREEN_MOREWAYSTOPLAY_BG",
+        "path": "images/selector_morewaystoplay_background"
+      }
+    ]
+  },
+  "soundGroups": {
+    "LoadingSounds": [
+      {
+        "id": "SOUND_ACHIEVEMENT",
+        "path": "sounds/achievement"
+      }
+    ]
+  },
+  "compiledAliases": {
+    "compiled/reanim/Hypnoshroom.reanim.compiled": "compiled/reanim/HypnoShroom.reanim.compiled",
+    "compiled/reanim/TwinSunflower.reanim.compiled": "compiled/reanim/TwinSunFlower.reanim.compiled"
+  },
+  "missing": []
+}
