@@ -20,14 +20,14 @@ test('native PAK refuses unsafe paths, ambiguous case-only duplicates and oversi
 });
 
 async function bootLoader(resourcesReady, ok=true){
-  const source=(await readFile(new URL('../games-src/pvz-kindergarten/native-loader.mjs',import.meta.url),'utf8')).replace(/^import[^\n]*\n/,'');
+  const source=(await readFile(new URL('../games-src/pvz-kindergarten/native-loader.mjs',import.meta.url),'utf8')).replace(/^import[^\n]*\n/gm,'');
   const elements=new Map(['load-status','runtime-status','loader','error','progress','release-note','canvas','canvas-container','save-export','save-import','keyboard','import-save','pvz-soft-keyboard'].map(id=>[id,{hidden:['error','release-note'].includes(id),disabled:true,addEventListener(){}}]));
   const requests=[],scripts=[];
   const window={addEventListener(){}};
   const document={getElementById:id=>elements.get(id),documentElement:{scrollHeight:642},addEventListener(){},createElement:()=>({}),body:{append:script=>scripts.push(script)}};
-  const context=vm.createContext({window,parent:window,document,location:{origin:'https://example.test'},ResizeObserver:class{observe(){}},setInterval(){},adaptResources(){},fetch:async url=>{
+  const context=vm.createContext({window,parent:window,document,location:{origin:'https://example.test'},ResizeObserver:class{observe(){}},setInterval(){},adaptResources(){},downloadPart(){},fetch:async url=>{
     requests.push(url);
-    return {ok,status:ok?200:503,json:async()=>url.endsWith('availability.json')?{resourcesReady}:{format:1,parts:[{file:'resources-00.zip',bytes:1,sha256:'test'}]}};
+    return {ok,status:ok?200:503,json:async()=>url.endsWith('availability.json')?{resourcesReady}:{format:1,parts:[{file:'resources-00.zip',bytes:1,sha256:'0'.repeat(64)}]}};
   }});
   new vm.Script(source).runInContext(context);
   for(let i=0;i<4;i++)await new Promise(resolve=>setImmediate(resolve));

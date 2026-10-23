@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "source": "PVZ CUTE V0.9.5",
+  "files": 3431,
+  "bytes": 216866391,
+  "parts": [
+    {
+      "file": "resources-00.zip",
+      "bytes": 14847325,
+      "sha256": "082990472fa3f62678ec73f5f8b4fcabe1c882ba3d61fbd7eaece0a2bf617afc"
+    },
+    {
+      "file": "resources-01.zip",
+      "bytes": 18365515,
+      "sha256": "5dddb6521f59950fcaa84bfba973dfa7592a43854277663f075f8bb14e35e563"
+    },
+    {
+      "file": "resources-02.zip",
+      "bytes": 21036873,
+      "sha256": "3262fc90232e2f916e239b67ed5ea2417a78d8c08e10144489f820b8c7ede502"
+    },
+    {
+      "file": "resources-03.zip",
+      "bytes": 23747664,
+      "sha256": "d592cd39a2a7dfd2711be1fb0b47b05165030adf859a9f06e428ccdcc1ae4e29"
+    },
+    {
+      "file": "resources-04.zip",
+      "bytes": 24539136,
+      "sha256": "a3ca443a3447a75a277798bc19816611c956d1a3e563b0934ce688207dc3c549"
+    },
+    {
+      "file": "resources-05.zip",
+      "bytes": 16849939,
+      "sha256": "be3c9c26a97fd453ef7af4dcd9f7158d62aef981760a4304d63fb0630b45ce20"
+    },
+    {
+      "file": "resources-06.zip",
+      "bytes": 31154231,
+      "sha256": "953aa8d6c6e2924d11dfc7daf50f037d4730a3c4f5250f386e0751a24819ec61"
+    },
+    {
+      "file": "resources-07.zip",
+      "bytes": 1788076,
+      "sha256": "1bb30a677f5fefa84eeab78ccd4f7a0ce169e7dcf241664f51abdb40dcbe8d9f"
+    },
+    {
+      "file": "resources-08.zip",
+      "bytes": 22886381,
+      "sha256": "43c0290c2d3fcd1cbd03049c57467bcd4946de6f287932a3a574b19bdb5c7b62"
+    },
+    {
+      "file": "resources-09.zip",
+      "bytes": 3051431,
+      "sha256": "23ecfe79b62cc093d00b3978d33965c9aca359f4e2878c9c0812fb48f6550652"
+    }
+  ],
+  "textConversions": [
+    "properties/LawnStrings.txt"
+  ]
+}

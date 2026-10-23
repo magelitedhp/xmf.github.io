@@ -15,4 +15,4 @@ The engine's LGPL-3.0 license and accompanying GPL-3.0 terms are retained in `LI
 
 JSZip 3.10.2: https://github.com/Stuk/jszip . The distributed minified file retains its upstream license banner (MIT or GPLv3).
 
-The original game artwork, music and other user-supplied data are separate from the open-source engine. Engine licensing does not establish ownership or redistribution permission for that data. Full original resource bundles are currently kept in an ignored local directory and are not included in this public runtime directory.
+The original game artwork, music and other user-supplied data are separate from the open-source engine. Engine licensing does not establish ownership or redistribution permission for that data. On 2026-10-23, the user explicitly confirmed permission to distribute the supplied resource bundles in this project. The project now includes those bundles and their SHA-256 manifest; original EXE/DLL programs and helper tools are excluded. This records the user's authorization, not a transfer of asset ownership or an independent verification of rights. Original authorship and credits remain as shown in the supplied game.
