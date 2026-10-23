@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { defaultReadCatalog } from './plugins/defaultReadCatalog'
+import { pvzLocalResources } from './plugins/pvzLocalResources'
 
 export default defineConfig({
-  plugins: [vue(), defaultReadCatalog()],
+  plugins: [vue(), defaultReadCatalog(), pvzLocalResources()],
   base: './',
   server: {
     proxy: {

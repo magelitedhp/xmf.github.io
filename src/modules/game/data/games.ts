@@ -26,6 +26,26 @@ export interface GameEntry {
 
 export const games: GameEntry[] = [
   {
+    slug: 'pvz-kindergarten',
+    name: '植物大战僵尸幼儿园版',
+    enName: 'PVZ Kindergarten',
+    genre: '经典草坪塔防',
+    summary: '幼儿园版 V0.9.5 原始画面、动态主菜单与植物僵尸动画，保留熟悉的草坪防线。',
+    description: '使用幼儿园版 V0.9.5 原始资源，保留 800×600 原始游戏画面、菜单与植物、僵尸动画。鼠标或触屏按原菜单操作，游戏进度保存在本机，可备份原始存档。当前为移植验证版本，全部关卡及定制规则仍在核对。',
+    cover: 'games/pvz-kindergarten/cover.webp',
+    tags: ['塔防', '策略', '幼儿园版'],
+    released: '2026-10-23',
+    controls: [
+      { keys: ['鼠标', '触屏'], label: '按原始菜单操作，选择植物卡片、收集阳光并种植' },
+    ],
+    notes: [
+      '加载幼儿园版 V0.9.5 原始资源，以 800×600 原始画面显示，保留原始菜单、选卡界面及植物与僵尸动画。',
+      '由 WebAssembly 完整规则引擎运行，游戏内部沿用原始界面，使用鼠标或触屏按原菜单操作。',
+      '支持保存游戏进度，并将原始存档以 ZIP 格式备份。',
+    ],
+    load: () => import('../games/pvz-kindergarten/PvzKindergarten.vue'),
+  },
+  {
     slug: 'minesweeper',
     name: '星穹扫雷',
     enName: 'Nebula · A Field of Possibilities',
